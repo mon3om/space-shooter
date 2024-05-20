@@ -4,6 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - ENEMY_EXPLOSION
+  - ENEMY_SHIP
+  - ENEMY_BULLET
+  - PLAYER_SHIP
+  - PLAYER_BULLET
+  - PLAYER_EXPLOSION
   - Enemy
   layers:
   - Default

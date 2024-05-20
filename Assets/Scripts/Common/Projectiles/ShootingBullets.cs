@@ -19,6 +19,7 @@ public class ShootingBullets : ShootingBase
         {
             GameObject instantiatedBullet = Instantiate(shootingSettings.bulletPrefab, origin.transform.position, Quaternion.identity);
             ProjectileMovement ProjectileMovement = instantiatedBullet.GetComponent<ProjectileMovement>();
+            instantiatedBullet.tag = shootingSettings.shootingSource == ShootingSource.Enemy ? Tags.ENEMY_BULLET : Tags.PLAYER_BULLET;
 
             if (shootingSettings.shotMovementSpeed != -1) ProjectileMovement.speed = shootingSettings.shotMovementSpeed; // Shot speed
 

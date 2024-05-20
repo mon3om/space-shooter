@@ -1,5 +1,9 @@
 using UnityEngine;
 
+public enum CameraBasedPosition
+{
+    TopRight, TopLeft, TopCenter, MiddleLeft, MiddleRight, MiddleCenter
+}
 public class CameraUtils : MonoBehaviour
 {
     public static Rect CameraRect;
@@ -25,5 +29,26 @@ public class CameraUtils : MonoBehaviour
            bottomLeft.y,
            topRight.x - bottomLeft.x,
            topRight.y - bottomLeft.y);
+    }
+
+    public static Vector3 GetPosition(CameraBasedPosition cameraBasedPosition)
+    {
+        switch (cameraBasedPosition)
+        {
+            case CameraBasedPosition.TopLeft:
+                return TopLeft;
+            case CameraBasedPosition.TopRight:
+                return TopRight;
+            case CameraBasedPosition.TopCenter:
+                return TopCenter;
+            case CameraBasedPosition.MiddleCenter:
+                return MiddleCenter;
+            case CameraBasedPosition.MiddleLeft:
+                return MiddleLeft;
+            case CameraBasedPosition.MiddleRight:
+                return MiddleRight;
+            default:
+                return default;
+        }
     }
 }

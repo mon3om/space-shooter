@@ -19,6 +19,36 @@ public class EnemyDamager : MonoBehaviour
         DamageData damageData = new(amount, health, initialHealth);
         onDamageTaken?.Invoke(damageData);
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag(Tags.ENEMY_BULLET))
+        {
+            Debug.Log("Exiting");
+            return;
+        }
+        if (other.transform.TryGetComponent(out Projectile projectile))
+        {
+            TakeDamage(projectile.projectileData.damage);
+            if (health <= 0)
+            {
+                if (TryGetComponent<EnemyAIBase>(out var componentAI))
+                {
+                    componentAI.InstantiateDeathAnimation();
+                }
+
+                Destroy(gameObject);
+            }
+            else
+            {
+                if (projectile.projectileData.explosionPrefab != null)
+                    Instantiate(projectile.projectileData.explosionPrefab, other.transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360)));
+                else
+                    Debug.LogWarning("ExplosionPrefab is null");
+            }
+            Destroy(other.gameObject);
+        }
+    }
 }
 
 public class DamageData

@@ -5,16 +5,15 @@ public enum MovementType { TowardsTransform, TowardsPoint, Directional }
 public class DirectionalMover : MonoBehaviour
 {
     public float movementSpeed = 1;
-    public bool stopWhenDirectionReached = true;
     public bool physicsMovement = false;
     public MovementType movementType;
 
     //
-    [HideInInspector] public UnityEvent onDirectionReached;
+    [HideInInspector] public UnityEvent onDestinationReached;
 
     private Vector3 targetPoint;
     private Transform targetTransform;
-    private bool isMoving = false;
+    public bool isMoving = false;
 
     private Rigidbody2D rb;
 
@@ -25,24 +24,50 @@ public class DirectionalMover : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        if (!isMoving) return;
+
+        if (physicsMovement)
+            MoveUsedOnlyForPhysicsMovementTemporarly();
+        else
+        {
+            switch (movementType)
+            {
+                case MovementType.TowardsTransform:
+                    MoveToTransform();
+                    break;
+                case MovementType.TowardsPoint:
+                    MoveToPoint();
+                    break;
+                case MovementType.Directional:
+                    MoveInDirection();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        if (movementType == MovementType.TowardsPoint && IsDestinationReached())
+        {
+            Debug.Log("Destination reached");
+            onDestinationReached?.Invoke();
+        }
     }
 
-    public void StartMovingTowardsPoint(Vector3 point)
+    public void MoveTowardsPoint(Vector3 point)
     {
         isMoving = true;
         targetPoint = point;
         movementType = MovementType.TowardsPoint;
     }
 
-    public void StartMovingTowardsDirection(Vector3 direction)
+    public void MoveInDirection(Vector3 direction)
     {
         isMoving = true;
         targetPoint = direction;
         movementType = MovementType.Directional;
     }
 
-    public void StartMovingTowardsTransform(Transform target)
+    public void MoveTowardsTransform(Transform target)
     {
         isMoving = true;
         targetTransform = target;
@@ -54,36 +79,40 @@ public class DirectionalMover : MonoBehaviour
         isMoving = false;
     }
 
-    private void Move()
+    private void MoveUsedOnlyForPhysicsMovementTemporarly()
     {
-        if (!isMoving) return;
-
         Vector3 destination;
         switch (movementType)
         {
             case MovementType.TowardsPoint:
-                destination = (targetPoint - transform.position).normalized;
+                destination = targetPoint;
                 break;
             case MovementType.TowardsTransform:
                 destination = targetTransform.position;
                 break;
             case MovementType.Directional:
-                destination = targetPoint;
+                destination = (targetPoint - transform.position).normalized;
                 break;
             default:
                 throw new System.Exception("Unhandled");
         }
 
-        if (physicsMovement)
-            rb.MovePosition(transform.position + (destination - transform.position).normalized * movementSpeed * Time.fixedDeltaTime);
-        else
-            transform.position += movementSpeed * Time.fixedDeltaTime * destination.normalized;
+        rb.MovePosition(transform.position + (destination - transform.position).normalized * movementSpeed * Time.fixedDeltaTime);
+    }
 
-        if (movementType == MovementType.TowardsPoint && stopWhenDirectionReached && IsDestinationReached())
-        {
-            StopMoving();
-            onDirectionReached?.Invoke();
-        }
+    private void MoveToTransform()
+    {
+        transform.position += movementSpeed * Time.fixedDeltaTime * (targetTransform.position - transform.position).normalized;
+    }
+
+    private void MoveToPoint()
+    {
+        transform.position += movementSpeed * Time.fixedDeltaTime * (targetPoint - transform.position).normalized;
+    }
+
+    private void MoveInDirection()
+    {
+        transform.position += movementSpeed * Time.fixedDeltaTime * targetPoint.normalized;
     }
 
     private bool IsDestinationReached()

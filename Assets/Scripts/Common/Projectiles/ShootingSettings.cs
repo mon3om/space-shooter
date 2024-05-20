@@ -7,6 +7,7 @@ public class ShootingSettings : ScriptableObject
     public int shotsCount;
     [SerializeField] private float angleBetweenShots;
     public ShootingMode shootingMode = ShootingMode.Single;
+    public ShootingSource shootingSource = ShootingSource.Enemy;
     public GameObject bulletPrefab;
     [Space]
     public int burstCount;
@@ -16,11 +17,11 @@ public class ShootingSettings : ScriptableObject
         set { angleBetweenShots = value; }
         get
         {
-            if (randomAngle) return randomAnglesVariation.GetRandomValue();
+            if (randomAngle) return randomAnglesVariation.value;
             else return angleBetweenShots;
         }
     }
     public bool randomAngle = false;
-    public RandomnessHelper randomAnglesVariation;
+    public RandomFloat randomAnglesVariation;
     public float shotMovementSpeed = -1;
 }

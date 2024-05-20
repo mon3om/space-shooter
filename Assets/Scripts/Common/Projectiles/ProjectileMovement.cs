@@ -24,14 +24,4 @@ public class ProjectileMovement : MonoBehaviour
             transform.position = transform.position + speed * Time.fixedDeltaTime * direction;
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            EnemyDamager enemyDamager = other.gameObject.GetComponent<EnemyDamager>();
-            enemyDamager.TakeDamage(5);
-            Destroy(gameObject);
-        }
-    }
 }

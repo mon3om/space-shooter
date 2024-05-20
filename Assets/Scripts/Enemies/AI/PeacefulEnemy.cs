@@ -8,7 +8,8 @@ public class PeacefulEnemy : EnemyAIBase
     {
         base.Start();
 
-        directionalMover.StartMovingTowardsDirection(direction);
+        directionalMover.MoveInDirection(direction);
+        orientationHandler.LookAtPointImmediate(transform.position + direction);
     }
 
     private void OnBecameInvisible()

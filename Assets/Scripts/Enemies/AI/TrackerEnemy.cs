@@ -10,7 +10,7 @@ public class TrackerEnemy : EnemyAIBase
         targetTransform.parent = transform;
         targetTransform.localPosition = Vector3.up;
 
-        directionalMover.StartMovingTowardsTransform(targetTransform);
+        directionalMover.MoveTowardsTransform(targetTransform);
         orientationHandler.StartRotatingTowardsTransform(Instances.Player);
     }
 }

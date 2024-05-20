@@ -9,6 +9,7 @@ public class PlayerAttack : MonoBehaviour
     // Public variables
     public ShootingType shootingType = ShootingType.Bullets;
     public ShootingSettings shootingSettings;
+    public float variation = 0.5f;
 
     // Private variables
     private bool attackTriggered = false;
@@ -25,7 +26,7 @@ public class PlayerAttack : MonoBehaviour
     {
         recoilHandler = GetComponent<RecoilHandler>();
         soundManager = GetComponent<SoundManager>();
-        shootingPlugin = gameObject.AddComponent<ShootingBullets>();
+        shootingPlugin = gameObject.AddComponent<ShootingBulletsPlayer>();
         shootingPlugin.shootingSettings = shootingSettings;
     }
 
@@ -58,7 +59,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (shootingPlugin != null)
         {
-            shootingPlugin.Fire(gameObject, new(0, 1, 0));
+            (shootingPlugin as ShootingBulletsPlayer).FireVariation(gameObject, new(0, 1, 0), variation);
             recoilHandler.PlayRecoilEffect(Vector2.up);
             Debug.Log(transform.up);
             soundManager.PlaySound();

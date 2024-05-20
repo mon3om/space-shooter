@@ -4,7 +4,7 @@ using UnityEngine;
 public class ShootingAssaultEnemy : EnemyAIBase
 {
     public ShootingSettings shootingSettings;
-    [HideInInspector] public Vector3 destination;
+    public Vector3 destination;
 
     // Components
     private ShootingBase shootingBase;
@@ -15,18 +15,14 @@ public class ShootingAssaultEnemy : EnemyAIBase
         shootingBase = gameObject.AddComponent<ShootingBullets>();
         shootingBase.shootingSettings = shootingSettings;
 
-        if (destination.x > 0)
-            transform.position = new(CameraUtils.CameraRect.width / 2 + 2, transform.position.y, transform.position.z);
-        else
-            transform.position = new(-CameraUtils.CameraRect.width / 2 + 2, transform.position.y, transform.position.z);
-
-        directionalMover.onDirectionReached.AddListener(OnDestinationReached);
-        directionalMover.StartMovingTowardsPoint(destination);
+        directionalMover.onDestinationReached.AddListener(OnDestinationReached);
+        directionalMover.MoveTowardsPoint(destination);
         orientationHandler.LookAtPointImmediate(destination);
     }
 
     private void OnDestinationReached()
     {
+        directionalMover.StopMoving();
         orientationHandler.StartRotatingTowardsTransform(Instances.Player);
         StartCoroutine(ShootingCoroutine());
     }
