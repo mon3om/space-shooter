@@ -9,7 +9,7 @@ public class CameraUtils : MonoBehaviour
     public static Rect CameraRect;
     public static Vector3 TopRight, TopLeft, TopCenter, MiddleLeft, MiddleRight, MiddleCenter;
 
-    private void Start()
+    private void Awake()
     {
         CalculateScreenBoundaries(Camera.main);
 

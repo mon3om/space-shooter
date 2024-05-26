@@ -61,7 +61,6 @@ public class PlayerAttack : MonoBehaviour
         {
             (shootingPlugin as ShootingBulletsPlayer).FireVariation(gameObject, new(0, 1, 0), variation);
             recoilHandler.PlayRecoilEffect(Vector2.up);
-            Debug.Log(transform.up);
             soundManager.PlaySound();
         }
         else

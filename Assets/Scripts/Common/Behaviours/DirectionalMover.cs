@@ -48,7 +48,6 @@ public class DirectionalMover : MonoBehaviour
 
         if (movementType == MovementType.TowardsPoint && IsDestinationReached())
         {
-            Debug.Log("Destination reached");
             onDestinationReached?.Invoke();
         }
     }

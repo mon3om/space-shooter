@@ -1,22 +1,28 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyDamager))]
-[RequireComponent(typeof(DirectionalMover))]
-[RequireComponent(typeof(OrientationHandler))]
 public class EnemyAIBase : MonoBehaviour
 {
     protected OrientationHandler orientationHandler;
     protected DirectionalMover directionalMover;
     protected EnemyDamager enemyDamager;
 
-    protected WaverBase waverBase;
+    [HideInInspector] public int waveId;
+    [HideInInspector] public List<EnemyAIBase> waveSiblings;
 
     [Header("Death animation")]
     public GameObject deathAnimation;
     public AudioClip deathSound;
 
+    protected Transform player;
+
     public void Start()
     {
+        var playerGo = GameObject.FindGameObjectWithTag(Tags.PLAYER_SHIP);
+        if (playerGo)
+            player = playerGo.transform;
+
         directionalMover = GetComponent<DirectionalMover>();
         orientationHandler = GetComponent<OrientationHandler>();
         enemyDamager = GetComponent<EnemyDamager>();
@@ -26,6 +32,7 @@ public class EnemyAIBase : MonoBehaviour
     public void InstantiateDeathAnimation(bool playAnimation = true, bool playSound = true)
     {
         GameObject go = null;
+        Destroy(go, 5);
 
         // Death animation
         if (deathAnimation == null)
@@ -54,8 +61,5 @@ public class EnemyAIBase : MonoBehaviour
                 go.PlaySound(deathSound);
             }
         }
-
-        if (go != null)
-            Destroy(go, 5);
     }
 }

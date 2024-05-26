@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 72a9ae6bba0e81147ad859d92f352e49
+guid: fa288c4dc0356d34ba1287e4c44db8b5
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - waveSettings: {fileID: 11400000, guid: 806da59d54a4fb64eb4a59ca4b2d32fc, type: 2}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -16,14 +16,15 @@ public class PlayerDamager : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        if (isInvincible) return;
         health -= damage;
+        EnableInvicibility();
         if (health > 0)
         {
-            EnableInvicibility();
         }
         else
         {
-            Destroy(gameObject);
+            // Destroy(gameObject);
         }
     }
 

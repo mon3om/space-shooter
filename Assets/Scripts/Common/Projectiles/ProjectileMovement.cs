@@ -6,11 +6,6 @@ public class ProjectileMovement : MonoBehaviour
 
     private Vector3 direction = Vector3.zero;
 
-    private void Start()
-    {
-        Destroy(gameObject, 5);
-    }
-
     public void SetMovementDirection(Vector3 direction)
     {
         this.direction = direction;

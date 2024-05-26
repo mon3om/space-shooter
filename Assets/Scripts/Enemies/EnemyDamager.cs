@@ -3,7 +3,6 @@ using UnityEngine;
 public class EnemyDamager : MonoBehaviour
 {
     public float health = 10;
-
     public System.Action<DamageData> onDamageTaken; // (damage, currentHealth, initialHealth)
 
     private float initialHealth;
@@ -22,11 +21,8 @@ public class EnemyDamager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag(Tags.ENEMY_BULLET))
-        {
-            Debug.Log("Exiting");
-            return;
-        }
+        if (other.CompareTag(Tags.ENEMY_BULLET)) return;
+
         if (other.transform.TryGetComponent(out Projectile projectile))
         {
             TakeDamage(projectile.projectileData.damage);

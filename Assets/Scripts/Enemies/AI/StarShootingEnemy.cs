@@ -4,7 +4,8 @@ using UnityEngine;
 public class StarShootingEnemy : EnemyAIBase
 {
     public float cycleDuration = 5f;
-    public RandomFloat verticalMovementSteps = new RandomFloat(2, 4);
+    public RandomFloat verticalMovementSteps = new(2, 4);
+    public float shootingRotationSpeed;
     [HideInInspector] public Vector3 stoppingPoint;
 
     private ShootingBase shootingBase;
@@ -38,14 +39,22 @@ public class StarShootingEnemy : EnemyAIBase
         orientationHandler.StartRotatingTowardsPoint(targetPoint);
     }
 
+
     private IEnumerator DestinationReachedCoroutine()
     {
         directionalMover.StopMoving();
-        orientationHandler.StartRotatingTowardsPoint(transform.position + Vector3.down);
+        orientationHandler.StopRotating();
 
         yield return new WaitForSeconds(cycleDuration / 2f);
 
-        EmitStars();
+        // Rotate and shoot
+        orientationHandler.StartRotatingInAngle(Vector3.forward, shootingRotationSpeed);
+        for (int i = 0; i < shootingBase.shootingSettings.burstCount; i++)
+        {
+            shootingBase.Fire(gameObject, Vector3.up);
+            yield return new WaitForSeconds(shootingBase.shootingSettings.burstDelay);
+        }
+        orientationHandler.StopRotating();
 
         yield return new WaitForSeconds(cycleDuration / 2f);
 
@@ -55,17 +64,5 @@ public class StarShootingEnemy : EnemyAIBase
     private void OnDestroy()
     {
         StopAllCoroutines();
-    }
-
-    private void EmitStars()
-    {
-        for (int i = 0; i < shootingBase.shootingSettings.shotsCount; i++)
-        {
-            var go = Instantiate(shootingBase.shootingSettings.bulletPrefab, transform.position + Vector3.up * 0.1f, Quaternion.identity);
-            ProjectileMovement projectileMovement = go.GetComponent<ProjectileMovement>();
-            go.transform.RotateAround(transform.position, Vector3.forward, i * 360f / shootingBase.shootingSettings.shotsCount);
-            projectileMovement.SetMovementDirection((go.transform.position - transform.position).normalized);
-            go.tag = Tags.ENEMY_BULLET;
-        }
     }
 }

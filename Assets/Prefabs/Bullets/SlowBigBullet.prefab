@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 4717045911151891911}
   - component: {fileID: 4658302060483980964}
   - component: {fileID: 1877472402138472375}
-  - component: {fileID: 5782581452037895470}
+  - component: {fileID: -3961899999140730505}
   m_Layer: 0
-  m_Name: SimpleBullet
-  m_TagString: Untagged
+  m_Name: SlowBigBullet
+  m_TagString: PLAYER_BULLET
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.3, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.91665447, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -162,8 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56656e737fe3eb44e9f1afe9c14d48f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
---- !u!114 &5782581452037895470
+  speed: 2
+--- !u!114 &-3961899999140730505
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,4 +175,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f5e2d792ed58142998f511719a214f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileData: {fileID: 11400000, guid: 51b615ff4f5f89c4a914b6cd0a2531aa, type: 2}
+  projectileData: {fileID: 11400000, guid: 2bd3f49c5aedff64cb1c6e526c7f3b75, type: 2}

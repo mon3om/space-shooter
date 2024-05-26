@@ -16,6 +16,7 @@ MonoBehaviour:
   shotsCount: 1
   angleBetweenShots: 0
   shootingMode: 0
+  shootingSource: 0
   bulletPrefab: {fileID: 1044005575941460875, guid: 4c0d3e68b33a03d4293e801a5f194665, type: 3}
   burstCount: 0
   burstDelay: 0
@@ -23,4 +24,4 @@ MonoBehaviour:
   randomAnglesVariation:
     minValue: 0
     maxValue: 0
-  shotMovementSpeed: 5
+  shotMovementSpeed: 3.75

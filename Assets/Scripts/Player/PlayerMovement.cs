@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         Instances.Player = transform;
+        Application.targetFrameRate = 60;
     }
 
     private void Start()

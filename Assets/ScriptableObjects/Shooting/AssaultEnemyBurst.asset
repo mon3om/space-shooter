@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: AssaultEnemyBurst
   m_EditorClassIdentifier: 
   fireRate: 3
-  shotsCount: 2
+  shotsCount: 1
   angleBetweenShots: 0
   shootingMode: 1
+  shootingSource: 0
   bulletPrefab: {fileID: 1044005575941460875, guid: 4c0d3e68b33a03d4293e801a5f194665, type: 3}
   burstCount: 5
-  burstDelay: 0.3
-  randomAngle: 0
+  burstDelay: 0.15
+  randomAngle: 1
   randomAnglesVariation:
     minValue: 0
-    maxValue: 0
+    maxValue: 10
   shotMovementSpeed: 5

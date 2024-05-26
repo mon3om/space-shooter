@@ -13,10 +13,13 @@ public class Utils
     public static string GetAllTagsAsVariableDeclaration()
     {
         string str = "";
+
+#if UNITY_EDITOR
         foreach (var item in UnityEditorInternal.InternalEditorUtility.tags)
         {
             str += "private static readonly string " + item + " = " + "\"" + item + "\";\n";
         }
+#endif
         Debug.Log(str);
         return str;
     }

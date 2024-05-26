@@ -26,7 +26,7 @@ public class Projectile : MonoBehaviour
     {
         if (projectileData.projectileSource == ProjectileSource.Enemy)
         {
-            if (other.TryGetComponent(out PlayerDamager playerDamager))
+            if (other.gameObject.TryGetComponent(out PlayerDamager playerDamager))
             {
                 playerDamager.TakeDamage(projectileData.damage);
             }

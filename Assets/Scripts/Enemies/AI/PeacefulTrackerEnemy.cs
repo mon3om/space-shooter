@@ -4,6 +4,7 @@ using UnityEngine;
 public class PeacefulTrackerEnemy : EnemyAIBase
 {
     public float trackingSpeedMultiplier = 1.1f;
+    public float explosionDamage = 10f;
     [HideInInspector] public float waitTimeBeforeTrackingPlayer = 0;
     [HideInInspector] public Vector3 stoppingPoint;
 
@@ -32,5 +33,22 @@ public class PeacefulTrackerEnemy : EnemyAIBase
         directionalMover.movementSpeed *= trackingSpeedMultiplier;
         directionalMover.MoveTowardsTransform(Instances.Player);
         orientationHandler.StartRotatingTowardsTransform(Instances.Player);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag(Tags.PLAYER_SHIP))
+        {
+            InstantiateDeathAnimation();
+            if (other.gameObject.TryGetComponent(out PlayerDamager playerDamager))
+            {
+                playerDamager.TakeDamage(explosionDamage);
+            }
+            else
+            {
+                Debug.LogError("PlayerDamager not found");
+            }
+            Destroy(gameObject);
+        }
     }
 }
