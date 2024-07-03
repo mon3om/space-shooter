@@ -1,15 +1,11 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
     // Public variables
-    public ShootingType shootingType = ShootingType.Bullets;
     public ShootingSettings shootingSettings;
-    public float variation = 0.5f;
 
     // Private variables
     private bool attackTriggered = false;
@@ -59,8 +55,8 @@ public class PlayerAttack : MonoBehaviour
     {
         if (shootingPlugin != null)
         {
-            (shootingPlugin as ShootingBulletsPlayer).FireVariation(gameObject, new(0, 1, 0), variation);
-            recoilHandler.PlayRecoilEffect(Vector2.up);
+            (shootingPlugin as ShootingBulletsPlayer).FireVariation(gameObject, new(0, 1, 0));
+            if (recoilHandler) recoilHandler.PlayRecoilEffect(Vector2.up);
             soundManager.PlaySound();
         }
         else

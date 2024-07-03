@@ -5,13 +5,30 @@ public class ShootingSettings : ScriptableObject
 {
     public float fireRate;
     public int shotsCount;
+
+    [Space]
     [SerializeField] private float angleBetweenShots;
+    public bool randomAngle = false;
+    public RandomFloat randomAnglesVariation;
+    [Space]
+
     public ShootingMode shootingMode = ShootingMode.Single;
-    public ShootingSource shootingSource = ShootingSource.Enemy;
     public GameObject bulletPrefab;
     [Space]
+
     public int burstCount;
     public float burstDelay;
+    [Space]
+
+    public float shotMovementSpeed = -1;
+    public float damage;
+    public Vector2 scale;
+    public ProjectileSource projectileSource;
+    public ShootingType shootingType;
+    public Sprite sprite;
+    public GameObject explosionPrefab;
+    public AudioClip soundEffect;
+
     public float AngleBetweenShots
     {
         set { angleBetweenShots = value; }
@@ -21,7 +38,11 @@ public class ShootingSettings : ScriptableObject
             else return angleBetweenShots;
         }
     }
-    public bool randomAngle = false;
-    public RandomFloat randomAnglesVariation;
-    public float shotMovementSpeed = -1;
+
+    [HideInInspector] public bool isPiercing = false;
+    [HideInInspector] public bool isBouncy = false;
 }
+
+public enum ProjectileSource { Player, Enemy }
+public enum ShootingType { Bullet = 0, HomingMissile, Laser }
+public enum ShootingMode { Single, Burst }

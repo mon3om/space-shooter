@@ -6,47 +6,38 @@ public class EnemyDamager : MonoBehaviour
     public System.Action<DamageData> onDamageTaken; // (damage, currentHealth, initialHealth)
 
     private float initialHealth;
+    private EnemyAIBase enemyAIBase;
+
+    [Space]
+    private Shield shield;
 
     private void Start()
     {
+        enemyAIBase = GetComponent<EnemyAIBase>();
         initialHealth = health;
+        shield = transform.GetComponentInChildren<Shield>();
     }
 
-    public void TakeDamage(float amount)
+    public void TakeDamage(Projectile projectile)
     {
-        health -= amount;
-        DamageData damageData = new(amount, health, initialHealth);
+        // Return if shield exists and took the damage
+        if (shield && shield.TakeDamageIfShieldActive(projectile.shootingSettings.damage)) return;
+
+        health -= projectile.shootingSettings.damage;
+        DamageData damageData = new(projectile.shootingSettings.damage, health, initialHealth);
         onDamageTaken?.Invoke(damageData);
-    }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag(Tags.ENEMY_BULLET)) return;
-
-        if (other.transform.TryGetComponent(out Projectile projectile))
+        if (health <= 0)
         {
-            TakeDamage(projectile.projectileData.damage);
-            if (health <= 0)
-            {
-                if (TryGetComponent<EnemyAIBase>(out var componentAI))
-                {
-                    componentAI.InstantiateDeathAnimation();
-                }
+            enemyAIBase.InstantiateDeathAnimation();
+            enemyAIBase.DestroyEnemy();
 
-                Destroy(gameObject);
-            }
-            else
-            {
-                if (projectile.projectileData.explosionPrefab != null)
-                    Instantiate(projectile.projectileData.explosionPrefab, other.transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360)));
-                else
-                    Debug.LogWarning("ExplosionPrefab is null");
-            }
-            Destroy(other.gameObject);
+            if (enemyAIBase.enemyIdentifier.waveEnemyDifficulty == WaveEnemyDifficulty.Easy) UIScoreManager.UpdateScore(10);
+            else if (enemyAIBase.enemyIdentifier.waveEnemyDifficulty == WaveEnemyDifficulty.Moderate) UIScoreManager.UpdateScore(15);
+            else if (enemyAIBase.enemyIdentifier.waveEnemyDifficulty == WaveEnemyDifficulty.Hard) UIScoreManager.UpdateScore(50);
         }
     }
 }
-
 public class DamageData
 {
     public float damage;

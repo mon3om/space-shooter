@@ -1,0 +1,37 @@
+[
+  {
+    "enemyPrefab": "Assets/Prefabs/Enemies/PeacefulEnemy.prefab",
+    "enterPositions": [
+      "ShouldEnterFromTop"
+    ],
+    "shapes": [
+      "InIShape",
+      "InVShape",
+      "InWaveShape",
+      "CanHaveYPositionVariation"
+    ],
+    "maxEnemiesPerLine": -1,
+    "difficulty": "EASY",
+    "countMin": 4,
+    "countMax": 16,
+    "countStep": 1
+  },
+  {
+    "enemyPrefab": "Assets/Prefabs/Enemies/PeacefulEnemy.prefab",
+    "enterPositions": [
+      "ShouldEnterFromLeft",
+      "ShouldEnterFromRight"
+    ],
+    "shapes": [
+      "InIShape",
+      "InVShape",
+      "InWaveShape",
+      "CanHaveYPositionVariation"
+    ],
+    "maxEnemiesPerLine": -1,
+    "difficulty": "EASY",
+    "countMin": 2,
+    "countMax": 6,
+    "countStep": 1
+  }
+]

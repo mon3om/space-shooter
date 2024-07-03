@@ -16,7 +16,6 @@ public class RecoilHandler : MonoBehaviour
     {
         shootingPlugin = GetComponent<ShootingBase>();
         initPosition = objectInAction.localPosition;
-        Debug.Log(initPosition);
     }
 
     private void FixedUpdate()

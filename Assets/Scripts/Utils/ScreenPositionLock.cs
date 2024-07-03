@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ScreenPositionLock : MonoBehaviour
 {
-    public bool preventLeavingScreen = true;
+    public bool preventLeavingScreen = false;
     public float tempOffset = 1.5f;
 
     public System.Action<Vector2, Vector2> onScreenSideReached; //<currentPosition, screenSideExpressedInVectors>
@@ -10,6 +10,17 @@ public class ScreenPositionLock : MonoBehaviour
     private readonly float eventOffsetMargin = 0.1f;
     private bool willEmitEvent = false;
     private Vector2 screenSide; // The side reached expressed in Vectors
+
+    private void Start()
+    {
+        if (TryGetComponent(out DirectionalMover directionalMover))
+        {
+            directionalMover.onDestinationReached.AddListener(() =>
+            {
+                preventLeavingScreen = true;
+            });
+        }
+    }
 
     private void Update()
     {

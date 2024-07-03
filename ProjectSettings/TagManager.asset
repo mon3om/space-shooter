@@ -11,6 +11,8 @@ TagManager:
   - PLAYER_BULLET
   - PLAYER_EXPLOSION
   - Enemy
+  - BACKGROUND_MUSIC
+  - UI_GAMEOVER
   layers:
   - Default
   - TransparentFX

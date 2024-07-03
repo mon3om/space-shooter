@@ -12,7 +12,7 @@ public class DirectionalMover : MonoBehaviour
     [HideInInspector] public UnityEvent onDestinationReached;
 
     private Vector3 targetPoint;
-    private Transform targetTransform;
+    [HideInInspector] public Transform targetTransform;
     public bool isMoving = false;
 
     private Rigidbody2D rb;
@@ -116,6 +116,6 @@ public class DirectionalMover : MonoBehaviour
 
     private bool IsDestinationReached()
     {
-        return Vector2.Distance(targetPoint, transform.position) <= 0.05f;
+        return Vector2.Distance(targetPoint, transform.position) <= 0.1f;
     }
 }

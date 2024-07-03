@@ -1,35 +1,95 @@
+using System.Collections;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public ProjectileData projectileData;
+    [HideInInspector] public ShootingSettings shootingSettings;
+    [HideInInspector] public int id;
 
-    private SpriteRenderer spriteRenderer;
-    ProjectileMovement projectileMovement;
+    protected SpriteRenderer spriteRenderer;
+    protected DirectionalMover directionalMover;
+    protected OrientationHandler orientationHandler;
+    protected Animator animator;
 
-    private void Start()
+    private bool isOutsideScreen = false;
+
+    public System.Action onProjectileDestroy;
+
+    protected void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        projectileMovement = GetComponent<ProjectileMovement>();
+        TryGetComponent(out directionalMover);
+        TryGetComponent(out orientationHandler);
+        TryGetComponent(out animator);
+        TryGetComponent(out spriteRenderer);
 
-        transform.localScale = projectileData.scale;
-        if (projectileData.sprite != null) spriteRenderer.sprite = projectileData.sprite;
-        projectileMovement.speed = projectileData.speed;
+
+        // For regular shots
+        // TO-DO this should implement (DirectionalMover) instead of (ProjectileMovement)
+        // (ProjectileMovement) is deprecated and should be removed
+        if (TryGetComponent(out ProjectileMovement projectileMovement))
+        {
+            projectileMovement.speed = shootingSettings.shotMovementSpeed;
+
+            transform.localScale = shootingSettings.scale;
+            if (shootingSettings.sprite != null) spriteRenderer.sprite = shootingSettings.sprite;
+        }
+    }
+
+    private IEnumerator DestroyCoroutine()
+    {
+        yield return new WaitForSeconds(5f);
+        DestroyProjectile();
     }
 
     private void OnBecameInvisible()
     {
-        Destroy(gameObject);
+        isOutsideScreen = true;
+        if (gameObject.activeInHierarchy)
+            StartCoroutine(DestroyCoroutine());
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnBecameVisible()
     {
-        if (projectileData.projectileSource == ProjectileSource.Enemy)
+        isOutsideScreen = false;
+        StopCoroutine(DestroyCoroutine());
+    }
+
+    protected void OnTriggerEnter2D(Collider2D other)
+    {
+        if (isOutsideScreen) return;
+
+        if (shootingSettings.projectileSource == ProjectileSource.Enemy)
         {
             if (other.gameObject.TryGetComponent(out PlayerDamager playerDamager))
             {
-                playerDamager.TakeDamage(projectileData.damage);
+                playerDamager.TakeDamage(shootingSettings.damage);
+                DestroyProjectile();
             }
         }
+
+        if (shootingSettings.projectileSource == ProjectileSource.Player)
+        {
+            if (other.transform.TryGetComponent(out EnemyDamager enemyDamager))
+            {
+                DestroyProjectile();
+                enemyDamager.TakeDamage(this);
+                if (shootingSettings.explosionPrefab != null)
+                    Destroy(Instantiate(shootingSettings.explosionPrefab, transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360))), 5);
+            }
+        }
+    }
+
+    public void DestroyProjectile()
+    {
+        if (shootingSettings.shootingType == ShootingType.HomingMissile || !shootingSettings.isPiercing)
+        {
+            onProjectileDestroy?.Invoke();
+            Destroy(gameObject);
+        }
+    }
+
+    private void Bounce()
+    {
+
     }
 }

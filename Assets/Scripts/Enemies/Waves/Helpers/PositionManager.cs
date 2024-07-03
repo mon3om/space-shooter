@@ -1,82 +1,151 @@
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-
-// CanHaveYPositionVariation,
-// InVShape,
-// InWaveShape,
-// InIShape
-// InRandomPositions
 
 namespace Wave.Helper
 {
-    public class PositionManager
+    public class PositionManager : MonoBehaviour
     {
-        public void SetPositions(List<Transform> transforms, WaveEnemy waveEnemy)
+        public static void SetPositions(List<Transform> transforms, WaveEnemy waveEnemy)
         {
-            if (waveEnemy.waveEnemyConditions.Contains(WaveEnemyCondition.InIShape))
-            {
-                // Get the positions of enemies based on their number and screen width
-                float screenWidth = CameraUtils.CameraRect.xMax * 2;
-                float enemyPositionWidth = screenWidth / transforms.Count;
-                float startPosition = CameraUtils.CameraRect.xMin + enemyPositionWidth / 2f;
+            WaveShape waveShape = GetWaveShape(waveEnemy.waveShapes);
+            WaveEnteringPosition enteringPosition = GetWaveEnteringPositions(waveEnemy.waveEnteringPositions);
 
-                for (int i = 0; i < transforms.Count; i++)
-                {
-                    Transform transform = transforms[i];
-                    transform.position = new(startPosition + i * enemyPositionWidth, transform.position.y, 0);
-                }
+            // For setting entering points
+            switch (enteringPosition)
+            {
+                case WaveEnteringPosition.ShouldEnterFromHorizontalCornersBottom:
+                    EnteringScreenHelper.EnterFromHorizontalCornersBottom(transforms);
+                    break;
+                case WaveEnteringPosition.ShouldEnterFromHorizontalCornersCenter:
+                    EnteringScreenHelper.EnterFromHorizontalCornersCenter(transforms);
+                    break;
+                case WaveEnteringPosition.ShouldEnterFromHorizontalCornersTop:
+                    EnteringScreenHelper.EnterFromHorizontalCornersTop(transforms);
+                    break;
+                case WaveEnteringPosition.ShouldEnterFromVerticalCornersLeft:
+                    EnteringScreenHelper.EnterFromVerticalCornersLeft(transforms);
+                    break;
+                case WaveEnteringPosition.ShouldEnterFromVerticalCornersRight:
+                    EnteringScreenHelper.EnterFromVerticalCornersRight(transforms);
+                    break;
+                case WaveEnteringPosition.ShouldEnterFromVerticalCornersMiddle:
+                    EnteringScreenHelper.EnterFromVerticalCornersMiddle(transforms);
+                    break;
+                case WaveEnteringPosition.ShouldEnterFromTop:
+                    EnteringScreenHelper.EnterFromTop(transforms, waveEnemy.maxEnemiesPerLine);
+                    break;
+                case WaveEnteringPosition.ShouldEnterFromBottom:
+                    EnteringScreenHelper.EnterFromBottom(transforms, waveEnemy.maxEnemiesPerLine);
+                    break;
+                case WaveEnteringPosition.ShouldEnterFromLeft:
+                    EnteringScreenHelper.EnterFromLeft(transforms, waveEnemy.maxEnemiesPerLine);
+                    break;
+                case WaveEnteringPosition.ShouldEnterFromRight:
+                    EnteringScreenHelper.EnterFromRight(transforms, waveEnemy.maxEnemiesPerLine);
+                    break;
+                case WaveEnteringPosition.ShouldEnterFromRandom:
+                    EnteringScreenHelper.EnterFromRandomTopHalf(transforms);
+                    break;
+                default:
+                    break;
             }
-            else
-            {
-                if (waveEnemy.waveEnemyConditions.Contains(WaveEnemyCondition.InWaveShape))
-                {
-                    // Get the positions of enemies based on their number and screen width
-                    float screenWidth = CameraUtils.CameraRect.xMax * 2;
-                    float enemyPositionWidth = screenWidth / transforms.Count;
-                    float startPosition = CameraUtils.CameraRect.xMin + enemyPositionWidth / 2f;
 
+            // For setting wave shapes
+            switch (waveShape)
+            {
+                case WaveShape.InIShape:
+                    break;
+                case WaveShape.InWaveShape:
                     for (int i = 0; i < transforms.Count; i++)
                     {
                         Transform transform = transforms[i];
-                        transform.position = new(startPosition + i * enemyPositionWidth, transform.position.y - (i % 2 == 0 ? 2 : 0), 0);
+                        transform.position = new(transform.position.x, transform.position.y + (i % 2 == 0 ? 2 : 0), 0);
                     }
+                    break;
+                case WaveShape.InVShape:
+
+                    int j = 0;
+                    for (int i = 0; i < transforms.Count; i++)
+                    {
+                        if (i < transforms.Count / 2f) j = i;
+                        else j = transforms.Count + i + 1;
+
+                        Transform transform = transforms[i];
+                        transform.position = new(transform.position.x, transform.position.y + j, 0);
+                    }
+                    break;
+                case WaveShape.InRandomYPosition:
+                    foreach (var item in transforms)
+                        SetRandomYPosition(item, 3, 0);
+                    break;
+                default:
+                    break;
+            }
+
+            foreach (var item in transforms)
+            {
+                if (item.TryGetComponent(out EnemyAIBase enemyAIBase))
+                {
+                    enemyAIBase.enemyIdentifier.waveShape = waveShape;
+                    enemyAIBase.enemyIdentifier.waveEnteringPosition = enteringPosition;
+                    enemyAIBase.enemyIdentifier.initPosition = item.position;
                 }
             }
         }
 
-        public List<Vector2> GetAssaultEnemiesPositions(List<Transform> transforms, int maxEnemiesPerLine = 3)
+        private static WaveShape GetWaveShape(WaveShape[] conditions)
         {
-            int linesCount = Mathf.CeilToInt(transforms.Count / (float)maxEnemiesPerLine);
 
-            float screenWidth = CameraUtils.CameraRect.xMax * 2;
-            float screenHeight = CameraUtils.CameraRect.yMax * 1.5f;
+            if (conditions == null || conditions.Length == 0) return WaveShape.InIShape;
+            return conditions[Random.Range(0, conditions.Length)];
+        }
 
-            float enemyPositionWidth = screenWidth / maxEnemiesPerLine;
-            float enemyPositionHeight = screenHeight / linesCount;
-            Vector2 startPosition;
-            List<Vector2> positions = new();
-            int lineCounter = 0;
-            int currentLineEnemiesCount;
+        private static WaveEnteringPosition GetWaveEnteringPositions(WaveEnteringPosition[] positions)
+        {
 
-            for (int j = 0; j < linesCount; j++)
+            if (positions.Length == 0) return WaveEnteringPosition.ShouldEnterFromTop;
+            return positions[Random.Range(0, positions.Length)];
+        }
+
+        private static void SetRandomYPosition(Transform origin, float range, int iteration)
+        {
+            if (iteration > 20)
             {
-                currentLineEnemiesCount = transforms.Count - positions.Count >= maxEnemiesPerLine ? maxEnemiesPerLine : (transforms.Count - positions.Count) % maxEnemiesPerLine;
-                enemyPositionWidth = screenWidth / currentLineEnemiesCount;
-                startPosition = new(CameraUtils.CameraRect.xMin + enemyPositionWidth / 2f, CameraUtils.CameraRect.yMax - enemyPositionHeight / 2f);
-
-                for (int i = 0; i < maxEnemiesPerLine; i++)
-                {
-                    Vector2 position = new(startPosition.x + i * enemyPositionWidth, startPosition.y - lineCounter * enemyPositionHeight);
-                    positions.Add(position);
-                    if (positions.Count == transforms.Count)
-                        return positions;
-                }
-
-                lineCounter++;
+                Destroy(origin.gameObject);
+                Debug.Log("Destroyed after 20 failed iterations");
+                return;
             }
 
-            return positions;
+            origin.position += origin.up * Random.Range(0f, 10f);
+            iteration++;
+
+            RaycastHit2D raycastHit2D;
+            raycastHit2D = Physics2D.Raycast(origin.position, Vector2.up, range);
+            if (raycastHit2D.collider && raycastHit2D.collider.CompareTag(Tags.ENEMY_SHIP))
+                SetRandomYPosition(origin, range, iteration);
+            raycastHit2D = Physics2D.Raycast(origin.position, Vector2.down, range);
+            if (raycastHit2D.collider && raycastHit2D.collider.CompareTag(Tags.ENEMY_SHIP))
+                SetRandomYPosition(origin, range, iteration);
+        }
+
+        private static void MakeTheWaveCloserToScreen(List<Transform> transforms)
+        {
+            float closestPoint = transforms[0].position.y;
+
+            for (int i = 0; i < transforms.Count - 1; i++)
+            {
+                if (transforms[i + 1].position.y < transforms[i].position.y)
+                    closestPoint = transforms[i + 1].position.y;
+            }
+
+            float targetDistance;
+            targetDistance = closestPoint - CameraUtils.CameraRect.yMax;
+            foreach (var item in transforms)
+            {
+                item.position -= Vector3.up * (targetDistance - 1);
+            }
         }
     }
+
 }

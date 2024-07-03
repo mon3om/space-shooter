@@ -12,12 +12,12 @@ public class EnhancedShootingEnemy : EnemyAIBase
     private void Start()
     {
         base.Start();
+        if (TryGetComponent(out Hoverer hoverer)) hoverer.enabled = false;
         shootingBase = gameObject.AddComponent<ShootingBullets>();
         shootingBase.shootingSettings = shootingSettings;
-        orientationHandler.LookAtPointImmediate(Vector2.down);
-        directionalMover.MoveTowardsPoint(new(transform.position.x, 2));
+        orientationHandler.LookAtPointImmediate(enteringTargetPosition);
+        directionalMover.MoveTowardsPoint(enteringTargetPosition);
         directionalMover.onDestinationReached.AddListener(OnDestinationReached);
-        GetComponent<Hoverer>().enabled = false;
 
         HandleSiblingsHoverer();
     }
@@ -26,26 +26,20 @@ public class EnhancedShootingEnemy : EnemyAIBase
     {
         directionalMover.StopMoving();
         StartCoroutine(ShootingCoroutine());
-        GetComponent<Hoverer>().enabled = true;
+        if (TryGetComponent(out Hoverer hoverer)) hoverer.enabled = true;
     }
 
     private IEnumerator ShootingCoroutine()
     {
         yield return new WaitForSeconds(Random.Range(0, 1f));
-        yield return new WaitForSeconds(shootingBase.shootingSettings.fireRate);
         shootingBase.Fire(gameObject, Vector3.up);
+        yield return new WaitForSeconds(shootingBase.shootingSettings.fireRate);
         StartCoroutine(ShootingCoroutine());
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.TryGetComponent(out Hoverer hoverer))
-            hoverer.ChangeHoverSide();
     }
 
     private void HandleSiblingsHoverer()
     {
-        if (ReferenceEquals(this, waveSiblings[0]))
+        if (waveSiblings.Count > 0 && GetId() == 0)
         {
             waveSiblings = waveSiblings.OrderBy(_ => Random.Range(0f, 1f)).ToList();
 

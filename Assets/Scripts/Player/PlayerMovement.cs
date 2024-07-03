@@ -1,20 +1,29 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
     // Public variables
     public float movementSpeed;
+    [Space]
+    [SerializeField] private float slowDownTime = 10;
+    [SerializeField] private float slowDownMultiplier = 3;
 
     // Private variables
     private float xInput = 0, yInput = 0;
-    // Mouse movement
-    private Vector3 mousePosition = Vector3.zero;
-    private Vector3 lastMousePosition = Vector3.zero;
     private Camera cam;
-    private bool isMouseMovement = false;
     private Rect cameraRect;
+
+    private float initSpeed;
+    private float _slowDownTime = 0;
+
+
+    private EngineEffectAnimator engineEffectAnimator;
+
+    private void OnEnable() => PowerupBase.OnPowerupReady += OnPowerupReady;
+    private void OnDisable() => PowerupBase.OnPowerupReady -= OnPowerupReady;
+    private void OnPowerupReady(PowerupBase powerupBase) => powerupBase.playerInstance = transform;
 
     private void Awake()
     {
@@ -24,35 +33,41 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        initSpeed = movementSpeed;
+
         cam = Camera.main;
+        engineEffectAnimator = GetComponent<EngineEffectAnimator>();
         CalculateScreenBoundaries();
     }
 
     void Update()
     {
-        xInput = Input.GetAxis("Horizontal");
-        yInput = Input.GetAxis("Vertical");
-        if (xInput != 0 || yInput != 0)
-            isMouseMovement = false;
+        xInput = Input.GetAxisRaw("Horizontal");
+        yInput = Input.GetAxisRaw("Vertical");
+        if (Input.GetKey(KeyCode.R))
+            SceneManager.LoadScene(0);
 
-        // Mouse movement
-        mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = transform.position.z;
-        if (lastMousePosition != mousePosition && xInput == 0 && yInput == 0)
-        {
-            lastMousePosition = mousePosition;
-            isMouseMovement = true;
-        }
-
-        // if (isMouseMovement)
-        //     transform.position = Vector3.MoveTowards(transform.position, mousePosition, movementSpeed * Time.deltaTime);
+        engineEffectAnimator.velocity = new(xInput, yInput);
 
         PreventLeavingScreen();
+
+        // Handle slowing down
+        if (_slowDownTime > 0)
+        {
+            _slowDownTime -= Time.deltaTime;
+            if (_slowDownTime <= 0)
+            {
+                movementSpeed = initSpeed;
+                _slowDownTime = 0;
+            }
+        }
     }
 
     private void FixedUpdate()
     {
-        transform.position = transform.position + movementSpeed * Time.fixedDeltaTime * new Vector3(xInput, yInput, 0);
+        transform.position = transform.position + movementSpeed * Time.fixedDeltaTime * new Vector3(xInput, yInput, 0).normalized;
+
+        // MovementRotaionHandler();
     }
 
     private void PreventLeavingScreen()
@@ -76,4 +91,9 @@ public class PlayerMovement : MonoBehaviour
            topRight.y - bottomLeft.y);
     }
 
+    public void SlowDown()
+    {
+        movementSpeed = initSpeed / slowDownMultiplier;
+        _slowDownTime = slowDownTime;
+    }
 }

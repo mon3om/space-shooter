@@ -83,7 +83,11 @@ public class OrientationHandler : MonoBehaviour
     {
         Vector3 targ;
         if (isTargetTransform)
+        {
+            if (!targetTransform)
+                return;
             targ = targetTransform.position;
+        }
         else
             targ = targetPoint;
 
@@ -95,7 +99,7 @@ public class OrientationHandler : MonoBehaviour
 
         float angle = Mathf.Atan2(targ.y, targ.x) * Mathf.Rad2Deg;
         Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, angle + angleOffset));
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, rotation, rotationSpeed * Time.fixedDeltaTime);
+        transform.localRotation = Quaternion.RotateTowards(transform.localRotation, rotation, rotationSpeed * Time.fixedDeltaTime);
     }
 
     public void LookAtPointImmediate(Vector2 point)

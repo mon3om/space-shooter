@@ -7,25 +7,17 @@ namespace Wave.Helper
 {
     public class EnemyFactory : MonoBehaviour
     {
-        public List<Transform> Spawn(WaveEnemy waveEnemy, int waveId)
+        public List<Transform> Spawn(WaveEnemy waveEnemy, int waveId, System.Action<EnemyAIBase, int> onEnemyDestroy)
         {
             List<Transform> spawned = new();
             List<EnemyAIBase> enemyAIBases = new();
-            int enemiesCount = 0;
+            int enemiesCount = waveEnemy.count.RandomValue;
 
-            if (waveEnemy.waveEnemyConditions.Contains(WaveEnemyCondition.InPackOf5))
-            {
-                enemiesCount = 5;
-            }
-            else if (waveEnemy.waveEnemyConditions.Contains(WaveEnemyCondition.InPackOf6))
-            {
-                enemiesCount = 6;
-            }
-
+            float screenWidth = CameraUtils.CameraRect.xMax * 2;
             for (int i = 0; i < enemiesCount; i++)
             {
-                var go = Instantiate(waveEnemy.enemyPrefab, new(0, 10, 0), Quaternion.identity, transform);
-                go.name = "" + i;
+                var go = Instantiate(waveEnemy.enemyPrefab, new(CameraUtils.CameraRect.xMin + screenWidth / enemiesCount / 2f + screenWidth / enemiesCount * i, 10, 0), Quaternion.identity, transform);
+                go.name += "-id=" + i + "-waveId=" + waveId;
                 spawned.Add(go.transform);
 
                 EnemyAIBase enemyAIBase = go.GetComponent<EnemyAIBase>();
@@ -34,12 +26,14 @@ namespace Wave.Helper
 
             foreach (var item in enemyAIBases)
             {
-                item.waveId = waveId;
+                item.enemyIdentifier.waveId = waveId;
+                item.enemyIdentifier.enemySpawnId = enemyAIBases.IndexOf(item);
+                item.enemyIdentifier.waveEnemyDifficulty = waveEnemy.enemyDifficulty;
                 item.waveSiblings = enemyAIBases;
+                item.onEnemyDestroy += onEnemyDestroy;
             }
 
             return spawned;
         }
-
     }
 }

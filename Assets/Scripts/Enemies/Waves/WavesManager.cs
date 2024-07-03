@@ -1,138 +1,180 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
+using JsonWaves;
 using UnityEngine;
 using Wave.Helper;
 
-[RequireComponent(typeof(EnemyFactory))]
+
 public class WavesManager : MonoBehaviour
 {
-    public float timeBetweenWaves = 5f;
-    public List<WaveEnemy> waveEnemies = new();
+    public LevelSettings levelSettings;
     [HideInInspector] public int waveId = 0;
     //
-    private EnemyFactory enemyFactory;
-    private PositionManager positionManager = new();
-
-    private List<EnemyAIBase> spawnedEnemies = new();
 
     public static WavesManager Instance;
+
+    private EnemyFactory enemyFactory;
+    [HideInInspector] public List<EnemyAIBase> spawnedEnemies = new();
+    private List<string> lastSpawnedEnemies = new();
+    private List<string> lastSpawnedDifficulty = new();
+
+    private List<WaveEnemy> easyEnemies = new();
+    private List<WaveEnemy> hardEnemies = new();
+    private List<WaveEnemy> moderateEnemies = new();
+
+    // Events
+    public System.Action<WavesManager, int> onWaveCleared; // <this, waveId>
+    public System.Action<int> onWaveSpawned; // <waveId>
+    public System.Action onMiniBossDefeated;
 
     private void Awake()
     {
         Instance = this;
     }
 
-    private void Start()
+    private async void Start()
     {
-        enemyFactory = GetComponent<EnemyFactory>();
+        JsonWavesManager jsonWavesManager;
+        if (!TryGetComponent(out jsonWavesManager))
+            jsonWavesManager = gameObject.AddComponent<JsonWavesManager>();
 
-        StartCoroutine(SpawnNewWave());
+#if UNITY_EDITOR
+        await jsonWavesManager.StartNode();
+#endif
+
+        List<WaveEnemy> waveEnemies = jsonWavesManager.GetWaves();
+
+        easyEnemies = waveEnemies.Where(el => el.enemyDifficulty == WaveEnemyDifficulty.Easy).ToList();
+        moderateEnemies = waveEnemies.Where(el => el.enemyDifficulty == WaveEnemyDifficulty.Moderate).ToList();
+        hardEnemies = waveEnemies.Where(el => el.enemyDifficulty == WaveEnemyDifficulty.Hard).ToList();
+
+        enemyFactory = GetComponentInChildren<EnemyFactory>();
     }
 
     private IEnumerator SpawnNewWave()
     {
-        var pickedEnemy = PickRandomItem(waveEnemies);
-        var spawned = enemyFactory.Spawn(pickedEnemy, waveId);
+        var pickedEnemy = PickRandomItem();
+
+        Spawn(pickedEnemy);
+
+        if (waveId == Mathf.RoundToInt(levelSettings.wavesCount))
+        {
+            Debug.Log("Stopped spawning because maximum waves count is reached");
+            yield break;
+        }
+
+        yield return new WaitForSeconds(levelSettings.timeBetweenWaves);
+        StartCoroutine(SpawnNewWave());
+    }
+
+    private void Spawn(WaveEnemy pickedEnemy, System.Action<EnemyAIBase, int> onEnemyDestroy = null)
+    {
+        var spawned = enemyFactory.Spawn(pickedEnemy, waveId, OnEnemyDestroy);
         foreach (var item in spawned)
         {
             spawnedEnemies.Add(item.GetComponent<EnemyAIBase>());
         }
 
-        positionManager.SetPositions(spawned, pickedEnemy);
-        yield return new WaitForSeconds(timeBetweenWaves);
+        PositionManager.SetPositions(spawned, pickedEnemy);
+        onWaveSpawned?.Invoke(waveId);
         waveId++;
-        StartCoroutine(SpawnNewWave());
     }
 
-    private WaveEnemy PickRandomItem(List<WaveEnemy> items)
+    private List<WaveEnemy> PickRandomDifficulty()
     {
-        // Calculate the total weight
-        float totalWeight = 0f;
-        foreach (WaveEnemy item in items)
+        List<WaveEnemy> enemies;
+        string diff = "Easy";
+
+        float random = Random.Range(0, 101);
+        if (random < levelSettings.difficultySettings.hardWeight)
         {
-            totalWeight += item.Weight;
+            enemies = hardEnemies;
+            diff = "Hard";
+        }
+        else if (random < levelSettings.difficultySettings.moderateWeight)
+        {
+            enemies = moderateEnemies;
+            diff = "Moderate";
+        }
+        else
+        {
+            enemies = easyEnemies;
         }
 
-        // Generate a random number between 0 and the total weight
-        float randomValue = Random.Range(0, totalWeight);
+        if (lastSpawnedDifficulty.All(el => el == diff) && lastSpawnedDifficulty.Count > 1)
+            return PickRandomDifficulty();
+        else lastSpawnedDifficulty.Add(diff);
 
-        // Iterate through the items and select based on the random value
-        float cumulativeWeight = 0f;
-        foreach (WaveEnemy item in items)
-        {
-            cumulativeWeight += item.Weight;
-            if (randomValue < cumulativeWeight)
-            {
-                return item;
-            }
-        }
+        if (lastSpawnedDifficulty.Count > 2) lastSpawnedDifficulty.RemoveAt(0);
 
-        // In case of rounding errors, return the last item
-        return items[0];
+        return enemies;
+    }
+
+    private WaveEnemy PickRandomItem()
+    {
+        var pickedEnemies = PickRandomDifficulty();
+        var picked = pickedEnemies[Random.Range(0, pickedEnemies.Count)];
+
+        if (lastSpawnedEnemies.Contains(picked.enemyPrefab.name) && lastSpawnedEnemies.Count > 1)
+            return PickRandomItem();
+        else
+            lastSpawnedEnemies.Add(picked.enemyPrefab.name);
+
+        if (lastSpawnedEnemies.Count > 2) lastSpawnedEnemies.RemoveAt(0);
+
+        return picked;
     }
 
     public List<EnemyAIBase> GetEnemiesByTypeAndWaveId<T>(int waveId)
     {
-        List<EnemyAIBase> enemies = spawnedEnemies.Where(el => el.GetType() == typeof(T) && el.waveId == waveId).ToList();
+        List<EnemyAIBase> enemies = spawnedEnemies.Where(el => el.GetType() == typeof(T) && el.enemyIdentifier.waveId == waveId).ToList();
         return enemies;
     }
-}
 
-class WaveData
-{
-    public WaveEnemy waveEnemy;
-    public float yStartPosition;
-    public float yEndPosition;
-}
-
-public enum WaveEnemyDifficulty { Easy, Moderate, Hard }
-public enum WaveEnemyCondition
-{
-    InSingle, InPackOf2, InPackOf3,
-    InPackOf4,
-    InPackOf5,
-    InPackOf6,
-    InPackOf7,
-    InPackOf8,
-    InPackOf9,
-    InPackOf10,
-    InPackOf11,
-    InPackOf12,
-    CanHaveYPositionVariation,
-    InVShape,
-    InWaveShape,
-    InIShape,
-    InRandomPositions
-}
-[System.Serializable]
-public class WaveEnemy
-{
-    public GameObject enemyPrefab;
-    public WaveEnemyDifficulty enemyDifficulty = WaveEnemyDifficulty.Easy;
-    [HideInInspector]
-    public float Weight
+    private void OnEnemyDestroy(EnemyAIBase enemyAIBase, int waveId)
     {
-        set
+        spawnedEnemies.Remove(enemyAIBase);
+        if (spawnedEnemies.Where(_ => _.enemyIdentifier.waveId == waveId).Count() == 0)
         {
-            Weight = value;
-        }
-        // TODO update this code depending on game difficulty
-        get
-        {
-            return enemyDifficulty switch
-            {
-                WaveEnemyDifficulty.Easy => 40,
-                WaveEnemyDifficulty.Moderate => 20,
-                WaveEnemyDifficulty.Hard => 8,
-                _ => (float)0,
-            };
+            onWaveCleared?.Invoke(this, waveId);
         }
     }
 
-    public WaveEnemyCondition[] waveEnemyConditions;
+    //////////////////////// public methods ////////////////////////
+    public void StopGeneratingWaves()
+    {
+        StopAllCoroutines();
+    }
 
-    [Space]
-    public WaveEnemy[] compatibleEnemies;
+    public void StartGeneratingWaves(LevelSettings levelSettings)
+    {
+        StopAllCoroutines();
+        this.levelSettings = levelSettings;
+        waveId = 0;
+        StartCoroutine(SpawnNewWave());
+    }
+
+    public void ClearAllEnemies()
+    {
+        foreach (var item in spawnedEnemies)
+        {
+            item.DestroyEnemy(false);
+        }
+    }
+
+    public void SpawnBoss(GameObject bossPrefab)
+    {
+        StopGeneratingWaves();
+        ClearAllEnemies();
+
+        WaveEnemy waveEnemy = new()
+        {
+            enemyPrefab = bossPrefab,
+            count = new(1, 1, 1),
+            waveEnteringPositions = new WaveEnteringPosition[] { WaveEnteringPosition.ShouldEnterFromTop },
+            enemyDifficulty = WaveEnemyDifficulty.Easy,
+        };
+        Spawn(waveEnemy);
+    }
 }
