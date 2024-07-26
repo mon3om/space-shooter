@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class StarShootingEnemy : EnemyAIBase
@@ -8,6 +9,10 @@ public class StarShootingEnemy : EnemyAIBase
     public float shootingRotationSpeed;
     [HideInInspector] public Vector3 stoppingPoint;
 
+    // Possible screen positions
+    private float xSteps = 6, ySteps = 3;
+    private List<Vector2> screenPositions = new();
+
     private ShootingBase shootingBase;
 
     private void Start()
@@ -15,6 +20,7 @@ public class StarShootingEnemy : EnemyAIBase
         base.Start();
         shootingBase = GetComponent<ShootingBase>();
         directionalMover.onDestinationReached.AddListener(OnDestinationReached);
+        screenPositions = Utils.DivideScreen(xSteps, ySteps);
         MoveToNextPoint();
     }
 
@@ -23,18 +29,9 @@ public class StarShootingEnemy : EnemyAIBase
         StartCoroutine(DestinationReachedCoroutine());
     }
 
-    private Vector3 GetNextStoppingPoint()
-    {
-        Vector3 pos = transform.position;
-        pos.x = Random.Range(-CameraUtils.CameraRect.size.x / 2f - 1, CameraUtils.CameraRect.size.x / 2f - 1);
-        pos.y -= Random.Range(1f, CameraUtils.CameraRect.size.y / verticalMovementSteps.value);
-
-        return pos;
-    }
-
     private void MoveToNextPoint()
     {
-        Vector3 targetPoint = GetNextStoppingPoint();
+        Vector3 targetPoint = screenPositions[Random.Range(0, screenPositions.Count)];
         directionalMover.MoveTowardsPoint(targetPoint);
         orientationHandler.StartRotatingTowardsPoint(targetPoint);
     }

@@ -34,18 +34,18 @@ public class EnemyAIBase : MonoBehaviour
         tag = Tags.ENEMY_SHIP;
     }
 
-    public void InstantiateDeathAnimation(bool playAnimation = true, bool playSound = true, bool willShake = true)
+    public void InstantiateDeathAnimation(bool playAnimation = true, bool playSound = true)
     {
         GameObject go = null;
 
         CameraShaker.Shake(0.15f, 0.15f);
 
-        // Death animation
+        // No death animation
         if (deathAnimation == null)
         {
             Debug.LogWarning(GetType().ToString() + " has no death animation");
-            return;
         }
+        // Death animation
         else
         {
             if (playAnimation)
@@ -61,7 +61,11 @@ public class EnemyAIBase : MonoBehaviour
             }
         }
 
-        // DeathSound
+        PlayDeathSound(playSound, go);
+    }
+
+    private void PlayDeathSound(bool playSound, GameObject soundGameObject)
+    {
         if (deathSound == null)
         {
             Debug.LogWarning(GetType().ToString() + " has no death sound");
@@ -70,7 +74,14 @@ public class EnemyAIBase : MonoBehaviour
         else
         {
             if (playSound)
-                go.PlaySound(deathSound);
+            {
+                if (soundGameObject == null)
+                {
+                    soundGameObject = new GameObject("TempSoundPlayer");
+                    Destroy(soundGameObject, deathSound.length);
+                }
+                soundGameObject.PlaySound(deathSound);
+            }
         }
     }
 
@@ -134,5 +145,10 @@ public class EnemyAIBase : MonoBehaviour
         }
 
         return false;
+    }
+
+    public virtual void SetDifficultyLevel(int level)
+    {
+        throw new System.NotImplementedException();
     }
 }

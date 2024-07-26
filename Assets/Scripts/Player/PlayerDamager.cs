@@ -63,7 +63,7 @@ public class PlayerDamager : MonoBehaviour
 
         EnableInvicibility();
         onDamageTaken?.Invoke(new(damage, health, initHealth));
-        CameraShaker.Shake(.2f, .2f);
+        CameraShaker.ShakeGlitching(.2f, .2f);
         UpdateDamageStateSprite();
 
         if (health > 0)
@@ -73,6 +73,7 @@ public class PlayerDamager : MonoBehaviour
         else
         {
             GameObject.FindWithTag(Tags.UI_GAMEOVER).transform.GetChild(0).gameObject.SetActive(true);
+            CameraShaker.Glitch();
             Destroy(gameObject);
         }
     }

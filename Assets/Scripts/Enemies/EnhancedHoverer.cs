@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnhancedHoverer : Hoverer
@@ -8,6 +9,7 @@ public class EnhancedHoverer : Hoverer
 
     private Transform player;
     private bool isHovering = false;
+    private List<Vector2> availablePositions = new List<Vector2>();
 
     private void Start()
     {
@@ -15,6 +17,8 @@ public class EnhancedHoverer : Hoverer
 
         screenPositionLock = GetComponent<ScreenPositionLock>();
         screenPositionLock.onScreenSideReached += OnScreenSideReached;
+
+        availablePositions = Utils.DivideScreen(5, 4, 2.5f);
     }
 
     private void FixedUpdate()
@@ -40,14 +44,10 @@ public class EnhancedHoverer : Hoverer
 
     }
 
-    [Space]
-    public GameObject nextHoverAlert;
     private IEnumerator ChangeHoverSideCoroutine()
     {
         var nextHover = ChangeHoverSide();
-        var alert = Instantiate(nextHoverAlert, nextHover, Quaternion.identity);
         yield return new WaitForSeconds(2f);
-        Destroy(alert);
         hoverSide = nextHover;
         yield return new WaitForSeconds(Random.Range(3f, 6f));
         StartCoroutine(ChangeHoverSideCoroutine());
@@ -55,7 +55,7 @@ public class EnhancedHoverer : Hoverer
 
     public new Vector3 ChangeHoverSide()
     {
-        return new(Random.Range(CameraUtils.CameraRect.xMin, CameraUtils.CameraRect.xMax), Random.Range(CameraUtils.CameraRect.yMin, CameraUtils.CameraRect.yMax));
+        return availablePositions[Random.Range(0, availablePositions.Count)];
     }
 
     public void SetHovering(bool isHovering)

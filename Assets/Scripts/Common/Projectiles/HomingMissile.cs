@@ -30,6 +30,8 @@ public class HomingMissile : Projectile
         animator.enabled = false;
 
         onProjectileDestroy += OnProjectileDestroy;
+
+        Destroy(gameObject, 30);
     }
 
     private void OnDestinationReached()

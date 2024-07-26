@@ -1,11 +1,20 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum Actor { Player = 0, Enemy }
 
 public class Utils
 {
+    public const float MIN_Y_POSITION = 3f;
     public static Quaternion GetLookAtRotation(Vector3 direction)
     {
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        return Quaternion.AngleAxis(angle + 90, Vector3.forward);
+    }
+
+    public static Quaternion GetLookAtRotation(Vector3 objectPosition, Vector3 targetPosition)
+    {
+        Vector3 direction = targetPosition - objectPosition;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         return Quaternion.AngleAxis(angle + 90, Vector3.forward);
     }
@@ -33,6 +42,20 @@ public class Utils
         }
 
         return false;
+    }
+
+    public static List<Vector2> DivideScreen(float xSteps, float ySteps, float minYPos = MIN_Y_POSITION)
+    {
+        var screenPositions = new List<Vector2>();
+
+        float areaWidth = CameraUtils.CameraRect.xMax * 2 / xSteps;
+        float areaHeight = (CameraUtils.CameraRect.yMax * 2 - minYPos) / ySteps;
+
+        for (int i = 0; i < xSteps; i++)
+            for (int j = 0; j < ySteps; j++)
+                screenPositions.Add(new(i * areaWidth - areaWidth * xSteps / 2f + areaWidth / 2, j * areaHeight - areaHeight / 2));
+
+        return screenPositions;
     }
 }
 

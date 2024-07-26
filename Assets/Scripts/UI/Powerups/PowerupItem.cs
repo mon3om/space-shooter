@@ -6,17 +6,13 @@ using UnityEngine.UI;
 [ExecuteInEditMode]
 public class PowerupItem : MonoBehaviour
 {
-    public Sprite sprite;
-    public string itemName;
-    public string description;
-    public int id;
-    public bool available = false;
+    public PowerupScriptableObject powerupScriptableObject;
 
     private Transform selectedPowerup;
 
     private void Start()
     {
-        if (!available) return;
+        if (!powerupScriptableObject || !powerupScriptableObject.available) return;
         selectedPowerup = transform.parent.parent.Find("SelectedPowerup");
         EventTrigger eventTrigger = GetComponent<EventTrigger>();
 
@@ -31,9 +27,9 @@ public class PowerupItem : MonoBehaviour
 
     private void OnValidate()
     {
-        transform.Find("Name").GetComponent<TMP_Text>().text = itemName;
-        transform.Find("Image").GetComponent<Image>().sprite = sprite;
-        if (!available) transform.Find("Image").GetComponent<Image>().color = new(0.1f, 0.1f, 0.1f, 0.95f);
+        transform.Find("Name").GetComponent<TMP_Text>().text = powerupScriptableObject.itemName;
+        transform.Find("Image").GetComponent<Image>().sprite = powerupScriptableObject.sprite;
+        if (!powerupScriptableObject || !powerupScriptableObject.available) transform.Find("Image").GetComponent<Image>().color = new(0.1f, 0.1f, 0.1f, 0.95f);
         else transform.Find("Image").GetComponent<Image>().color = new(1, 1, 1, 1);
     }
 
@@ -41,13 +37,13 @@ public class PowerupItem : MonoBehaviour
     {
         if (selectedPowerup)
         {
-            if (PowerupsManager.SelectedPowerup != id)
+            if (PowerupsManager.SelectedPowerup != powerupScriptableObject.id)
             {
-                selectedPowerup.Find("Image").GetComponent<Image>().sprite = sprite;
-                selectedPowerup.Find("Name").GetComponent<TMP_Text>().text = itemName;
-                selectedPowerup.Find("Description").GetComponent<TMP_Text>().text = description;
+                selectedPowerup.Find("Image").GetComponent<Image>().sprite = powerupScriptableObject.sprite;
+                selectedPowerup.Find("Name").GetComponent<TMP_Text>().text = powerupScriptableObject.itemName;
+                selectedPowerup.Find("Description").GetComponent<TMP_Text>().text = powerupScriptableObject.description;
 
-                PowerupsManager.SelectedPowerup = id;
+                PowerupsManager.SelectedPowerup = powerupScriptableObject.id;
             }
             else
             {

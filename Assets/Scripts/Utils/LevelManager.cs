@@ -28,7 +28,7 @@ public class LevelManager : MonoBehaviour
 
     private void OnWaveSpawned(int waveId)
     {
-        Debug.Log($"Wave [{waveId}] from level [{currentLevelIndex}] just spawned");
+        // Debug.Log($"Wave [{waveId}] from level [{currentLevelIndex}] just spawned");
     }
 
     private void UpdateUI()
@@ -54,7 +54,6 @@ public class LevelManager : MonoBehaviour
 
     private void OnWaveCleared(WavesManager wavesManager, int waveId)
     {
-        Debug.Log(wavesManager.waveId + " == total = " + Mathf.RoundToInt(currentLevel.wavesCount));
         // Last wave cleared successfully
         if (wavesManager.waveId == Mathf.RoundToInt(currentLevel.wavesCount) && wavesManager.spawnedEnemies.Count == 0)
         {
@@ -98,10 +97,12 @@ public class LevelManager : MonoBehaviour
 
     private LevelSettings IncreaseDifficulty(LevelSettings newLevel, LevelSettings previousLevel)
     {
-        newLevel.timeBetweenWaves = previousLevel.timeBetweenWaves * ((100 - newLevel.difficultySettings.difficultyIncreasePercent) / 100);
-        newLevel.difficultySettings.moderateWeight = previousLevel.difficultySettings.moderateWeight * (100 + newLevel.difficultySettings.difficultyIncreasePercent) / 100;
-        newLevel.difficultySettings.hardWeight = previousLevel.difficultySettings.hardWeight * (100 + newLevel.difficultySettings.difficultyIncreasePercent) / 100;
-        newLevel.wavesCount = previousLevel.wavesCount * ((100 + newLevel.difficultySettings.difficultyIncreasePercent) / 100);
+        var diffIncrease = newLevel.difficultySettings.difficultyIncreasePercent;
+
+        newLevel.timeBetweenWaves = previousLevel.timeBetweenWaves * ((100 - diffIncrease) / 100);
+        newLevel.difficultySettings.moderateWeight = previousLevel.difficultySettings.moderateWeight * (100 + diffIncrease) / 100;
+        newLevel.difficultySettings.hardWeight = previousLevel.difficultySettings.hardWeight * (100 + diffIncrease) / 100;
+        newLevel.wavesCount = previousLevel.wavesCount * ((100 + diffIncrease) / 100);
 
         return newLevel;
     }

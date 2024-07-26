@@ -164,6 +164,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  var1Speed: 8
+  var1Variation: 0.5
 --- !u!114 &-3961899999140730505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootingSettings: {fileID: 0}
+  id: 0
 --- !u!95 &8762952033517144119
 Animator:
   serializedVersion: 5

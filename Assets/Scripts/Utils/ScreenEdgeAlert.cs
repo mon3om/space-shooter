@@ -40,27 +40,36 @@ public class ScreenEdgeAlert : MonoBehaviour
         if (alert.transform.position.y < CameraUtils.CameraRect.yMin + (sprite.bounds.extents.y + offset))
             alert.transform.position += Vector3.up * (sprite.bounds.extents.y + offset);
         if (alert.transform.position.x < CameraUtils.CameraRect.xMin + (sprite.bounds.extents.x + offset))
-            alert.transform.position += Vector3.right * (sprite.bounds.extents.y + offset);
+            alert.transform.position += Vector3.right * (sprite.bounds.extents.x + offset);
         if (alert.transform.position.x > CameraUtils.CameraRect.xMax - (sprite.bounds.extents.x + offset))
-            alert.transform.position += Vector3.left * (sprite.bounds.extents.y + offset);
+            alert.transform.position += Vector3.left * (sprite.bounds.extents.x + offset);
 
     }
 
-    private void OnBecameVisible()
+    public void OnBecameVisible()
     {
-        if (alert != null)
-            StartCoroutine(HideAlertCoroutine());
+        StartCoroutine(HideAlertCoroutine());
     }
 
     private IEnumerator HideAlertCoroutine()
     {
         yield return new WaitForSeconds(hideDelay);
-        Destroy(alert);
+        if (alert)
+            Destroy(alert);
     }
 
     private void OnDestroy()
     {
         StopAllCoroutines();
         Destroy(alert);
+    }
+
+    public void DestroyAlert()
+    {
+        if (alert)
+        {
+            StopAllCoroutines();
+            Destroy(alert);
+        }
     }
 }

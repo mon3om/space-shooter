@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,14 +9,13 @@ public class DirectionalMover : MonoBehaviour
     public bool physicsMovement = false;
     public MovementType movementType;
 
-    //
     [HideInInspector] public UnityEvent onDestinationReached;
-
-    private Vector3 targetPoint;
     [HideInInspector] public Transform targetTransform;
-    public bool isMoving = false;
-
+    [HideInInspector] public bool isMoving = false;
+    //
+    private Vector3 targetPoint;
     private Rigidbody2D rb;
+    private Vector2 initPosition = Vector2.negativeInfinity;
 
     private void Start()
     {
@@ -25,6 +25,8 @@ public class DirectionalMover : MonoBehaviour
     private void FixedUpdate()
     {
         if (!isMoving) return;
+        if (initPosition.x == Mathf.NegativeInfinity)
+            initPosition = transform.position;
 
         if (physicsMovement)
             MoveUsedOnlyForPhysicsMovementTemporarly();
@@ -45,11 +47,8 @@ public class DirectionalMover : MonoBehaviour
                     break;
             }
         }
-
-        if (movementType == MovementType.TowardsPoint && IsDestinationReached())
-        {
-            onDestinationReached?.Invoke();
-        }
+        // IsDestinationReached
+        // Checking IsDestinationReached happens inside MoveToPoint method
     }
 
     public void MoveTowardsPoint(Vector3 point)
@@ -106,7 +105,9 @@ public class DirectionalMover : MonoBehaviour
 
     private void MoveToPoint()
     {
-        transform.position += movementSpeed * Time.fixedDeltaTime * (targetPoint - transform.position).normalized;
+        var currentMove = movementSpeed * Time.fixedDeltaTime * (targetPoint - transform.position).normalized;
+        transform.position += currentMove;
+
     }
 
     private void MoveInDirection()
@@ -116,6 +117,10 @@ public class DirectionalMover : MonoBehaviour
 
     private bool IsDestinationReached()
     {
-        return Vector2.Distance(targetPoint, transform.position) <= 0.1f;
+        Vector3 initToCurrent = transform.position - (Vector3)initPosition;
+
+        bool goingBackwards = Vector3.Dot(currentMove, targetPoint - transform.position) < 0;
+
+        return goingBackwards || Vector2.Distance(targetPoint, transform.position) <= 0.05f;
     }
 }

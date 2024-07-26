@@ -226,6 +226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alertPrefab: {fileID: 841086676269441540, guid: ddefca1559b95cc4dab5a20ab8d9ad33, type: 3}
   forceAlertDisplay: 0
+  hideDelay: 0
 --- !u!114 &651016402435361895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,7 +254,6 @@ MonoBehaviour:
   deathSound: {fileID: 8300000, guid: 39896809c7723be4b9c298a5cb2fa3a2, type: 3}
   laserPrefab: {fileID: 1382375913100438312, guid: 8199946173443a6419fcd7b70185d933, type: 3}
   laserCollisionEffect: {fileID: 6759940100505820086, guid: 734be108ff1bf434290880ab21b4d71a, type: 3}
-  laserPositionOffset: 0.25
 --- !u!1 &8818277269874780614
 GameObject:
   m_ObjectHideFlags: 0

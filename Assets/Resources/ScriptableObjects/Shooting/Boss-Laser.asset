@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b4435576d61f194b9d58534faa45b99, type: 3}
+  m_Name: Boss-Laser
+  m_EditorClassIdentifier: 
+  fireRate: 5
+  shotsCount: 4
+  angleBetweenShots: 20
+  randomAngle: 0
+  randomAnglesVariation:
+    minValue: 0
+    maxValue: 10
+  shootingMode: 1
+  bulletPrefab: {fileID: 1044005575941460875, guid: 4c0d3e68b33a03d4293e801a5f194665, type: 3}
+  burstCount: 5
+  burstDelay: 0.25
+  shotMovementSpeed: 6
+  damage: 5
+  scale: {x: 1.5, y: 1.5}
+  projectileSource: 1
+  shootingType: 0
+  sprite: {fileID: 0}
+  explosionPrefab: {fileID: 968786814282064980, guid: 97369cac83274fb44a9b7d84c4a3ba28, type: 3}
+  soundEffect: {fileID: 0}
+  isPiercing: 0
+  isBouncy: 0

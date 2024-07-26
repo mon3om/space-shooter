@@ -44,7 +44,8 @@ public class Shield : MonoBehaviour
 
     private void OnSupportShipDestroyed(EnemyAIBase enemyAIBase, int waveId)
     {
-        StartCoroutine(SpawnSupportShip());
+        if (gameObject.activeInHierarchy)
+            StartCoroutine(SpawnSupportShip());
     }
 
     private IEnumerator SpawnSupportShip()

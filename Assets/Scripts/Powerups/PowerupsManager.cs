@@ -2,20 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-/*
-TODOs:
-    - Add smoke when ship damaged
-    - Add some powerups
-        - explosive bullets
-    - Implement powerups manager for spawning powerups after defeating bosses
-    - Add special enemy for droping powerups
-    - Add 2 bosses
-    - Finish 2 impcomplete enemies
-        - Star shap shooter
-        - Laser enemy
-    
-*/
-
 public class PowerupsManager : MonoBehaviour
 {
     public static int SelectedPowerup = -1;
