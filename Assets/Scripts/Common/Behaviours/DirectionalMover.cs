@@ -13,7 +13,7 @@ public class DirectionalMover : MonoBehaviour
     [HideInInspector] public Transform targetTransform;
     [HideInInspector] public bool isMoving = false;
     //
-    private Vector3 targetPoint;
+    private Vector2 targetPoint;
     private Rigidbody2D rb;
     private Vector2 initPosition = Vector2.negativeInfinity;
 
@@ -25,8 +25,6 @@ public class DirectionalMover : MonoBehaviour
     private void FixedUpdate()
     {
         if (!isMoving) return;
-        if (initPosition.x == Mathf.NegativeInfinity)
-            initPosition = transform.position;
 
         if (physicsMovement)
             MoveUsedOnlyForPhysicsMovementTemporarly();
@@ -56,6 +54,7 @@ public class DirectionalMover : MonoBehaviour
         isMoving = true;
         targetPoint = point;
         movementType = MovementType.TowardsPoint;
+        initPosition = transform.position;
     }
 
     public void MoveInDirection(Vector3 direction)
@@ -63,6 +62,7 @@ public class DirectionalMover : MonoBehaviour
         isMoving = true;
         targetPoint = direction;
         movementType = MovementType.Directional;
+        initPosition = transform.position;
     }
 
     public void MoveTowardsTransform(Transform target)
@@ -70,6 +70,7 @@ public class DirectionalMover : MonoBehaviour
         isMoving = true;
         targetTransform = target;
         movementType = MovementType.TowardsTransform;
+        initPosition = transform.position;
     }
 
     public void StopMoving()
@@ -89,7 +90,7 @@ public class DirectionalMover : MonoBehaviour
                 destination = targetTransform.position;
                 break;
             case MovementType.Directional:
-                destination = (targetPoint - transform.position).normalized;
+                destination = ((Vector3)targetPoint - transform.position).normalized;
                 break;
             default:
                 throw new System.Exception("Unhandled");
@@ -105,22 +106,25 @@ public class DirectionalMover : MonoBehaviour
 
     private void MoveToPoint()
     {
-        var currentMove = movementSpeed * Time.fixedDeltaTime * (targetPoint - transform.position).normalized;
+        var currentMove = movementSpeed * Time.fixedDeltaTime * ((Vector3)targetPoint - transform.position).normalized;
         transform.position += currentMove;
 
+        if (IsDestinationReached(currentMove))
+        {
+            transform.position = targetPoint;
+            StopMoving();
+            onDestinationReached?.Invoke();
+        }
     }
 
     private void MoveInDirection()
     {
-        transform.position += movementSpeed * Time.fixedDeltaTime * targetPoint.normalized;
+        transform.position += movementSpeed * Time.fixedDeltaTime * (Vector3)targetPoint.normalized;
     }
 
-    private bool IsDestinationReached()
+    private bool IsDestinationReached(Vector2 currentMove)
     {
-        Vector3 initToCurrent = transform.position - (Vector3)initPosition;
-
-        bool goingBackwards = Vector3.Dot(currentMove, targetPoint - transform.position) < 0;
-
-        return goingBackwards || Vector2.Distance(targetPoint, transform.position) <= 0.05f;
+        bool goingBackwards = Vector3.Dot(currentMove, targetPoint - initPosition) < 0;
+        return goingBackwards || Vector2.Distance(targetPoint, transform.position) <= 0.1f;
     }
 }

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee04e7fe26a8244409c2179073f0647f, type: 3}
   m_Name: 10-Thruster Upgrade
   m_EditorClassIdentifier: 
-  id: 10
   sprite: {fileID: 21300000, guid: 842c0ad060ff22f48949993caadbef23, type: 3}
-  itemName: Thruster Upgrade
   description: Increase your ship's movement speed, enhancing maneuverability.
   available: 0
+  powerupCategory: 2
+  requiredPowerups: []
   animationClip: {fileID: 0}
   scriptTypeName: {fileID: 0}

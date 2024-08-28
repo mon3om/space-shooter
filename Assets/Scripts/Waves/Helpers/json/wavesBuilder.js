@@ -24,7 +24,7 @@ const ENTER_POSITIONS = {
 
 const EASY = [
   {
-    enemyPrefab: "Enemies/PowerupDropper",
+    enemyPrefab: "Enemies/LaserEnemy",
     count: { min: 1, max: 1, step: 1 },
     enterPositions: [ENTER_POSITIONS.ShouldEnterFromTop],
     shapes: [],
@@ -86,6 +86,13 @@ const EASY = [
 ];
 
 const MODERATE = [
+  {
+    enemyPrefab: "Enemies/LaserEnemy",
+    count: { min: 2, max: 2, step: 1 },
+    enterPositions: [ENTER_POSITIONS.ShouldEnterFromTop],
+    shapes: [],
+    maxEnemiesPerLine: -1,
+  },
   {
     enemyPrefab: "Enemies/PeacefulTrackerEnemy",
     count: { min: 4, max: 10, step: 2 },

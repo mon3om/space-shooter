@@ -53,7 +53,7 @@ public class Utils
 
         for (int i = 0; i < xSteps; i++)
             for (int j = 0; j < ySteps; j++)
-                screenPositions.Add(new(i * areaWidth - areaWidth * xSteps / 2f + areaWidth / 2, j * areaHeight - areaHeight / 2));
+                screenPositions.Add(new(i * areaWidth - areaWidth * xSteps / 2f + areaWidth / 2, ySteps - j * areaHeight - areaHeight / 2));
 
         return screenPositions;
     }

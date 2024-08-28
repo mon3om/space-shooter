@@ -23,12 +23,15 @@ public class WavesManager : MonoBehaviour
     private List<WaveEnemy> hardEnemies = new();
     private List<WaveEnemy> moderateEnemies = new();
 
+    [HideInInspector] public int levelIndex = 0;
+
     // Events
     public System.Action<WavesManager, int> onWaveCleared; // <this, waveId>
     public System.Action<int> onWaveSpawned; // <waveId>
     public System.Action onMiniBossDefeated;
 
-    public static List<WaveEnemy> WaveEnemies;
+    private List<WaveEnemy> waveEnemies;
+    private bool powerupDropperSpawned = false;
 
     private void Awake()
     {
@@ -37,19 +40,16 @@ public class WavesManager : MonoBehaviour
 
     private async void Start()
     {
-        if (!TryGetComponent(out JsonWavesManager jsonWavesManager))
-            jsonWavesManager = gameObject.AddComponent<JsonWavesManager>();
-
 #if UNITY_EDITOR
-        await jsonWavesManager.StartNode();
+        await JsonWavesManager.StartNode();
         await System.Threading.Tasks.Task.Delay(500);
 #endif
 
-        WaveEnemies = jsonWavesManager.GetWaves();
+        waveEnemies = JsonWavesManager.GetWaves();
 
-        easyEnemies = WaveEnemies.Where(el => el.enemyDifficulty == WaveEnemyDifficulty.Easy).ToList();
-        moderateEnemies = WaveEnemies.Where(el => el.enemyDifficulty == WaveEnemyDifficulty.Moderate).ToList();
-        hardEnemies = WaveEnemies.Where(el => el.enemyDifficulty == WaveEnemyDifficulty.Hard).ToList();
+        easyEnemies = waveEnemies.Where(el => el.enemyDifficulty == WaveEnemyDifficulty.Easy).ToList();
+        moderateEnemies = waveEnemies.Where(el => el.enemyDifficulty == WaveEnemyDifficulty.Moderate).ToList();
+        hardEnemies = waveEnemies.Where(el => el.enemyDifficulty == WaveEnemyDifficulty.Hard).ToList();
 
         enemyFactory = GetComponentInChildren<EnemyFactory>();
     }
@@ -57,8 +57,8 @@ public class WavesManager : MonoBehaviour
     private IEnumerator SpawnCoroutine()
     {
         var pickedEnemy = GetSingleEnemyDifficultyBased();
-
         Spawn(pickedEnemy);
+        // SpawnPowerupDropper(); // Conditions are checked withing the function
 
         if (waveId == Mathf.RoundToInt(levelSettings.wavesCount))
         {
@@ -68,6 +68,24 @@ public class WavesManager : MonoBehaviour
 
         yield return new WaitForSeconds(levelSettings.timeBetweenWaves);
         StartCoroutine(SpawnCoroutine());
+    }
+
+    [Space]
+    public GameObject temp_powerupDropper;
+    private void SpawnPowerupDropper()
+    {
+        if (powerupDropperSpawned) return;
+
+        if ((levelIndex - 2) % 3 == 0 && waveId > levelSettings.wavesCount / 2)
+        {
+            WaveEnemy waveEnemy = new WaveEnemy();
+            waveEnemy.enemyPrefab = temp_powerupDropper;
+            waveEnemy.waveEnteringPositions = new WaveEnteringPosition[] { WaveEnteringPosition.ShouldEnterFromTop };
+            waveEnemy.count = new IntRange(1, 1, 1);
+            Spawn(waveEnemy);
+            powerupDropperSpawned = true;
+
+        }
     }
 
     private void Spawn(WaveEnemy pickedEnemy)
@@ -118,7 +136,8 @@ public class WavesManager : MonoBehaviour
         var pickedEnemies = GetEnemiesDifficultyBased();
         var picked = pickedEnemies[Random.Range(0, pickedEnemies.Count)];
 
-        if (lastSpawnedEnemies.Contains(picked.enemyPrefab.name) && lastSpawnedEnemies.Count > 1)
+        if ((lastSpawnedEnemies.Contains(picked.enemyPrefab.name) && lastSpawnedEnemies.Count > 1) ||
+        (lastSpawnedEnemies.Count > 0 && lastSpawnedEnemies[^1] == picked.enemyPrefab.name))
             return GetSingleEnemyDifficultyBased();
         else
             lastSpawnedEnemies.Add(picked.enemyPrefab.name);
@@ -153,6 +172,7 @@ public class WavesManager : MonoBehaviour
 
     public void StartGeneratingWaves(LevelSettings levelSettings)
     {
+        powerupDropperSpawned = false;
         StopAllCoroutines();
         this.levelSettings = levelSettings;
         waveId = 0;
@@ -161,9 +181,10 @@ public class WavesManager : MonoBehaviour
 
     public void ClearAllEnemies()
     {
-        foreach (var item in spawnedEnemies)
+        for (int i = 0; i < spawnedEnemies.Count; i++)
         {
-            item.DestroyEnemy(false);
+            spawnedEnemies.Remove(spawnedEnemies[i]);
+            spawnedEnemies[i].DestroyEnemy(false);
         }
     }
 

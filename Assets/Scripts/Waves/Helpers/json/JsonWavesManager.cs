@@ -1,16 +1,18 @@
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using UnityEngine;
+
 #if UNITY_EDITOR
 using System.Diagnostics;
 #endif
-using System.IO;
-using System.Threading.Tasks;
-using UnityEngine;
 
 namespace JsonWaves
 {
     public class JsonWavesManager : MonoBehaviour
     {
-        public async Task StartNode()
+        private static List<WaveEnemy> WaveEnemies = new();
+        public static async Task StartNode()
         {
 #if UNITY_EDITOR
             string nodePath = @"C:\Program Files\nodejs\node.exe";
@@ -42,8 +44,10 @@ namespace JsonWaves
 #endif
         }
 
-        public List<WaveEnemy> GetWaves()
+        public static List<WaveEnemy> GetWaves()
         {
+            if (WaveEnemies.Count > 0) return WaveEnemies;
+
             List<WaveEnemy> waveEnemies = new();
 
             string json = Resources.Load<TextAsset>("waves").text;
@@ -77,10 +81,20 @@ namespace JsonWaves
                 waveEnemies.Add(waveEnemy);
             }
 
-
+            UnityEngine.Debug.Log("ENEMIES COUNT = " + waveEnemies.Count);
+            WaveEnemies = waveEnemies;
             return waveEnemies;
         }
 
+        public static WaveEnemy GetEnemyByName(string name)
+        {
+            var enemies = GetWaves();
+            var temp = "";
+            enemies.ForEach(el => temp += el.enemyPrefab.name + " - ");
+            UnityEngine.Debug.Log(temp);
+            var enemy = enemies.First(x => x.enemyPrefab.name == name) ?? throw new System.Exception("Enemy not found. Enemy's name = " + name);
+            return enemy;
+        }
     }
 
     [System.Serializable]

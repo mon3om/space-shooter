@@ -66,6 +66,7 @@ public class PeacefulTrackerEnemy : EnemyAIBase
                 Debug.LogError("PlayerDamager not found");
             }
             InstantiateDeathAnimation();
+            Destroy(gameObject);
         }
     }
 

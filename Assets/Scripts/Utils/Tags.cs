@@ -11,4 +11,5 @@ public class Tags
     public static readonly string UI_GAMEOVER = "UI_GAMEOVER";
     public static readonly string BACKGROUND_MUSIC = "BACKGROUND_MUSIC";
     public static readonly string BACKGROUND_PARTICLE = "BACKGROUND_MUSIC";
+    public static readonly string POWERUP = "POWERUP";
 }

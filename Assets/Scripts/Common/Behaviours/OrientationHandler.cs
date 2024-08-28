@@ -16,6 +16,10 @@ public class OrientationHandler : MonoBehaviour
     private Vector2 targetPoint;
     private float previousRotationSpeed;
 
+    private float initialRotation;
+
+    public System.Action OnRotationReached;
+
     private void Awake()
     {
         previousRotationSpeed = rotationSpeed;
@@ -40,7 +44,7 @@ public class OrientationHandler : MonoBehaviour
             }
             else
             {
-                LookAtTransform();
+                LookAtTransformOrPoint();
             }
         }
     }
@@ -63,6 +67,8 @@ public class OrientationHandler : MonoBehaviour
         targetPoint = point;
         isRotating = true;
         isTargetTransform = false;
+
+        initialRotation = transform.rotation.z;
     }
 
     public void StartRotatingInAngle(Vector3 euleur, float speed = -1, bool temporaryNewSpeed = true)
@@ -79,25 +85,29 @@ public class OrientationHandler : MonoBehaviour
         isRotating = false;
     }
 
-    private void LookAtTransform()
+    private void LookAtTransformOrPoint()
     {
-        Vector3 targ;
-        if (isTargetTransform)
+        Vector3 target;
+        if (isTargetTransform) // Look at transform
         {
             if (!targetTransform)
                 return;
-            targ = targetTransform.position;
+            target = targetTransform.position;
         }
-        else
-            targ = targetPoint;
+        else // Rotate towards point
+        {
+            target = targetPoint;
 
-        targ.z = 0f;
+            // Check if rotation is reached here
+        }
+
+        target.z = 0f;
 
         Vector3 objectPos = transform.position;
-        targ.x = targ.x - objectPos.x;
-        targ.y = targ.y - objectPos.y;
+        target.x -= objectPos.x;
+        target.y -= objectPos.y;
 
-        float angle = Mathf.Atan2(targ.y, targ.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(target.y, target.x) * Mathf.Rad2Deg;
         Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, angle + angleOffset));
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed * Time.fixedDeltaTime);
     }
@@ -105,14 +115,14 @@ public class OrientationHandler : MonoBehaviour
     public void LookAtPointImmediate(Vector2 point)
     {
         isRotatingInAngle = false;
-        Vector3 targ = point;
-        targ.z = 0f;
+        Vector3 target = point;
+        target.z = 0f;
 
         Vector3 objectPos = transform.position;
-        targ.x = targ.x - objectPos.x;
-        targ.y = targ.y - objectPos.y;
+        target.x -= objectPos.x;
+        target.y -= objectPos.y;
 
-        float angle = Mathf.Atan2(targ.y, targ.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(target.y, target.x) * Mathf.Rad2Deg;
         Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, angle + angleOffset));
         transform.rotation = rotation;
     }
@@ -132,5 +142,10 @@ public class OrientationHandler : MonoBehaviour
         {
             rotationSpeed = previousRotationSpeed;
         }
+    }
+
+    private bool HasReachedRotation()
+    {
+        return default;
     }
 }

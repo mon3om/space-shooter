@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee04e7fe26a8244409c2179073f0647f, type: 3}
   m_Name: 9-Power Core Upgrade
   m_EditorClassIdentifier: 
-  id: 9
   sprite: {fileID: 21300000, guid: 842c0ad060ff22f48949993caadbef23, type: 3}
-  itemName: Power Core Upgrade
   description: Boost overall damage output of all your weapons.
   available: 0
+  powerupCategory: 2
+  requiredPowerups: []
   animationClip: {fileID: 0}
   scriptTypeName: {fileID: 0}

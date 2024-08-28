@@ -1,13 +1,13 @@
 
 public class PowerupBouncy : PowerupBase
 {
-    protected override void CustomActivate()
+    protected override void CustomActivate(PowerupScriptableObject powerupScriptableObject)
     {
-        playerInstance.GetComponent<ShootingBase>().shootingSettings.isBouncy = true;
+        PowerupsManager.bounceCount++;
     }
 
     protected override void CustomDeactivate()
     {
-        playerInstance.GetComponent<ShootingBase>().shootingSettings.isBouncy = false;
+        PowerupsManager.bounceCount = 0;
     }
 }

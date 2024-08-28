@@ -16,9 +16,9 @@ public class CameraUtils : MonoBehaviour
         TopRight = Vector3.up * CameraRect.yMax - Vector3.up + (Vector3.right * CameraRect.xMax - Vector3.right);
         TopLeft = Vector3.up * CameraRect.yMax - Vector3.up + (Vector3.left * CameraRect.xMax + Vector3.right);
         TopCenter = Vector3.up * CameraRect.yMax - Vector3.up;
-        BottomRight = Vector3.down * CameraRect.yMax - Vector3.down + (Vector3.right * CameraRect.xMax - Vector3.right);
-        BottomLeft = Vector3.down * CameraRect.yMax - Vector3.down + (Vector3.left * CameraRect.xMax + Vector3.right);
-        BottomCenter = Vector3.down * CameraRect.yMax - Vector3.down;
+        BottomRight = Vector3.down * CameraRect.yMax + Vector3.up + (Vector3.right * CameraRect.xMax - Vector3.right);
+        BottomLeft = Vector3.down * CameraRect.yMax + Vector3.up + (Vector3.left * CameraRect.xMax + Vector3.right);
+        BottomCenter = Vector3.down * CameraRect.yMax + Vector3.up;
         MiddleRight = Vector3.right * CameraRect.xMax - Vector3.right;
         MiddleLeft = Vector3.left * CameraRect.xMax + Vector3.right;
         MiddleCenter = Vector3.zero;

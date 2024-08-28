@@ -13,6 +13,7 @@ public class EnemyAIBase : MonoBehaviour
     [HideInInspector] public bool isNowStatic = false;
     [HideInInspector] public List<EnemyAIBase> waveSiblings;
     public EnemyIdentifier enemyIdentifier;
+    public float damage;
 
     [Header("Death animation")]
     public GameObject deathAnimation;

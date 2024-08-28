@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PowerupHomingMissile : PowerupBase
 {
-    protected override void CustomActivate()
+    protected override void CustomActivate(PowerupScriptableObject powerupScriptableObject)
     {
         var missiles = Resources.Load<ShootingSettings>("ScriptableObjects/Shooting/Player-HomingMissile");
         playerInstance.GetComponent<ShootingBase>().shootingSettings = missiles;

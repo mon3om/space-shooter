@@ -13,6 +13,7 @@ TagManager:
   - Enemy
   - BACKGROUND_MUSIC
   - UI_GAMEOVER
+  - POWERUP
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - Particles
   - 
   - 
-  - 
+  - PP
   - 
   - 
   - 

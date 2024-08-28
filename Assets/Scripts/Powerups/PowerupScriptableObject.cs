@@ -1,18 +1,21 @@
 using System;
 using UnityEngine;
 
-[ExecuteInEditMode]
+public enum PowerupCategory { None, Weapon, Stackable }
+
 [CreateAssetMenu(fileName = "Powerup", menuName = "Powerup")]
 public class PowerupScriptableObject : ScriptableObject
 {
-    public int id;
+    public int id { get { return GetId(); } }
     public Sprite sprite;
-    public string itemName;
+    public string itemName { get { return GetName(); } }
     public string description;
     public bool available = false;
+    public PowerupCategory powerupCategory;
+    public PowerupScriptableObject[] requiredPowerups; // At least one of these powerups should be equipped in order to instantiate this powerup
 
     [Space]
-    [Header("Optional aimation")]
+    [Header("Optional animation")]
     public AnimationClip animationClip;
 
     [Space]
@@ -30,12 +33,28 @@ public class PowerupScriptableObject : ScriptableObject
                 }
             }
         }
-        return null;
+        throw new Exception("Script couldn't be fetched");
     }
 
-    private void OnValidate()
+    private string GetName()
     {
-        if (available && scriptTypeName == null)
-            Debug.LogError(name + " doesn't have a reference for the scriptTypeName!");
+        return name.Substring(name.IndexOf("-") + 1).Trim();
     }
+
+    private int GetId()
+    {
+        int _id;
+        try
+        {
+            _id = int.Parse(name.Substring(0, name.IndexOf("-")).Trim());
+            return _id;
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError(e.Message);
+            return -1;
+        }
+    }
+
+    public Action OnPowerupActivated;
 }

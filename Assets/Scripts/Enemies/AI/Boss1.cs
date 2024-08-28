@@ -11,13 +11,14 @@ public class Boss1 : EnemyAIBase
     [Space]
     public float shootingTime;
     public float minesXCount, minesYCount;
-    public float minesRandomVariation;
+    public float minYPos;
     public float minesSpawnDelay;
+    public float minesRotationSpeed;
     public GameObject mineAlert;
     public GameObject minePrefab;
 
     private bool isShooting = false;
-    private float minesRotationSpeed;
+
     private List<GameObject> spawnedMines = new();
 
     private void Start()
@@ -28,7 +29,6 @@ public class Boss1 : EnemyAIBase
         shootingBase.shootingSettings = shootingSettings;
         orientationHandler.LookAtPointImmediate(enteringTargetPosition);
         directionalMover.MoveTowardsPoint(enteringTargetPosition);
-        minesRotationSpeed = orientationHandler.rotationSpeed * 2;
 
         directionalMover.onDestinationReached.AddListener(OnDestinationReached);
         onEnemyDestroy += OnEnemyDestroy;
@@ -75,29 +75,30 @@ public class Boss1 : EnemyAIBase
 
     private IEnumerator MinesCoroutine()
     {
-        var locations = Utils.DivideScreen(minesXCount, minesYCount, 4);
+        var locations = Utils.DivideScreen(minesXCount, minesYCount, minYPos);
 
         foreach (var item in locations)
         {
-            orientationHandler.StartRotatingTowardsPoint(item, minesRotationSpeed);
-            // Instantiate(mineAlert, item, Quaternion.identity);
-            yield return new WaitForSeconds(minesSpawnDelay);
-            ShootMine(item);
+            bool minePositionOccupied = false;
+            foreach (var mine in spawnedMines)
+            {
+                if (mine && (Vector2)mine.transform.position == item)
+                {
+                    minePositionOccupied = true;
+                    break;
+                }
+            }
+            if (!minePositionOccupied)
+            {
+                orientationHandler.StartRotatingTowardsPoint(item, minesRotationSpeed);
+                yield return new WaitForSeconds(minesSpawnDelay);
+                ShootMine(item);
+            }
         }
 
         yield return new WaitForSeconds(2);
         OnDestinationReached();
     }
-
-    // private List<Vector2> GetMinesLocations()
-    // {
-    //     List<Vector2> locations = new();
-    //     for (float x = CameraUtils.CameraRect.xMin + 1; x < CameraUtils.CameraRect.xMax - 1; x += CameraUtils.CameraRect.xMax * 2 / minesXCount)
-    //         for (float y = CameraUtils.CameraRect.yMin + 1; y < CameraUtils.CameraRect.yMax - 1; y += CameraUtils.CameraRect.yMax * 2 / minesYCount)
-    //             locations.Add(new Vector2(x + Random.Range(-minesRandomVariation, minesRandomVariation), y + Random.Range(-minesRandomVariation, minesRandomVariation)));
-
-    //     return locations;
-    // }
 
     private void ShootMine(Vector2 location)
     {

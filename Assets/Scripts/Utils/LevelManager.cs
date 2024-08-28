@@ -9,19 +9,30 @@ public class LevelManager : MonoBehaviour
     public List<LevelSettings> levels;
 
     private LevelSettings currentLevel;
-    private int currentLevelIndex = 0;
+    private int currentLevelIndex = 1;
 
     private WavesManager wavesManager;
 
+    public static LevelManager Instance;
+
+    public bool devMode;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    public float gameSpeed = 1;
 
     IEnumerator Start()
     {
+        Time.timeScale = gameSpeed;
         yield return new WaitForEndOfFrame();
         wavesManager = GetComponent<WavesManager>();
         wavesManager.onWaveCleared += OnWaveCleared;
         wavesManager.onWaveSpawned += OnWaveSpawned;
 
-        currentLevel = levels[currentLevelIndex];
+        currentLevel = levels[0];
         UpdateUI();
         StartCoroutine(StartLevelCoroutine());
     }
@@ -57,8 +68,9 @@ public class LevelManager : MonoBehaviour
         // Last wave cleared successfully
         if (wavesManager.waveId == Mathf.RoundToInt(currentLevel.wavesCount) && wavesManager.spawnedEnemies.Count == 0)
         {
-            // Check if there should be a mini boss
-            if (currentLevel.bossSettings.bossPrefab != null)
+            // Check if there should be a boss
+            // if (currentLevelIndex > 0)
+            if (currentLevelIndex % 3 == 0)
             {
                 StartCoroutine(SpawnBossCoroutine());
             }
@@ -69,30 +81,30 @@ public class LevelManager : MonoBehaviour
         }
 
         // Means a boss was generated and is successfully defeated
-        if (waveId == Mathf.RoundToInt(currentLevel.wavesCount))
-        {
-            LoadNextLevel();
+        // if (waveId == Mathf.RoundToInt(currentLevel.wavesCount))
+        // {
 
-            var bgMusic = GameObject.FindWithTag(Tags.BACKGROUND_MUSIC);
-            bgMusic.GetComponent<AudioSource>().Play();
-            Destroy(GameObject.Find("temp_audio_source"));
-        }
+        // }
 
         UpdateUI();
+    }
+
+    public void OnBossDefeated()
+    {
+        LoadNextLevel();
+
+        var bgMusic = GameObject.FindWithTag(Tags.BACKGROUND_MUSIC);
+        bgMusic.GetComponent<AudioSource>().Play();
+        Destroy(GameObject.Find("temp_audio_source"));
     }
 
     private void LoadNextLevel()
     {
         currentLevelIndex++;
-        if (currentLevelIndex >= levels.Count)
-        {
-            bossAlertText.text = "GAME BEATEN";
-            Debug.Log("Congrats, game beaten");
-            return;
-        }
-        currentLevel = IncreaseDifficulty(levels[currentLevelIndex], currentLevel);
-
+        wavesManager.levelIndex = currentLevelIndex;
+        currentLevel = IncreaseDifficulty(currentLevel, currentLevel);
         StartCoroutine(StartLevelCoroutine());
+        Debug.Log(currentLevelIndex);
     }
 
     private LevelSettings IncreaseDifficulty(LevelSettings newLevel, LevelSettings previousLevel)
@@ -109,14 +121,21 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator StartLevelCoroutine()
     {
-        if (currentLevelIndex > 0)
+        if (devMode)
+        {
+            yield return new WaitForSeconds(1f);
+            wavesManager.StartGeneratingWaves(currentLevel);
+
+            yield break;
+        }
+        if (currentLevelIndex > 1)
         {
             bossAlertText.text = "LEVEL CLEARED";
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(3);
         }
         UpdateUI();
-        bossAlertText.text = "LEVEL " + (currentLevelIndex + 1);
-        yield return new WaitForSeconds(2);
+        bossAlertText.text = "LEVEL " + currentLevelIndex;
+        yield return new WaitForSeconds(1.5f);
         bossAlertText.text = "START";
         yield return new WaitForSeconds(1f);
         bossAlertText.text = "";
@@ -125,33 +144,35 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator SpawnBossCoroutine()
     {
+        yield return new WaitForSeconds(0.1f);
         UpdateUI();
+        var bossSettings = levels[Random.Range(1, levels.Count)].bossSettings;
+
         bossAlertText.text = "INCOMING BOSS";
         var bgMusic = GameObject.FindWithTag(Tags.BACKGROUND_MUSIC);
         bgMusic.GetComponent<AudioSource>().Pause();
-        AudioClip prevClip = bgMusic.GetComponent<AudioSource>().clip;
+        var previousClip = bgMusic.GetComponent<AudioSource>().clip;
 
         var backgroundAudioSouce = Instantiate(bgMusic).GetComponent<AudioSource>();
+        backgroundAudioSouce.Stop();
         backgroundAudioSouce.name = "temp_audio_source";
         backgroundAudioSouce.volume = 1;
-        if (currentLevel.bossSettings.alertClip)
-        {
-            backgroundAudioSouce.clip = currentLevel.bossSettings.alertClip;
-            backgroundAudioSouce.Play();
-            yield return new WaitForSeconds(10);
-        }
+
+        backgroundAudioSouce.clip = bossSettings.alertClip;
+        backgroundAudioSouce.Play();
+        yield return new WaitForSeconds(6);
 
         bossAlertText.text = "";
-        wavesManager.SpawnBoss(currentLevel.bossSettings.bossPrefab);
+        wavesManager.SpawnBoss(bossSettings.bossPrefab);
 
-        if (currentLevel.bossSettings.bossClip)
+        if (bossSettings.bossClip)
         {
-            backgroundAudioSouce.clip = currentLevel.bossSettings.bossClip;
+            backgroundAudioSouce.clip = bossSettings.bossClip;
             backgroundAudioSouce.Play();
         }
         else
         {
-            backgroundAudioSouce.clip = prevClip;
+            backgroundAudioSouce.clip = previousClip;
             backgroundAudioSouce.Play();
         }
     }

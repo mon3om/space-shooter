@@ -23,6 +23,7 @@ public class PlayerAttack : MonoBehaviour
         recoilHandler = GetComponent<RecoilHandler>();
         soundManager = GetComponent<SoundManager>();
         shootingPlugin = gameObject.AddComponent<ShootingBulletsPlayer>();
+        shootingSettings.shotsCount = PowerupsManager.shotsCount;
         shootingPlugin.shootingSettings = shootingSettings;
     }
 

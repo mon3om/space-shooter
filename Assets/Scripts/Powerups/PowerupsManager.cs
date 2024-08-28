@@ -1,33 +1,35 @@
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PowerupsManager : MonoBehaviour
 {
     public static int SelectedPowerup = -1;
+    public static List<PowerupScriptableObject> equippedPowerups = new();
+    public PowerupScriptableObject defaultBulletPowerup;
 
     public Button startGame;
+
+    public static int piercingCount = 0;
+    public static int bounceCount = 0;
+    public static int shotsCount = 1;
+    public static int playerHealth = 5;
+    public static ShootingSettings playerShootingSettings;
+
+    private void Start()
+    {
+        if (equippedPowerups.Count == 0 && defaultBulletPowerup != null)
+        {
+            equippedPowerups = new()
+            {
+                defaultBulletPowerup
+            };
+        }
+    }
 
     private void Awake()
     {
         Application.targetFrameRate = 60;
-    }
-
-    private IEnumerator Start()
-    {
-        yield return new WaitForSeconds(.1f);
-
-        if (!TryGetComponent(out PowerupHomingMissile component)) yield break;
-
-        GetComponent<PowerupHomingMissile>().Deactivate();
-        GetComponent<PowerupShield>().Deactivate();
-        GetComponent<PowerupPiercing>().Deactivate();
-        GetComponent<PowerupPlusOne>().Deactivate();
-
-        if (SelectedPowerup == 1) GetComponent<PowerupHomingMissile>().Activate();
-        if (SelectedPowerup == 2) GetComponent<PowerupShield>().Activate();
-        if (SelectedPowerup == 3) GetComponent<PowerupPiercing>().Activate();
-        if (SelectedPowerup == 4) GetComponent<PowerupPlusOne>().Activate();
     }
 
     public static void SelectPowerup(int id)

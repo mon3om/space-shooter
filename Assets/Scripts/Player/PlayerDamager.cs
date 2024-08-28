@@ -5,27 +5,28 @@ using UnityEngine;
 public class PlayerDamager : MonoBehaviour
 {
     public float health = 20;
-    public Sprite[] heathStatesSprites;
+    public Sprite[] healthStatesSprites;
     [Space]
     [Header("Invincibility")]
     public float invicibleTime = 2.5f;
     public SpriteRenderer[] playerRenderers;
     public float delayRendererBlinking;
+    public ParticleSystem smokeParticles;
 
     private float invincibleTimeCounter = 0;
     private bool isInvincible = false;
 
-    private float initHealth;
+    public float InitHealth { private set; get; }
 
     private GameObject shieldGO;
     private ShieldState shieldState;
     private SoundPlayer soundPlayer;
 
-    public System.Action<DamageData> onDamageTaken; // (damage, currentHealth, initialHealth) 
+    public System.Action<float, float> onHealthModified; // (currentHealth, initialHealth) 
 
     private void Start()
     {
-        initHealth = health;
+        InitHealth = health;
 
         soundPlayer = GetComponent<SoundPlayer>();
         playerRenderers = transform.GetComponentsInChildren<SpriteRenderer>();
@@ -45,6 +46,9 @@ public class PlayerDamager : MonoBehaviour
 
             shieldState = state;
         };
+
+        var emission = smokeParticles.emission;
+        emission.rateOverTime = 0;
     }
 
     public void TakeDamage(float damage)
@@ -59,10 +63,10 @@ public class PlayerDamager : MonoBehaviour
 
         soundPlayer.PlayStandalone("player-damage");
 
-        health -= damage;
+        health -= 1;
 
         EnableInvicibility();
-        onDamageTaken?.Invoke(new(damage, health, initHealth));
+        onHealthModified?.Invoke(health, InitHealth);
         CameraShaker.ShakeGlitching(.2f, .2f);
         UpdateDamageStateSprite();
 
@@ -118,15 +122,30 @@ public class PlayerDamager : MonoBehaviour
 
     private void UpdateDamageStateSprite()
     {
-        float healthQuarter = initHealth / 4;
+        float healthQuarter = InitHealth / 4;
         if (health >= 3 * healthQuarter)
-            transform.Find("Base").GetComponent<SpriteRenderer>().sprite = heathStatesSprites[0];
+        {
+            transform.Find("Base").GetComponent<SpriteRenderer>().sprite = healthStatesSprites[0];
+
+        }
         else if (health >= 2 * healthQuarter)
-            transform.Find("Base").GetComponent<SpriteRenderer>().sprite = heathStatesSprites[1];
+        {
+            transform.Find("Base").GetComponent<SpriteRenderer>().sprite = healthStatesSprites[1];
+            var emission = smokeParticles.emission;
+            emission.rateOverTime = 5;
+        }
         else if (health >= healthQuarter)
-            transform.Find("Base").GetComponent<SpriteRenderer>().sprite = heathStatesSprites[2];
+        {
+            transform.Find("Base").GetComponent<SpriteRenderer>().sprite = healthStatesSprites[2];
+            var emission = smokeParticles.emission;
+            emission.rateOverTime = 50;
+        }
         else
-            transform.Find("Base").GetComponent<SpriteRenderer>().sprite = heathStatesSprites[3];
+        {
+            transform.Find("Base").GetComponent<SpriteRenderer>().sprite = healthStatesSprites[3];
+            var emission = smokeParticles.emission;
+            emission.rateOverTime = 40;
+        }
     }
 
     private IEnumerator ShieldActivationCoroutine()
@@ -139,5 +158,11 @@ public class PlayerDamager : MonoBehaviour
         {
             shieldGO.SetActive(true);
         }
+    }
+
+    public void ModifyInitHealth(int amountToBeAdded)
+    {
+        InitHealth += amountToBeAdded;
+
     }
 }

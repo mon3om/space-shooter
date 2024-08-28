@@ -276,6 +276,7 @@ GameObject:
   - component: {fileID: 6015411936202303977}
   - component: {fileID: 5193654701789449973}
   - component: {fileID: 2992908800955232907}
+  - component: {fileID: -7216295436385254938}
   m_Layer: 0
   m_Name: Boss2
   m_TagString: Untagged
@@ -364,7 +365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b9cc72a862fedb478003f5c6e60e196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 300
 --- !u!114 &7426066665243910981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,7 +413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b9cc72a862fedb478003f5c6e60e196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 500
 --- !u!114 &5193654701789449973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,11 +437,14 @@ MonoBehaviour:
     waveId: 0
     initPosition: {x: 0, y: 0}
     targetPosition: {x: 0, y: 0}
+  damage: 0
   deathAnimation: {fileID: 0}
   deathSound: {fileID: 0}
   shootingInterval: 40
-  laserInterval: 25
-  laserPrefab: {fileID: 1382375913100438312, guid: 8199946173443a6419fcd7b70185d933, type: 3}
+  laserInterval: 20
+  doubleCanons: {fileID: 11400000, guid: 59c40c1253ac7434da7fe5cb1eb368f0, type: 2}
+  singleCanon: {fileID: 11400000, guid: 26567b1e3b67e7840aae6928ba0efea5, type: 2}
+  laserPrefab: {fileID: 2679579842390403883, guid: 204c6dab78609a04788860ff9fa3be0f, type: 3}
   laserDistanceFromEdges: 0.2
   movementInterval: 6
 --- !u!61 &2992908800955232907
@@ -488,3 +492,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.7749677, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-7216295436385254938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8896441055328785489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a7de67984935dd46863c104a584cfde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerupPrefab: {fileID: 7583849551406975184, guid: f5726a311eefe954890189f95796be01, type: 3}
+  powerupsCount: 4

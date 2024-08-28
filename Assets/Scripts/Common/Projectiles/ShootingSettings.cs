@@ -38,9 +38,6 @@ public class ShootingSettings : ScriptableObject
             else return angleBetweenShots;
         }
     }
-
-    [HideInInspector] public bool isPiercing = false;
-    [HideInInspector] public bool isBouncy = false;
 }
 
 public enum ProjectileSource { Player, Enemy }

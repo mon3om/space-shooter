@@ -5,7 +5,7 @@ public class EnemyDamager : MonoBehaviour
     public float health = 10;
     public System.Action<DamageData> onDamageTaken; // (damage, currentHealth, initialHealth)
 
-    private float initialHealth;
+    public float initialHealth { get; private set; }
     private EnemyAIBase enemyAIBase;
 
     [Space]
@@ -29,12 +29,14 @@ public class EnemyDamager : MonoBehaviour
 
         if (health <= 0)
         {
-            enemyAIBase.InstantiateDeathAnimation();
-            enemyAIBase.DestroyEnemy();
-
             if (enemyAIBase.enemyIdentifier.waveEnemyDifficulty == WaveEnemyDifficulty.Easy) UIScoreManager.UpdateScore(10);
             else if (enemyAIBase.enemyIdentifier.waveEnemyDifficulty == WaveEnemyDifficulty.Moderate) UIScoreManager.UpdateScore(15);
             else if (enemyAIBase.enemyIdentifier.waveEnemyDifficulty == WaveEnemyDifficulty.Hard) UIScoreManager.UpdateScore(50);
+
+            enemyAIBase.InstantiateDeathAnimation();
+            enemyAIBase.DestroyEnemy();
+
+            Destroy(gameObject);
         }
     }
 }

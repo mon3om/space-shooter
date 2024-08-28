@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PowerupBullets : PowerupBase
 {
-    protected override void CustomActivate()
+    protected override void CustomActivate(PowerupScriptableObject powerupScriptableObject)
     {
         var bullets = Resources.Load<ShootingSettings>("ScriptableObjects/Shooting/Player");
         playerInstance.GetComponent<ShootingBase>().shootingSettings = bullets;

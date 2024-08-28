@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee04e7fe26a8244409c2179073f0647f, type: 3}
   m_Name: 7-HealthRegenration
   m_EditorClassIdentifier: 
-  id: 7
   sprite: {fileID: 21300000, guid: e2a2307bd90c3cf4f9a11544f8500555, type: 3}
-  itemName: Health Boost
-  description: Instantly restore 10% of your health.
+  description: Continuously regenerate a small amount of health over time.
   available: 0
+  powerupCategory: 2
+  requiredPowerups: []
   animationClip: {fileID: 0}
   scriptTypeName: {fileID: 0}

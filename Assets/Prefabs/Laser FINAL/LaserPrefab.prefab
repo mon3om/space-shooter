@@ -165,8 +165,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 960bfcbe945804f4785fd3680e94eb2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emissionSpeed: 5
-  start: {x: 0, y: 0}
-  end: {x: 0, y: 0}
+  collisionEffect: {fileID: 6759940100505820086, guid: 734be108ff1bf434290880ab21b4d71a, type: 3}
+  emissionSpeed: 10
+  damage: 1
+  StartPoint: {x: 0, y: 0}
+  EndPoint: {x: 0, y: 0}
   source: {fileID: 0}
   isEmitting: 1

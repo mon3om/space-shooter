@@ -1,19 +1,18 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIPlayerHealth : MonoBehaviour
 {
-    [SerializeField] private Image mainHealthSprite;
-    [SerializeField] private Image tempHealthSprite;
-
-    private GameObject player;
+    [SerializeField] private Image healthImage;
+    [SerializeField] private Color activeColor;
+    [SerializeField] private Color disabledColor;
 
     [Space]
-    [SerializeField] private float tempBarReductionSpeed = 0.1f;
-    [SerializeField] private float tempBarReductionDelay = 1.5f;
-    private bool willReduceTempBar = false;
+    [SerializeField] private float spacing;
+
+    private GameObject player;
+    private List<Image> healthImages = new();
 
     void Start()
     {
@@ -22,7 +21,7 @@ public class UIPlayerHealth : MonoBehaviour
         {
             if (player.TryGetComponent(out PlayerDamager playerDamager))
             {
-                playerDamager.onDamageTaken += OnDamageTaken;
+                playerDamager.onHealthModified += OnHealthModified;
             }
             else
             {
@@ -33,31 +32,28 @@ public class UIPlayerHealth : MonoBehaviour
         {
             throw new System.Exception("Error fetching player");
         }
+
+        healthImage.color = activeColor;
+        healthImages.Add(healthImage);
+        InstantiateHealthImages();
     }
 
-    private void Update()
+    private void InstantiateHealthImages()
     {
-        if (willReduceTempBar)
+        for (int i = 0; i < PowerupsManager.playerHealth - 1; i++)
         {
-            if (mainHealthSprite.fillAmount * 100 / tempHealthSprite.fillAmount < 99)
-                tempHealthSprite.fillAmount = Mathf.Lerp(tempHealthSprite.fillAmount, mainHealthSprite.fillAmount, tempBarReductionSpeed * Time.deltaTime);
-            else
-            {
-                willReduceTempBar = false;
-                tempHealthSprite.fillAmount = mainHealthSprite.fillAmount;
-            }
+            var go = Instantiate(healthImage.gameObject, healthImage.transform.parent);
+            go.TryGetComponent(out RectTransform rectTransform);
+            rectTransform.anchoredPosition = healthImage.GetComponent<RectTransform>().anchoredPosition + Vector2.right * (rectTransform.rect.size.x + spacing) * (i + 1);
+            go.TryGetComponent<Image>(out var image);
+            image.color = activeColor;
+            healthImages.Add(image);
         }
     }
 
-    private void OnDamageTaken(DamageData damageData)
+    private void OnHealthModified(float current, float initial)
     {
-        mainHealthSprite.fillAmount = damageData.currentHealth / damageData.initialHealth;
-        StartCoroutine(SyncTempBarCoroutine());
-    }
-
-    private IEnumerator SyncTempBarCoroutine()
-    {
-        yield return new WaitForSeconds(tempBarReductionDelay);
-        willReduceTempBar = true;
+        for (int i = 0; i < healthImages.Count; i++)
+            healthImages[i].color = i < current ? activeColor : disabledColor;
     }
 }

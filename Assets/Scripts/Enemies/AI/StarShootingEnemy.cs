@@ -20,7 +20,7 @@ public class StarShootingEnemy : EnemyAIBase
         base.Start();
         shootingBase = GetComponent<ShootingBase>();
         directionalMover.onDestinationReached.AddListener(OnDestinationReached);
-        screenPositions = Utils.DivideScreen(xSteps, ySteps);
+        screenPositions = Utils.DivideScreen(xSteps, ySteps, 5);
         MoveToNextPoint();
     }
 

@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 2747690628134850419, guid: b670ab75dde984907b8570040daa08c5, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.39411926, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bf13a11cf9537f458bc56e35d8e8516, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
+  movementSpeed: 3
   physicsMovement: 0
   movementType: 0
   onDestinationReached:
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angleOffset: -90
-  rotationSpeed: 5
+  rotationSpeed: 10
   lookAtPlayer: 0
 --- !u!114 &2746471267151808702
 MonoBehaviour:
@@ -163,6 +163,7 @@ MonoBehaviour:
     waveId: 0
     initPosition: {x: 0, y: 0}
     targetPosition: {x: 0, y: 0}
+  damage: 0
   deathAnimation: {fileID: 0}
   deathSound: {fileID: 0}
   cycleDuration: 6
@@ -183,7 +184,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7851ce4b53b6c4c46b15724e6121278c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootingType: 0
   shootingSettings: {fileID: 11400000, guid: 718c49bdc1aa6cf42b42dad060b3aa77, type: 2}
 --- !u!61 &8046948327749433278
 BoxCollider2D:
@@ -331,7 +331,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.39607844, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

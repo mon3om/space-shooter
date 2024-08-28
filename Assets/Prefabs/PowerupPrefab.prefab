@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1.6}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 3, y: 1.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7161715160421102232
@@ -61,7 +61,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 50
+  m_SortingOrder: 8
   m_TargetDisplay: 0
 --- !u!114 &2167633515615673418
 MonoBehaviour:
@@ -386,8 +386,8 @@ GameObject:
   - component: {fileID: 3234423564044183994}
   - component: {fileID: 4956047697066408940}
   m_Layer: 0
-  m_Name: DroppablePowerup
-  m_TagString: Untagged
+  m_Name: PowerupPrefab
+  m_TagString: POWERUP
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -420,7 +420,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bf13a11cf9537f458bc56e35d8e8516, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 1
+  movementSpeed: 3
   physicsMovement: 0
   movementType: 0
   onDestinationReached:
@@ -515,8 +515,8 @@ MonoBehaviour:
   powerupImage: {fileID: 8564930831346071031}
   powerupName: {fileID: 4552214862687684002}
   powerupDescription: {fileID: 4689032812813388976}
-  textPanel: {fileID: 8909984415235927596}
-  selectedIndex: -1
+  textPanel: {fileID: 2097028332021821519}
+  manualSelectedID: -1
 --- !u!1 &8024184097879565715
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,7 +552,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -1.61}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0.8, y: 0.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2785701410533030487
@@ -648,10 +648,10 @@ RectTransform:
   - {fileID: 6080942053474171503}
   m_Father: {fileID: 1814413884400243489}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 1.5}
+  m_SizeDelta: {x: 3, y: 1.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &108663071533630574
 CanvasRenderer:

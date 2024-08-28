@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 2.3
-  physicsMovement: 1
+  physicsMovement: 0
   movementType: 0
   onDestinationReached:
     m_PersistentCalls:
@@ -236,6 +236,7 @@ MonoBehaviour:
     waveId: 0
     initPosition: {x: 0, y: 0}
     targetPosition: {x: 0, y: 0}
+  damage: 0
   deathAnimation: {fileID: 968786814282064980, guid: cf28611d2d050e84b951e051d2d76c53, type: 3}
   deathSound: {fileID: 8300000, guid: 39896809c7723be4b9c298a5cb2fa3a2, type: 3}
   trackingSpeedMultiplier: 1.25

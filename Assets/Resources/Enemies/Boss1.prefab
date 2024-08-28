@@ -4849,6 +4849,7 @@ GameObject:
   - component: {fileID: 7008941785380272999}
   - component: {fileID: 9168399213617970119}
   - component: {fileID: 6239551869294007160}
+  - component: {fileID: -8550090262838535819}
   m_Layer: 0
   m_Name: Boss1
   m_TagString: Untagged
@@ -5023,7 +5024,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b9cc72a862fedb478003f5c6e60e196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 300
+  health: 200
 --- !u!114 &3693536594275176538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5092,7 +5093,6 @@ MonoBehaviour:
   interactibleSides:
   - {x: -1, y: 0}
   - {x: 1, y: 0}
-  nextHoverAlert: {fileID: 7888460398908540481, guid: 6b6f4c9edef48054da3448e3ea0aa9be, type: 3}
 --- !u!114 &9168399213617970119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5105,7 +5105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2753f3957b9535749b84b1556f1a4842, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shieldHealth: 200
+  shieldHealth: 130
   spriteRenderer: {fileID: 4798285562959197960}
   destructionSound: {fileID: 8300000, guid: e64c84692cb53f346ba6c84463e66973, type: 3}
   destructionEffect: {fileID: 449266223282823741, guid: 4eaf70ca80a1ce746818560aa77411b5, type: 3}
@@ -5133,16 +5133,32 @@ MonoBehaviour:
     waveId: 0
     initPosition: {x: 0, y: 0}
     targetPosition: {x: 0, y: 0}
+  damage: 0
   deathAnimation: {fileID: 0}
   deathSound: {fileID: 8300000, guid: 39896809c7723be4b9c298a5cb2fa3a2, type: 3}
   shootingSettings: {fileID: 11400000, guid: 74fc973edc13ed84aa78dd1971ee2de5, type: 2}
   shootingTime: 20
-  minesXCount: 5
-  minesYCount: 3
-  minesRandomVariation: 0.6
-  minesSpawnDelay: 0.6
+  minesXCount: 6
+  minesYCount: 4
+  minYPos: 2
+  minesSpawnDelay: 0.17
+  minesRotationSpeed: 500
   mineAlert: {fileID: 7888460398908540481, guid: fa31e06ef70401d4aa272aa055b5376f, type: 3}
   minePrefab: {fileID: 5095314719063823826, guid: 40a761af5d02c3142b325dc1ee8e61ab, type: 3}
+--- !u!114 &-8550090262838535819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5671923332173821357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a7de67984935dd46863c104a584cfde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerupPrefab: {fileID: 7583849551406975184, guid: f5726a311eefe954890189f95796be01, type: 3}
+  powerupsCount: 4
 --- !u!1 &6417077213279403860
 GameObject:
   m_ObjectHideFlags: 0

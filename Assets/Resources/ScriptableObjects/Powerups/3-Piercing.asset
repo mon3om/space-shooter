@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee04e7fe26a8244409c2179073f0647f, type: 3}
   m_Name: 3-Piercing
   m_EditorClassIdentifier: 
-  id: 3
   sprite: {fileID: 21300000, guid: acd9854b96e0fb641a0308f6c7af84e7, type: 3}
-  itemName: Piercing Bullets
   description: Bullets penetrate through enemies, hitting multiple targets in a line.
   available: 1
+  powerupCategory: 2
+  requiredPowerups:
+  - {fileID: 11400000, guid: 3ee1a63c0c1b14745bd9f24d662ea2a2, type: 2}
   animationClip: {fileID: 0}
   scriptTypeName: {fileID: 11500000, guid: 639ad879479b7a34ab63ac190b3e1aad, type: 3}

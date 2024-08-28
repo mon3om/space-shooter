@@ -9,7 +9,6 @@ public class LaserObject : EnemyAIBase
     public bool isSource = false;
     public float totalTravelTime = 5;
 
-
     [Space]
     public GameObject laserPrefab;
     public GameObject laserEffect;
@@ -41,7 +40,6 @@ public class LaserObject : EnemyAIBase
         onEnemyDestroy += (EnemyAIBase ai, int waveId) =>
         {
             StopEmitting();
-            Debug.Log("Lasers = " + lasers.Count);
         };
     }
 
@@ -75,23 +73,16 @@ public class LaserObject : EnemyAIBase
         if (isEmitting) return;
         isEmitting = true;
 
-        if (emittingDirections.Contains(Vector2.left))
-            CreateLaser(Vector3.left);
-        if (emittingDirections.Contains(Vector2.right))
-            CreateLaser(Vector3.right);
-        if (emittingDirections.Contains(Vector2.up))
-            CreateLaser(Vector3.up);
-        if (emittingDirections.Contains(Vector2.down))
-            CreateLaser(Vector3.down);
+        foreach (var item in emittingDirections)
+            CreateLaser(item);
     }
 
-    private void CreateLaser(Vector3 direction)
+    private void CreateLaser(Vector2 direction)
     {
         var _laserPrefab = Instantiate(laserPrefab).GetComponent<LaserPrefab>();
-        _laserPrefab.start = transform.position;
-        _laserPrefab.end = transform.position + 20 * direction;
+        _laserPrefab.StartPoint = transform.position;
+        _laserPrefab.EndPoint = (Vector2)transform.position + direction;
         _laserPrefab.source = transform;
-
         lasers.Add(_laserPrefab);
     }
 

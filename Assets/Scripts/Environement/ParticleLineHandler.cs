@@ -6,7 +6,7 @@ public class ParticleLineHandler : MonoBehaviour
     private LineRenderer lineRenderer;
 
     [HideInInspector] public bool isActive = false;
-    public static float maxLineWidth = 0.02f;
+    public static float maxLineWidth = 0.01f;
 
     private void Start()
     {

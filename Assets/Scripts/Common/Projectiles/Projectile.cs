@@ -15,6 +15,8 @@ public class Projectile : MonoBehaviour
 
     public System.Action onProjectileDestroy;
 
+    private int piercingCounter = 0;
+
     protected void Start()
     {
         TryGetComponent(out directionalMover);
@@ -33,11 +35,13 @@ public class Projectile : MonoBehaviour
             transform.localScale = shootingSettings.scale;
             if (shootingSettings.sprite != null) spriteRenderer.sprite = shootingSettings.sprite;
         }
+
+        StartCoroutine(DestroyCoroutine(20));
     }
 
-    private IEnumerator DestroyCoroutine()
+    private IEnumerator DestroyCoroutine(float time)
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(time);
         DestroyProjectile();
     }
 
@@ -45,13 +49,13 @@ public class Projectile : MonoBehaviour
     {
         isOutsideScreen = true;
         if (gameObject.activeInHierarchy)
-            StartCoroutine(DestroyCoroutine());
+            StartCoroutine(DestroyCoroutine(5));
     }
 
     private void OnBecameVisible()
     {
         isOutsideScreen = false;
-        StopCoroutine(DestroyCoroutine());
+        StopCoroutine(DestroyCoroutine(5));
     }
 
     protected void OnTriggerEnter2D(Collider2D other)
@@ -71,17 +75,19 @@ public class Projectile : MonoBehaviour
         {
             if (other.transform.TryGetComponent(out EnemyDamager enemyDamager))
             {
-                DestroyProjectile();
                 enemyDamager.TakeDamage(this);
                 if (shootingSettings.explosionPrefab != null)
                     Destroy(Instantiate(shootingSettings.explosionPrefab, transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360))), 5);
+
+                DestroyProjectile();
+                piercingCounter++;
             }
         }
     }
 
     public void DestroyProjectile()
     {
-        if (shootingSettings.shootingType == ShootingType.HomingMissile || !shootingSettings.isPiercing)
+        if (shootingSettings.shootingType == ShootingType.HomingMissile || piercingCounter >= PowerupsManager.piercingCount)
         {
             onProjectileDestroy?.Invoke();
             Destroy(gameObject);

@@ -1,13 +1,13 @@
 
 public class PowerupPiercing : PowerupBase
 {
-    protected override void CustomActivate()
+    protected override void CustomActivate(PowerupScriptableObject powerupScriptableObject)
     {
-        playerInstance.GetComponent<ShootingBase>().shootingSettings.isPiercing = true;
+        PowerupsManager.piercingCount++;
     }
 
     protected override void CustomDeactivate()
     {
-        playerInstance.GetComponent<ShootingBase>().shootingSettings.isPiercing = false;
+        PowerupsManager.piercingCount = 0;
     }
 }

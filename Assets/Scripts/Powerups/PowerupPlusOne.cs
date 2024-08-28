@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PowerupPlusOne : PowerupBase
 {
-    protected override void CustomActivate()
+    protected override void CustomActivate(PowerupScriptableObject powerupScriptableObject)
     {
         playerInstance.GetComponent<ShootingBase>().shootingSettings.shotsCount++;
     }

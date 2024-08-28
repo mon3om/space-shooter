@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player-HomingMissile
   m_EditorClassIdentifier: 
   fireRate: 2
-  shotsCount: 2
+  shotsCount: 1
   angleBetweenShots: 0
   randomAngle: 0
   randomAnglesVariation:
@@ -31,5 +31,3 @@ MonoBehaviour:
   sprite: {fileID: 0}
   explosionPrefab: {fileID: 968786814282064980, guid: 97369cac83274fb44a9b7d84c4a3ba28, type: 3}
   soundEffect: {fileID: 8300000, guid: b534eb5b68a9f1a4399da4dd490be38e, type: 3}
-  isPiercing: 0
-  isBouncy: 0
