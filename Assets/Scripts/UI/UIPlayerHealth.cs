@@ -25,34 +25,39 @@ public class UIPlayerHealth : MonoBehaviour
             }
             else
             {
-                throw new System.Exception("Error fetching PlayerDamager");
+                Debug.LogError("Error fetching PlayerDamager");
             }
         }
         else
         {
-            throw new System.Exception("Error fetching player");
+            Debug.LogError("Error fetching player");
         }
 
-        healthImage.color = activeColor;
-        healthImages.Add(healthImage);
         InstantiateHealthImages();
     }
 
     private void InstantiateHealthImages()
     {
-        for (int i = 0; i < PowerupsManager.playerHealth - 1; i++)
+        for (int i = 0; i < healthImages.Count; i++)
+            Destroy(healthImages[i]);
+        healthImages.Clear();
+
+        for (int i = 0; i < player.GetComponent<PlayerDamager>().initHealth; i++)
         {
-            var go = Instantiate(healthImage.gameObject, healthImage.transform.parent);
+            var go = Instantiate(healthImage.gameObject, transform.Find("Container"));
             go.TryGetComponent(out RectTransform rectTransform);
             rectTransform.anchoredPosition = healthImage.GetComponent<RectTransform>().anchoredPosition + Vector2.right * (rectTransform.rect.size.x + spacing) * (i + 1);
             go.TryGetComponent<Image>(out var image);
             image.color = activeColor;
             healthImages.Add(image);
         }
+
+        Debug.Log("Health bars instantiated.");
     }
 
-    private void OnHealthModified(float current, float initial)
+    private void OnHealthModified(float current, float previous, float initial)
     {
+        InstantiateHealthImages();
         for (int i = 0; i < healthImages.Count; i++)
             healthImages[i].color = i < current ? activeColor : disabledColor;
     }

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee04e7fe26a8244409c2179073f0647f, type: 3}
   m_Name: 8-Armor Upgrade
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 842c0ad060ff22f48949993caadbef23, type: 3}
+  sprite: {fileID: 21300000, guid: fc784288e75c3194783318527abc0c94, type: 3}
   description: Permanently increase your ship's maximum health for better durability.
-  available: 0
+  available: 1
   powerupCategory: 2
   requiredPowerups: []
   animationClip: {fileID: 0}
-  scriptTypeName: {fileID: 0}
+  scriptTypeName: {fileID: 11500000, guid: 2fb0ca6f84f6b9d429e90c593db28821, type: 3}

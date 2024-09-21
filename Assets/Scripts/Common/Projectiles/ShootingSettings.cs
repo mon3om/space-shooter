@@ -26,7 +26,7 @@ public class ShootingSettings : ScriptableObject
     public ProjectileSource projectileSource;
     public ShootingType shootingType;
     public Sprite sprite;
-    public GameObject explosionPrefab;
+    public GameObject[] explosionPrefab;
     public AudioClip soundEffect;
 
     public float AngleBetweenShots

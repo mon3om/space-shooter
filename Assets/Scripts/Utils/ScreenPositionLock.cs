@@ -22,7 +22,7 @@ public class ScreenPositionLock : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if (transform.position.x > CameraUtils.CameraRect.xMax - tempOffset - eventOffsetMargin) // right
         {
@@ -52,9 +52,12 @@ public class ScreenPositionLock : MonoBehaviour
         }
 
         if (preventLeavingScreen)
-            transform.position = new Vector3(
-            Mathf.Clamp(transform.position.x, CameraUtils.CameraRect.xMin + tempOffset, CameraUtils.CameraRect.xMax - tempOffset),
-            Mathf.Clamp(transform.position.y, CameraUtils.CameraRect.yMin + tempOffset, CameraUtils.CameraRect.yMax - tempOffset),
-            transform.position.z);
+        {
+            var posLock = new Vector3(
+               Mathf.Clamp(transform.position.x, CameraUtils.CameraRect.xMin + tempOffset, CameraUtils.CameraRect.xMax - tempOffset),
+               Mathf.Clamp(transform.position.y, CameraUtils.CameraRect.yMin + tempOffset, CameraUtils.CameraRect.yMax - tempOffset),
+               transform.position.z);
+            transform.position = Vector3.Lerp(transform.position, posLock, 0.1f);
+        }
     }
 }

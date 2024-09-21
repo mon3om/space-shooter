@@ -24,6 +24,20 @@ const ENTER_POSITIONS = {
 
 const EASY = [
   {
+    enemyPrefab: "Enemies/LaserWave-EASY-1",
+    count: { min: 1, max: 1, step: 1 },
+    enterPositions: [ENTER_POSITIONS.ShouldEnterFromTop],
+    shapes: [],
+    maxEnemiesPerLine: -1,
+  },
+  {
+    enemyPrefab: "Enemies/LaserWave-EASY-2",
+    count: { min: 1, max: 1, step: 1 },
+    enterPositions: [ENTER_POSITIONS.ShouldEnterFromTop],
+    shapes: [],
+    maxEnemiesPerLine: -1,
+  },
+  {
     enemyPrefab: "Enemies/LaserEnemy",
     count: { min: 1, max: 1, step: 1 },
     enterPositions: [ENTER_POSITIONS.ShouldEnterFromTop],

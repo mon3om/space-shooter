@@ -10,7 +10,7 @@ public class TempDigitalRain : MonoBehaviour
 
     private TMP_Text tMP_Text;
 
-    private string str = "012345789Z=*+-<>_çéàè";
+    private string str = "01";
 
     private void Start()
     {

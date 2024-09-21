@@ -17,7 +17,7 @@ public class ShootingBullets : ShootingBase
     {
         for (int i = 0; i < shootingSettings.shotsCount; i++)
         {
-            GameObject instantiatedBullet = Instantiate(shootingSettings.bulletPrefab, origin.transform.position, Quaternion.identity);
+            GameObject instantiatedBullet = Instantiate(shootingSettings.bulletPrefab, origin.transform.position, Quaternion.identity, Instances.ProjectileHolder);
             ProjectileMovement projectileMovement = instantiatedBullet.GetComponent<ProjectileMovement>();
             instantiatedBullet.tag = shootingSettings.projectileSource == ProjectileSource.Enemy ? Tags.ENEMY_BULLET : Tags.PLAYER_BULLET;
             instantiatedBullet.GetComponent<Projectile>().shootingSettings = shootingSettings; // Projectile

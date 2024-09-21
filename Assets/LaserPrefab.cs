@@ -19,6 +19,7 @@ public class LaserPrefab : MonoBehaviour
     private Transform effectInstance;
     private bool defaultEndPointDistance = true;
 
+
     void Start()
     {
         HEIGHT_DIVIDER = transform.localScale.y;
@@ -28,10 +29,22 @@ public class LaserPrefab : MonoBehaviour
         if (defaultEndPointDistance)
             EndPoint = StartPoint + (EndPoint - StartPoint).normalized * 30;
         effectInstance = Instantiate(collisionEffect, transform).transform;
+
+        if (!source)
+        {
+            Debug.LogError("No source, destroying laser");
+            Destroy(gameObject);
+        }
     }
 
     void Update()
     {
+        if (!source)
+        {
+            Debug.LogWarning("No source, destroying laser");
+            Destroy(gameObject);
+        }
+
         if (isEmitting)
             Emit();
         else
@@ -44,6 +57,7 @@ public class LaserPrefab : MonoBehaviour
     {
         if (other.transform != source && other.TryGetComponent<LaserObject>(out var laserObject))
         {
+            if (source && laserObject.enemyIdentifier.waveId != source.GetComponent<EnemyAIBase>().enemyIdentifier.waveId) return;
             if (!isEmitting) return;
             laserObject.AddLaserSource(this);
             EndPoint = other.ClosestPoint(StartPoint);
@@ -79,18 +93,7 @@ public class LaserPrefab : MonoBehaviour
 
     private void StopEmitting()
     {
+        Destroy(effectInstance.gameObject);
         Destroy(gameObject);
-        Destroy(effectInstance);
-
-        // spriteRenderer.size = new(spriteRenderer.size.x, Mathf.Max(spriteRenderer.size.y - Time.deltaTime * emissionSpeed, 0));
-        // transform.position = StartPoint + (EndPoint - StartPoint).normalized * HEIGHT_DIVIDER * spriteRenderer.size.y / 2f;
-        // transform.rotation = Utils.GetLookAtRotation(StartPoint, EndPoint);
-        // boxCollider2D.size = spriteRenderer.size;
-
-        // if (spriteRenderer.size.y <= 0.05f)
-        // {
-        //     Destroy(gameObject);
-        //     Destroy(effectInstance);
-        // }
     }
 }

@@ -76,8 +76,19 @@ public class Projectile : MonoBehaviour
             if (other.transform.TryGetComponent(out EnemyDamager enemyDamager))
             {
                 enemyDamager.TakeDamage(this);
-                if (shootingSettings.explosionPrefab != null)
-                    Destroy(Instantiate(shootingSettings.explosionPrefab, transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360))), 5);
+
+                // Screen shake
+                CameraShaker.Shake(0.08f, 0.1f);
+
+                // Explosion effect
+                foreach (var item in shootingSettings.explosionPrefab)
+                    if (item)
+                        Destroy(Instantiate(item, transform.position,
+                        // Instantiate rotation
+                        item.transform.rotation.eulerAngles == Vector3.zero ? Quaternion.Euler(0, 0, Random.Range(0, 360)) : item.transform.rotation
+                        ),
+                        // Destroy time
+                        5);
 
                 DestroyProjectile();
                 piercingCounter++;

@@ -1,5 +1,5 @@
+using System.Collections;
 using Kino;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraShaker : MonoBehaviour
@@ -15,11 +15,9 @@ public class CameraShaker : MonoBehaviour
     private float analogGlitchReductionRate;
     private float digitalGlitchReductionRate;
 
-    private static CameraShaker Instance;
-
     private void Awake()
     {
-        Instance = this;
+        Instances.CameraShaker = this;
     }
 
     private void Start()
@@ -79,7 +77,7 @@ public class CameraShaker : MonoBehaviour
             shake = duration;
             CameraShaker.shakeAmount = shakeAmount;
 
-            Instance.DamageGlitch(duration);
+            Instances.CameraShaker.DamageGlitch(duration);
         }
     }
 
@@ -109,6 +107,82 @@ public class CameraShaker : MonoBehaviour
 
     public static void Glitch()
     {
-        Instance.GameOverGlitch();
+        Instances.CameraShaker.GameOverGlitch();
+    }
+
+    public void StartBossGlitching(float duration, AudioSource audio)
+    {
+        gradualTime = 0;
+        StopBossGlitching();
+        StartCoroutine(GradualGlitchCoroutine(duration, audio));
+    }
+
+    float gradualTime = 0;
+    float slowingTime = 2f;
+    private IEnumerator GradualGlitchCoroutine(float duration, AudioSource audio)
+    {
+        float step = 0.1f;
+
+        if (gradualTime >= duration - slowingTime * 2)
+        {
+            step = 0.02f;
+            float time = Time.timeScale - (1 / (duration - slowingTime) * step);
+            audio.pitch = Time.timeScale = Mathf.Clamp(time, 0.25f, 1);
+            Debug.Log("Time.timeScale = " + Time.timeScale);
+        }
+
+        yield return new WaitForSecondsRealtime(step);
+        gradualTime += step;
+
+        if (gradualTime >= duration)
+        {
+            StartCoroutine(TimeCoroutine(audio));
+            yield break;
+        }
+        else
+        {
+
+            digitalGlitch.intensity += 0.5f / duration * step;
+
+            analogGlitch.colorDrift += 0.1f / duration * step;
+            analogGlitch.scanLineJitter += 0.1f / duration * step;
+            analogGlitch.verticalJump += 0.1f / duration * step;
+            analogGlitch.horizontalShake += 0.1f / duration * step;
+        }
+
+        StartCoroutine(GradualGlitchCoroutine(duration, audio));
+    }
+
+    public float timeRegainDuration = 0.02f;
+    private IEnumerator TimeCoroutine(AudioSource audio)
+    {
+
+        StopBossGlitching();
+        audio.pitch = Time.timeScale += 0.02f / 3f;
+
+        digitalGlitch.intensity -= 0.5f / 50 / 3;
+
+        analogGlitch.colorDrift -= 0.1f / 50 / 3;
+        analogGlitch.scanLineJitter -= 0.1f / 50 / 3;
+        analogGlitch.verticalJump -= 0.1f / 50 / 3;
+        analogGlitch.horizontalShake -= 0.1f / 50 / 3;
+
+        yield return new WaitForSecondsRealtime(timeRegainDuration);
+        if (Time.timeScale >= 1)
+        {
+            audio.pitch = Time.timeScale = 1;
+            StopBossGlitching();
+            yield break;
+        }
+        StartCoroutine(TimeCoroutine(audio));
+    }
+
+    public void StopBossGlitching()
+    {
+        digitalGlitch.intensity = 0;
+        analogGlitch.colorDrift = 0;
+        analogGlitch.scanLineJitter = 0;
+        analogGlitch.verticalJump = 0;
+        analogGlitch.horizontalShake = 0;
     }
 }

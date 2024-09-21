@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyDamager))]
@@ -16,12 +17,15 @@ public class EnemyAIBase : MonoBehaviour
     public float damage;
 
     [Header("Death animation")]
-    public GameObject deathAnimation;
+    public GameObject[] deathAnimation;
     public AudioClip deathSound;
 
     protected Transform player;
 
     public System.Action<EnemyAIBase, int> onEnemyDestroy; // <this, waveId>
+
+    private List<SpriteRenderer> renderers = new();
+    private Shader defaultShader;
 
     public void Start()
     {
@@ -33,12 +37,13 @@ public class EnemyAIBase : MonoBehaviour
         orientationHandler = GetComponent<OrientationHandler>();
         enemyDamager = GetComponent<EnemyDamager>();
         tag = Tags.ENEMY_SHIP;
+
+        renderers = GetComponentsInChildren<SpriteRenderer>().ToList();
+        defaultShader = renderers[0].material.shader;
     }
 
     public void InstantiateDeathAnimation(bool playAnimation = true, bool playSound = true)
     {
-        GameObject go = null;
-
         CameraShaker.Shake(0.15f, 0.15f);
 
         // No death animation
@@ -51,18 +56,27 @@ public class EnemyAIBase : MonoBehaviour
         {
             if (playAnimation)
             {
-                go = Instantiate(deathAnimation, transform.position, transform.rotation);
-                go.transform.localScale = transform.localScale;
-                Destroy(go, go.GetComponent<Animator>().GetCurrentAnimatorClipInfo(0)[0].clip.length);
-            }
-            else
-            {
-                go = new GameObject("DeathAnimation");
-                Destroy(go, 5);
+                foreach (var item in deathAnimation)
+                {
+                    if (!item) continue;
+
+                    GameObject anim;
+                    anim = Instantiate(item, transform.position, item.transform.rotation);
+                    if (anim.TryGetComponent<Animator>(out var animator))
+                    {
+                        anim.transform.localScale = transform.localScale;
+                        anim.transform.rotation = transform.rotation;
+                        Destroy(anim, animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
+                    }
+                    else
+                    {
+                        Destroy(anim, 5);
+                    }
+                }
             }
         }
 
-        PlayDeathSound(playSound, go);
+        PlayDeathSound(playSound, null);
     }
 
     private void PlayDeathSound(bool playSound, GameObject soundGameObject)
@@ -101,7 +115,7 @@ public class EnemyAIBase : MonoBehaviour
     }
 
     private Coroutine _destroyCoroutine = null;
-    private void OnBecameInvisible()
+    protected void OnBecameInvisible()
     {
         if (gameObject.activeInHierarchy && _destroyCoroutine == null)
             _destroyCoroutine = StartCoroutine(DestroyCoroutine());
@@ -151,5 +165,21 @@ public class EnemyAIBase : MonoBehaviour
     public virtual void SetDifficultyLevel(int level)
     {
         throw new System.NotImplementedException();
+    }
+
+    public void Blink(bool on, Color color = default)
+    {
+        if (on)
+            foreach (var item in renderers)
+            {
+                item.material.shader = Instances.ShaderGUIMaterial;
+                item.material.color = color;
+            }
+        if (!on)
+            foreach (var item in renderers)
+            {
+                item.material.shader = defaultShader;
+                item.material.color = Color.white;
+            }
     }
 }

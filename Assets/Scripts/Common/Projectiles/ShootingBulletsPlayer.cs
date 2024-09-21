@@ -27,7 +27,7 @@ public class ShootingBulletsPlayer : ShootingBase
     {
         for (int i = 0; i < shootingSettings.shotsCount; i++)
         {
-            GameObject instantiatedBullet = Instantiate(shootingSettings.bulletPrefab, origin.transform.position, Quaternion.identity);
+            GameObject instantiatedBullet = Instantiate(shootingSettings.bulletPrefab, origin.transform.position, Quaternion.identity, Instances.ProjectileHolder);
             instantiatedBullet.TryGetComponent(out Projectile projectile);
             projectile.shootingSettings = shootingSettings;
             if (shootingSettings.shootingType == ShootingType.HomingMissile)

@@ -103,6 +103,8 @@ GameObject:
   - component: {fileID: 8734541088964243596}
   - component: {fileID: 5812399981505706914}
   - component: {fileID: 2014461162165941067}
+  - component: {fileID: 8785033002174840229}
+  - component: {fileID: 149274807217269014}
   m_Layer: 0
   m_Name: Player
   m_TagString: PLAYER_SHIP
@@ -172,6 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 5
+  speedModifier: 1
   slowDownTime: 3
   slowDownMultiplier: 3
 --- !u!114 &4423517021310864239
@@ -307,7 +310,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd5bea2746eb02b49925ab670f4591ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 35
+  health: 5
+  initHealth: 0
   healthStatesSprites:
   - {fileID: 21300000, guid: 1bccbfd79ceb11c4298c03df386b5a84, type: 3}
   - {fileID: 21300000, guid: 6d516865f0bb2c645a2f09ce5252cf1f, type: 3}
@@ -319,7 +323,6 @@ MonoBehaviour:
   - {fileID: 6179074342969734996}
   - {fileID: 1397727898391220366}
   delayRendererBlinking: 0.15
-  smokeParticles: {fileID: 1700713878351824227}
 --- !u!60 &5807528972668765797
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -433,6 +436,42 @@ MonoBehaviour:
   - {fileID: 8300000, guid: de0916fed1a4b35459f2cf0c8a43d3a1, type: 3}
   - {fileID: 8300000, guid: 6ce86b3c2b18c534db9f95cc99f938c2, type: 3}
   - {fileID: 8300000, guid: 5b4223460ef75ca4b8d8284c55eedcbc, type: 3}
+--- !u!114 &8785033002174840229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2457422619585489375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 122ff7ae9b03dff49a934621315dc121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shieldState: 0
+--- !u!114 &149274807217269014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2457422619585489375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7e07188de5a55d43835fd6fee469811, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthStatesSprites:
+  - {fileID: 21300000, guid: 1bccbfd79ceb11c4298c03df386b5a84, type: 3}
+  - {fileID: 21300000, guid: 6d516865f0bb2c645a2f09ce5252cf1f, type: 3}
+  - {fileID: 21300000, guid: 29668311df742b148b13f2bddc94b9c0, type: 3}
+  - {fileID: 21300000, guid: a401897efd1602242b29acd31e55d7b0, type: 3}
+  playerRenderers:
+  - {fileID: 3617612894850118251}
+  - {fileID: 1397727898391220366}
+  - {fileID: 4167454489964269566}
+  delayRendererBlinking: 0.1
+  smokeParticles: {fileID: 1700713878351824227}
 --- !u!1 &3027214000540691875
 GameObject:
   m_ObjectHideFlags: 0

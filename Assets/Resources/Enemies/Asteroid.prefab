@@ -251,7 +251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   min: 0
   max: 0
-  changeRate: 0.3
+  changeRate: 0.15
 --- !u!1 &6350607655689769988
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,7 +495,10 @@ MonoBehaviour:
     waveId: 0
     initPosition: {x: 0, y: 0}
     targetPosition: {x: 0, y: 0}
-  deathAnimation: {fileID: 0}
+  damage: 0
+  deathAnimation:
+  - {fileID: 4968318481528668711, guid: 334bfbdd2e8150c42848b22274fc9e3f, type: 3}
+  - {fileID: 4520860317596612755, guid: 6b93cb0a66d2d9b40808b4f79738909d, type: 3}
   deathSound: {fileID: 8300000, guid: 39896809c7723be4b9c298a5cb2fa3a2, type: 3}
 --- !u!114 &5067760862859359116
 MonoBehaviour:

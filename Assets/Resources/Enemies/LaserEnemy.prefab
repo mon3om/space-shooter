@@ -10019,7 +10019,8 @@ MonoBehaviour:
     initPosition: {x: 0, y: 0}
     targetPosition: {x: 0, y: 0}
   damage: 10
-  deathAnimation: {fileID: 0}
+  deathAnimation:
+  - {fileID: 968786814282064980, guid: 1716f415c91488a42ab9263fda7a658a, type: 3}
   deathSound: {fileID: 8300000, guid: 39896809c7723be4b9c298a5cb2fa3a2, type: 3}
   state: 0
   laserPrefab: {fileID: 2679579842390403883, guid: 204c6dab78609a04788860ff9fa3be0f, type: 3}

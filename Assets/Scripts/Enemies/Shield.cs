@@ -13,12 +13,12 @@ public class Shield : MonoBehaviour
 
     private float initShieldHelath;
     private float regeneratedAmount;
-    private ParticleSystem particleSystem;
-    private GameObject supportShipInstance;
+    private ParticleSystem ps;
+    [HideInInspector] public GameObject supportShipInstance;
 
     private void Start()
     {
-        particleSystem = transform.Find("RegenerationEffect").GetComponent<ParticleSystem>();
+        ps = transform.Find("RegenerationEffect").GetComponent<ParticleSystem>();
         initShieldHelath = shieldHealth;
         regeneratedAmount = initShieldHelath;
         StartCoroutine(SpawnSupportShip());
@@ -33,12 +33,12 @@ public class Shield : MonoBehaviour
             var newColor = new Color(1, 1, 1, Mathf.Clamp(shieldHealth / initShieldHelath, 0.25f, 1f));
             spriteRenderer.color = newColor;
 
-            particleSystem.enableEmission = true;
+            ps.enableEmission = true;
         }
         else
         {
             regeneratedAmount = shieldHealth;
-            particleSystem.enableEmission = false;
+            ps.enableEmission = false;
         }
     }
 
@@ -54,6 +54,8 @@ public class Shield : MonoBehaviour
         supportShipInstance = Instantiate(supportShipPrefab, Vector3.zero + Vector3.up * (CameraUtils.CameraRect.xMax + 2), Quaternion.identity);
         supportShipInstance.GetComponent<ShieldSupportEnemy>().boss = GetComponent<EnemyAIBase>();
         supportShipInstance.GetComponent<EnemyAIBase>().onEnemyDestroy += OnSupportShipDestroyed;
+
+        Debug.Log("Support ship spawned");
     }
 
     public bool TakeDamageIfShieldActive(float amount)

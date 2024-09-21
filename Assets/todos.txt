@@ -1,6 +1,77 @@
-- Remove Powerups properties from shooting settings as they can persist when not wanted
-
+- Finish Boss Explosion Effect 
+- Fix JSON builder to include a boolean for prefab waves then do isPrefabWave check on EnemyFactory.cs instead of the name check
+- Enhance laser wave
 - remove the logics behind initEnd and make it bettter so that when trigger exit, the laser continues emitting and when the object is moving the emission is in the correct direction
+- Reduce animators count, especially for destruction animation
+- Kamikaze enemies entering from below are too close and doesn't leave time for the player to escape when he's in the bottom of the screen
+
 - Powerups
     - explosive bullets
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////
+Firewall Shield: Grants temporary invincibility by surrounding the player with a protective firewall that burns and damages any incoming threats.
+Packet Booster: Increases the player’s speed and maneuverability for a short period, allowing quick dodges and faster navigation through the battlefield.
+Virus Spread: Launches a wave of viral attacks that infect and weaken enemy ships, causing them to take damage over time.
+Data Overload: Unleashes a burst of high-speed data packets that flood the screen, destroying or stunning all enemies in their path.
+Encryption Barrier: Creates a barrier around the player that reflects enemy lasers and projectiles back at them, turning their own attacks against them.
+IP Tracker Missile: A homing missile that locks onto the nearest enemy and pursues them until it makes contact, ensuring a precise hit.
+Malware Bomb: Deploys a bomb that disrupts enemy systems, causing them to malfunction, move erratically, or fire sporadically.
+Bandwidth Surge: Temporarily doubles the rate of fire of all weapons, overwhelming enemies with a barrage of laser fire.
+Proxy Cloak: Renders the player invisible to enemies for a limited time, allowing them to avoid detection and slip past defenses.
+Spam Barrage: Fires a chaotic spread of projectiles in all directions, overwhelming enemies with sheer volume rather than precision.
+Defragmentation Repair: Slowly restores the player’s health by repairing damaged systems, represented as piecing together fragmented data.
+Ping Reflector: Reflects incoming signals or projectiles, sending them back to their source with amplified damage.
+Trojan Horse: Deploys a decoy that lures enemies into a trap, then explodes, dealing massive damage to all nearby foes.
+Bit Torrent Swarm: Summons a swarm of mini-drones that assist the player by attacking nearby enemies or absorbing incoming damage.
+Code Injection: Hacks into enemy systems, temporarily turning them into allies that fight alongside the player.
+Phishing Lure: Creates a fake power-up that attracts enemies; when they approach, it detonates and causes heavy damage.
+DDoS Blast: Overwhelms enemy defenses with a massive, concentrated energy blast that disables shields and leaves them vulnerable.
+Latency Shift: Slows down time for all enemies, making their movements sluggish and attacks easier to dodge, while the player remains at normal speed.
+Quantum Leap: Instantly teleports the player to a different location on the screen, evading danger or gaining a tactical advantage.
+Cache Flush: Removes all enemy projectiles from the screen, giving the player a momentary reprieve from incoming fire.
+Backdoor Access: Unlocks a hidden weapon or ability for a short time, providing the player with an unexpected boost in firepower.
+Virtualization Mode: Creates a duplicate of the player’s ship that mirrors their movements and attacks, doubling their firepower.
+Zero-Day Exploit: Instantly destroys the strongest enemy on the screen by exploiting a critical vulnerability in their systems.
+Bandwidth Drain: Slows down all enemies, making them easier to hit and reducing the frequency of their attacks.
+Spam Filter: Creates a protective zone around the player that filters out and destroys all incoming low-level attacks.
+Checksum Integrity: Provides a one-time auto-repair, restoring the player’s health to full when it drops below a critical level.
+Ethernet Cable Lasso: Latches onto an enemy ship, pulling it closer for a point-blank attack or redirecting its movement into other enemies.
+SSL Encryption: Doubles the player's defenses, reducing incoming damage by half for a limited time.
+Darknet Stealth: Allows the player to become completely undetectable for a short period, passing through enemies and obstacles without taking damage.
+Traceroute: Reveals the path and weaknesses of the nearest boss or high-value target, making it easier to plan attacks.
+Packet Sniffer: Detects and reveals hidden or cloaked enemies, making them visible and vulnerable to attack.
+DNS Disruptor: Scrambles the positions of all enemies on the screen, causing confusion and giving the player an advantage in targeting.
+Ad Blocker: Temporarily disables enemy spawns, giving the player a break from constant waves of attacks.
+Cyber Worm: Sends out a worm that burrows into enemy systems, slowly draining their health and transferring it to the player.
+Botnet Commander: Grants temporary control over a group of enemy drones, redirecting them to attack their former allies.
+Ping Spike: Causes a massive spike in attack power, allowing the player to deal critical damage with each shot for a limited time.
+Fiber Optic Blast: Fires a concentrated beam of light that pierces through multiple enemies, dealing continuous damage along its path.
+Algorithmic Precision: Increases the accuracy of all weapons, making each shot more likely to hit its target and deal extra damage.
+Server Farm: Deploys a group of automated turrets that provide covering fire for the player, helping to clear out enemies.
+Hyperlink Chain: Connects multiple enemies together with an energy chain, damaging them all simultaneously when one is hit.
+Social Engineering: Tricks enemies into attacking each other or abandoning their positions, creating chaos in their ranks.
+Syntax Error: Causes all enemy projectiles to malfunction and self-destruct before they reach the player.
+Bandwidth Throttle: Slows down the rate of fire of enemy weapons, giving the player more time to react and dodge attacks.
+Ethernet Trap: Lays down a network of tripwires that ensnare and slow down any enemies that cross them, making them easier targets.
+Cryptojacking: Temporarily steals energy from enemies to power up the player’s weapons or recharge shields.
+Packet Fragmentation: Fires a projectile that splits into multiple smaller fragments upon impact, covering a wider area and hitting multiple enemies.
+Load Balancer: Redistributes damage taken by the player across all enemies on the screen, evening out the battle.
+VPN Tunnel: Allows the player to phase through enemies and obstacles without taking damage, creating shortcuts across the screen.
+Rootkit Implant: Installs a hidden weapon in the player’s ship that activates in critical moments, providing a last-minute defense or counterattack.
+Captcha Challenge: Temporarily paralyzes all enemies on the screen as they struggle to "solve" the captcha, giving the player free shots.

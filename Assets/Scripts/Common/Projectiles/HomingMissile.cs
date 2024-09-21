@@ -50,13 +50,13 @@ public class HomingMissile : Projectile
 
     private Transform GetNearestEnemy()
     {
-        if (!WavesManager.Instance || WavesManager.Instance.spawnedEnemies.Count == 0)
+        if (!Instances.WavesManager || Instances.WavesManager.spawnedEnemies.Count == 0)
         {
             orientationHandler.StartRotatingTowardsPoint(new Vector3(Random.Range(-20, 20) * 20, Random.Range(-20, 20) * 20, 0) - transform.position);
             return null;
         }
 
-        var allEnemies = WavesManager.Instance.spawnedEnemies;
+        var allEnemies = Instances.WavesManager.spawnedEnemies;
         float nearestDist = float.MaxValue;
         Transform nearest = allEnemies[0].transform;
         foreach (var item in allEnemies)

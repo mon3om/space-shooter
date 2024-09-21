@@ -23,7 +23,7 @@ public class LaserBoss : EnemyAIBase
         // components
         base.Start();
         shootingBases = GetComponentsInChildren<ShootingBase>();
-
+        GetComponent<EnemyPowerupDropper>().powerupsCount = PowerupsManager.bossPowerupsCount;
         screenPositions = Utils.DivideScreen(5, 4);
 
         orientationHandler.LookAtPointImmediate(enteringTargetPosition);
@@ -34,6 +34,15 @@ public class LaserBoss : EnemyAIBase
         foreach (var item in shootingBases)
             item.shootingSettings = singleCanon;
         enemyDamager.onDamageTaken += OnDamageTaken;
+        onEnemyDestroy += (v1, v2) =>
+        {
+            foreach (var item in spawnedEnemies)
+                if (item)
+                    Destroy(item.gameObject);
+            foreach (var item in lasers)
+                if (item)
+                    Destroy(item.gameObject);
+        };
     }
 
     private void FixedUpdate()
@@ -48,11 +57,6 @@ public class LaserBoss : EnemyAIBase
             foreach (var item in shootingBases)
                 item.shootingSettings = doubleCanons;
         }
-
-        if (damageData.currentHealth <= 0)
-            foreach (var item in spawnedEnemies)
-                if (item)
-                    Destroy(item.gameObject);
     }
 
     private IEnumerator ManagerCoroutine()
@@ -162,6 +166,7 @@ public class LaserBoss : EnemyAIBase
         for (int i = 0; i < 4; i++)
         {
             var go = Instantiate(laserPrefab, transform.position, Quaternion.identity);
+            go.GetComponent<LaserPrefab>().source = transform;
             lasers.Add(go.transform);
             go.name = "" + i;
         }
@@ -184,7 +189,7 @@ public class LaserBoss : EnemyAIBase
             else
                 intersectionVector = (-transform.up - transform.position).normalized * 30;
 
-            LineIntersection2D.GetIntersectionWithScreenEdge(transform.position, intersectionVector, out var intersection, out var screenEdge);
+            LineIntersection2D.GetIntersectionWithScreenEdge(gameObject, transform.position, intersectionVector, out var intersection, out var screenEdge);
             go.TryGetComponent(out LaserPrefab _laser);
             _laser.StartPoint = transform.position;
             _laser.EndPoint = intersection;
@@ -241,6 +246,8 @@ public class LaserBoss : EnemyAIBase
         var pickedEnemy = JsonWavesManager.GetWaves().Where(x => x.enemyPrefab.name.Contains("Kamikaze")).ToList()[0];
         var spawned = EnemyFactory.SpawnNoWave(pickedEnemy, null);
         PositionManager.SetPositions(spawned, pickedEnemy);
-        spawnedEnemies = spawned;
+
+        foreach (var item in spawned)
+            spawnedEnemies.Add(item);
     }
 }

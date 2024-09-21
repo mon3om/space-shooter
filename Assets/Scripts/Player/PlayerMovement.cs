@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     // Public variables
     public float movementSpeed;
+    [HideInInspector] public float speedModifier = 1;
     [Space]
     [SerializeField] private float slowDownTime = 10;
     [SerializeField] private float slowDownMultiplier = 3;
@@ -65,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position = transform.position + movementSpeed * Time.fixedDeltaTime * new Vector3(xInput, yInput, 0).normalized;
+        transform.position = transform.position + movementSpeed * speedModifier * Time.fixedDeltaTime * new Vector3(xInput, yInput, 0).normalized;
 
         // MovementRotaionHandler();
     }

@@ -11,6 +11,7 @@ public class Mine : MonoBehaviour
     private OrientationHandler orientationHandler;
     private SoundPlayer soundPlayer;
 
+    public System.Action OnDestroy;
 
     void Start()
     {
@@ -35,12 +36,16 @@ public class Mine : MonoBehaviour
             soundPlayer.PlayStandalone(audioClip);
             other.GetComponent<PlayerMovement>().SlowDown();
             Destroy(gameObject);
+
+            OnDestroy?.Invoke();
         }
 
         if (other.CompareTag(Tags.PLAYER_BULLET))
         {
             Destroy(other.gameObject);
             Destroy(gameObject);
+
+            OnDestroy?.Invoke();
         }
     }
 }

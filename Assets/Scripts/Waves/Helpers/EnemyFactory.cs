@@ -9,6 +9,11 @@ namespace Wave.Helper
     {
         public List<Transform> Spawn(WaveEnemy waveEnemy, int waveId, System.Action<EnemyAIBase, int> onEnemyDestroy)
         {
+            //TO-DO fix json builder to include a boolean for prefab waves
+            // Then do isPrefabWave check here instead of this check
+            if (waveEnemy.enemyPrefab.name.ToLower().Contains("laserwave"))
+                return SpawnPrefabWave(waveEnemy, waveId, onEnemyDestroy);
+
             List<Transform> spawned = new();
             List<EnemyAIBase> enemyAIBases = new();
             int enemiesCount = waveEnemy.count.RandomValue;
@@ -26,6 +31,26 @@ namespace Wave.Helper
 
             foreach (var item in enemyAIBases)
             {
+                item.enemyIdentifier.waveId = waveId;
+                item.enemyIdentifier.enemySpawnId = enemyAIBases.IndexOf(item);
+                item.enemyIdentifier.waveEnemyDifficulty = waveEnemy.enemyDifficulty;
+                item.waveSiblings = enemyAIBases;
+                item.onEnemyDestroy += onEnemyDestroy;
+            }
+
+            return spawned;
+        }
+
+        private List<Transform> SpawnPrefabWave(WaveEnemy waveEnemy, int waveId, System.Action<EnemyAIBase, int> onEnemyDestroy)
+        {
+            List<Transform> spawned = new();
+            List<EnemyAIBase> enemyAIBases = new();
+
+            var go = Instantiate(waveEnemy.enemyPrefab, transform);
+            foreach (var item in go.transform.GetComponentsInChildren<EnemyAIBase>())
+            {
+                spawned.Add(item.transform);
+                enemyAIBases.Add(item);
                 item.enemyIdentifier.waveId = waveId;
                 item.enemyIdentifier.enemySpawnId = enemyAIBases.IndexOf(item);
                 item.enemyIdentifier.waveEnemyDifficulty = waveEnemy.enemyDifficulty;

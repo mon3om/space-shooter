@@ -32,7 +32,7 @@ public class ScreenEdgeAlert : MonoBehaviour
 
         Vector2 intersection;
         ScreenEdge edge;
-        LineIntersection2D.GetIntersectionWithScreenEdge(transform.position, enemyAIBase.enteringTargetPosition, out intersection, out edge);
+        LineIntersection2D.GetIntersectionWithScreenEdge(gameObject, transform.position, enemyAIBase.enteringTargetPosition, out intersection, out edge);
 
         alert = Instantiate(alertPrefab, intersection, Quaternion.identity);
         if (alert.transform.position.y > CameraUtils.CameraRect.yMax - (sprite.bounds.extents.y + offset))

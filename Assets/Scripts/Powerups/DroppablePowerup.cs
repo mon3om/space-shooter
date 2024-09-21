@@ -4,117 +4,124 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DroppablePowerup : MonoBehaviour
+public class RawPowerup : MonoBehaviour
 {
-    private bool playerHovering = false;
+    [SerializeField] private PowerupUIManager powerupUIManager;
+
     private PowerupScriptableObject selectedPowerup;
-    private List<PowerupScriptableObject> allPowerups;
+    private System.Func<PowerupScriptableObject> GetRandomPowerup;
 
-    [SerializeField] private Image powerupImage;
-    [SerializeField] private TMP_Text powerupName;
-    [SerializeField] private TMP_Text powerupDescription;
-    [SerializeField] private RectTransform textPanel;
-
-    [Space]
-    [Header("Debug")]
-    public int manualSelectedID = -1;
-
-    private void Start()
+    public void SetSelectedPowerup(PowerupScriptableObject powerupScriptableObject, System.Func<PowerupScriptableObject> getRandomPowerup)
     {
-        if (manualSelectedID != -1)
-            PickRandomPowerup(new());
+        selectedPowerup = powerupScriptableObject;
+        powerupUIManager.SetData(selectedPowerup);
+        GetRandomPowerup = getRandomPowerup;
+        AttachPowerupBaseComponent();
     }
 
-    public PowerupScriptableObject PickRandomPowerup(List<PowerupScriptableObject> filter)
+    private void AttachPowerupBaseComponent()
     {
-        allPowerups = Resources.LoadAll<PowerupScriptableObject>("ScriptableObjects/Powerups").ToList();
-        allPowerups = allPowerups.Where(el => el.available).ToList();
-        var filteredPowerups = allPowerups.Where(el => filter.Any(el1 => el1.id == el.id) == false).ToList();
+        var rawScript = selectedPowerup.GetPowerupType();
+        var powerupBase = gameObject.AddComponent(rawScript) as PowerupBase;
+        powerupBase.ReplacePowerup = ReplacePowerup;
+        powerupBase.powerupScriptableObject = selectedPowerup;
+    }
 
-        if (allPowerups.Count == 0)
-            throw new System.Exception("Powerups count is 0 after filtering the whole list of size " + allPowerups.Count + " with a filter of size " + filter.Count + "");
-
-        int selected = Random.Range(0, filteredPowerups.Count);
-        selectedPowerup = filteredPowerups[selected];
-
-        if (manualSelectedID != -1)
-            selectedPowerup = filteredPowerups.First(el => el.id == manualSelectedID);
-
-        powerupImage.sprite = selectedPowerup.sprite;
-        powerupName.text = selectedPowerup.itemName;
-        powerupDescription.text = selectedPowerup.description;
-
-        if (selectedPowerup.animationClip != null)
+    private void ReplacePowerup()
+    {
+        // Clean previous added PowerupBase scripts 
+        // Only if the powerup was picked and needs to be altered
+        foreach (var item in transform.GetComponentsInChildren<PowerupBase>())
         {
-            powerupImage.GetComponent<Animator>().enabled = true;
-            powerupImage.GetComponent<Animator>().Play(selectedPowerup.animationClip.name);
+            Debug.Log($"Destroying previous attached PowerupBase script [{item.name}] as it can't be equipped");
+            Destroy(item);
         }
 
-        return selectedPowerup;
+        var randomPowerup = GetRandomPowerup();
+        SetSelectedPowerup(randomPowerup, GetRandomPowerup);
     }
 
-    void Update()
+    public void ActivatePowerup(PowerupScriptableObject powerup)
     {
-        ActivatePowerup();
-        CorrectTextPosition();
+        var rawScript = powerup.GetPowerupType();
+        var powerupBase = gameObject.AddComponent(rawScript) as PowerupBase;
+        powerupBase.powerupScriptableObject = powerup;
+        powerupBase.Activate();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag(Tags.PLAYER_SHIP))
-        {
-            playerHovering = true;
-            textPanel.gameObject.SetActive(true);
-            powerupImage.transform.parent.TryGetComponent<Canvas>(out var canvas);
-            canvas.sortingOrder += 1;
-        }
-    }
+    // private List<PowerupScriptableObject> allPowerups;
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag(Tags.PLAYER_SHIP))
-        {
-            playerHovering = false;
-            textPanel.gameObject.SetActive(false);
-            powerupImage.transform.parent.TryGetComponent<Canvas>(out var canvas);
-            canvas.sortingOrder -= 1;
-        }
-    }
+    // private static List<PowerupScriptableObject> AllPowerupsStatic = new();
+    // public static List<PowerupScriptableObject> onScreenPowerups = new();
 
-    private void ActivatePowerup()
-    {
-        if (playerHovering && Input.GetKey(KeyCode.Space))
-        {
-            var powerupScript = selectedPowerup.GetPowerupType();
-            Debug.Log("SELECTED");
-            var pus = gameObject.AddComponent(powerupScript) as PowerupBase;
-            Debug.Log("ADDED");
-            pus.Activate(selectedPowerup);
-            Debug.Log("ACTIVATED");
-            Destroy(gameObject);
-            Debug.Log("DESTROYED");
-        }
-    }
+    // private PowerupBase powerupScript;
 
-    private void CorrectTextPosition()
-    {
-        Vector3 position = textPanel.anchoredPosition;
-        float width = textPanel.rect.width;
-        float height = textPanel.rect.height;
+    // public System.Action<PowerupScriptableObject, GameObject> ReplacePowerup;
 
-        if (textPanel.transform.position.y + height > CameraUtils.CameraRect.yMax)
-            position.y = -Mathf.Abs(position.y);
+    // [Space]
+    // [Header("Debug")]
+    // public int manualSelectedID = -1;
 
-        if (textPanel.transform.position.y - height < CameraUtils.CameraRect.yMin)
-            position.y = Mathf.Abs(position.y);
+    // private void Start()
+    // {
+    //     if (manualSelectedID != -1)
+    //         PickRandomPowerup(new(), manualSelectedID);
+    // }
 
-        if (textPanel.transform.position.x + width > CameraUtils.CameraRect.xMax)
-            position.x = -width / 2f;
+    // public PowerupScriptableObject PickRandomPowerup(List<PowerupScriptableObject> filter, int manualId = -1)
+    // {
+    //     allPowerups = LoadAllPowerups();
+    //     allPowerups = allPowerups.Where(el => el.available).ToList();
+    //     var filteredPowerups = allPowerups.Where(el => filter.Any(el1 => el1.id == el.id) == false).ToList();
 
-        if (textPanel.transform.position.x - width < CameraUtils.CameraRect.xMin)
-            position.x = width / 2f;
+    //     if (allPowerups.Count == 0)
+    //         throw new System.Exception("Powerups count is 0 after filtering the whole list of size " + allPowerups.Count + " with a filter of size " + filter.Count + "");
+
+    //     int selected = Random.Range(0, filteredPowerups.Count);
+    //     selectedPowerup = filteredPowerups[selected];
+
+    //     if (manualId != -1)
+    //         selectedPowerup = filteredPowerups.First(el => el.id == manualId);
+
+    //     // Clean previous added PowerupBase scripts 
+    //     // Only if the powerup was picked and needs to be altered
+    //     foreach (var item in transform.GetComponentsInChildren<PowerupBase>())
+    //     {
+    //         if (!item) continue;
+    //         Debug.Log($"Destroying previous attached PowerupBase script [{item.name}] as it can't be equipped");
+    //         Destroy(item);
+    //     }
+
+    //     // Assigning respective PowerBase script for Acivation
+    //     var rawScript = selectedPowerup.GetPowerupType();
+    //     powerupScript = gameObject.AddComponent(rawScript) as PowerupBase;
+    //     powerupScript.ReplacePowerup = ReplacePowerup;
+    //     powerupScript.powerupScriptableObject = selectedPowerup;
+
+    //     return selectedPowerup;
+    // }
+
+    // public void SetPowerup(PowerupScriptableObject powerup)
+    // {
+    //     selectedPowerup = powerup;
+    // }
 
 
-        textPanel.anchoredPosition = position;
-    }
+
+
+
+    // public void ActivatePowerup()
+    // {
+    //     powerupScript.Activate(selectedPowerup);
+    // }
+
+
+
+    // private List<PowerupScriptableObject> LoadAllPowerups()
+    // {
+    //     if (AllPowerupsStatic.Count == 0)
+    //         AllPowerupsStatic = Resources.LoadAll<PowerupScriptableObject>("ScriptableObjects/Powerups").ToList();
+
+    //     return AllPowerupsStatic;
+    // }
 }

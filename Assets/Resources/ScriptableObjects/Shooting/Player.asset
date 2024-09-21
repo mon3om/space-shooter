@@ -24,10 +24,12 @@ MonoBehaviour:
   burstCount: 2
   burstDelay: 0.1
   shotMovementSpeed: 8
-  damage: 5
+  damage: 10
   scale: {x: 2, y: 2}
   projectileSource: 0
   shootingType: 0
   sprite: {fileID: 0}
-  explosionPrefab: {fileID: 968786814282064980, guid: 97369cac83274fb44a9b7d84c4a3ba28, type: 3}
+  explosionPrefab:
+  - {fileID: 968786814282064980, guid: 97369cac83274fb44a9b7d84c4a3ba28, type: 3}
+  - {fileID: 3133663066609895311, guid: 23e790601e6ad5341b375a394d7bf1aa, type: 3}
   soundEffect: {fileID: 0}

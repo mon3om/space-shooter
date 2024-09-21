@@ -4,11 +4,12 @@ using TMPro;
 public class UIScoreManager : MonoBehaviour
 {
     private static TMP_Text scoreText;
-    private static int score = 0;
+    public static int score = 0;
 
     private void Start()
     {
         scoreText = GetComponent<TMP_Text>();
+        UIScoreManager.score = 0;
     }
 
     public static void UpdateScore(int score)

@@ -104,7 +104,6 @@ public class LaserEnemy : EnemyAIBase
 
     private void PickRandomState()
     {
-        Debug.Log("ID = " + id + " -- Siblings = " + waveSiblings.Count);
         if (id == 0)
         {
             if (waveSiblings.Count > 1)
@@ -126,6 +125,7 @@ public class LaserEnemy : EnemyAIBase
         go.TryGetComponent(out laserInstance);
         onEnemyDestroy += (EnemyAIBase enemyAIBase, int waveId) => laserInstance.isEmitting = false;
         laserInstance.damage = damage;
+        laserInstance.source = transform;
     }
 
     private void ModifyLaserLength()

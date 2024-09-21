@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 842c0ad060ff22f48949993caadbef23, type: 3}
   description: Boss defeated? Enjoy an extra powerup thanks to advanced code upgrades.
-  available: 0
+  available: 1
   powerupCategory: 2
   requiredPowerups: []
   animationClip: {fileID: 0}
-  scriptTypeName: {fileID: 0}
+  scriptTypeName: {fileID: 11500000, guid: 2ecc1bb81d29cf842b743282b6c38cad, type: 3}

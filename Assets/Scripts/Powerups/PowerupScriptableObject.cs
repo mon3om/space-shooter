@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum PowerupCategory { None, Weapon, Stackable }
 
@@ -54,6 +55,30 @@ public class PowerupScriptableObject : ScriptableObject
             Debug.LogError(e.Message);
             return -1;
         }
+    }
+
+    public bool HasRequiredPowerups()
+    {
+        bool canEquipe = true;
+        if (requiredPowerups.Length > 0)
+        {
+            canEquipe = false;
+            foreach (var equipped in PowerupsManager.equippedPowerups)
+            {
+                foreach (var required in requiredPowerups)
+                {
+                    if (equipped.id == required.id)
+                    {
+                        canEquipe = true;
+                        break;
+                    }
+                }
+                if (canEquipe)
+                    break;
+            }
+        }
+
+        return canEquipe;
     }
 
     public Action OnPowerupActivated;

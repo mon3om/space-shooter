@@ -5,7 +5,7 @@ public enum ScreenEdge { EdgeTop, EdgeBottom, EdgeRight, EdgeLeft }
 
 public class LineIntersection2D
 {
-    public static void GetIntersectionWithScreenEdge(Vector2 start, Vector2 end, out Vector2 intersection, out ScreenEdge edge)
+    public static void GetIntersectionWithScreenEdge(GameObject gameObjectForName, Vector2 start, Vector2 end, out Vector2 intersection, out ScreenEdge edge)
     {
         intersection = default(Vector2);
         edge = default(ScreenEdge);
@@ -30,7 +30,7 @@ public class LineIntersection2D
 
         if (!found)
         {
-            throw new System.Exception("No intersection found!");
+            Debug.LogWarning("No intersection found on enemy " + gameObjectForName.name);
         }
     }
 

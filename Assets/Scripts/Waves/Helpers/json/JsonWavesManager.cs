@@ -81,7 +81,6 @@ namespace JsonWaves
                 waveEnemies.Add(waveEnemy);
             }
 
-            UnityEngine.Debug.Log("ENEMIES COUNT = " + waveEnemies.Count);
             WaveEnemies = waveEnemies;
             return waveEnemies;
         }

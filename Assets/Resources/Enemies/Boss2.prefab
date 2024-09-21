@@ -438,7 +438,8 @@ MonoBehaviour:
     initPosition: {x: 0, y: 0}
     targetPosition: {x: 0, y: 0}
   damage: 0
-  deathAnimation: {fileID: 0}
+  deathAnimation:
+  - {fileID: 0}
   deathSound: {fileID: 0}
   shootingInterval: 40
   laserInterval: 20
@@ -504,5 +505,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7de67984935dd46863c104a584cfde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerupPrefab: {fileID: 7583849551406975184, guid: f5726a311eefe954890189f95796be01, type: 3}
+  powerupDropperPrefab: {fileID: 1197426620360199898, guid: e2c0ce059867ae345a283da3d7d23d69, type: 3}
   powerupsCount: 4
+  powerupsIdForDebug: 

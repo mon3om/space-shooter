@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,24 +19,19 @@ public class LaserObject : EnemyAIBase
     private List<LaserPrefab> lasers = new();
     private List<LaserPrefab> laserSources = new();
 
-    private new void Start()
+    private void Awake()
+    {
+        initPosition = transform.position;
+    }
+
+    private void Start()
     {
         base.Start();
-
-        initPosition = transform.position;
         if (isSource)
             orientationHandler.LookAtPointImmediate((Vector2)transform.position + emittingDirections[0]);
 
         UpdateInitPosition();
-        enteringTargetPosition = initPosition;
-        directionalMover.MoveTowardsPoint(enteringTargetPosition);
-        directionalMover.movementSpeed = GetTravellingSpeed();
-        directionalMover.onDestinationReached.AddListener(() =>
-        {
-            directionalMover.StopMoving();
-            if (isSource)
-                CreateLaser(transform.up);
-        });
+        StartMoving();
 
         onEnemyDestroy += (EnemyAIBase ai, int waveId) =>
         {
@@ -45,14 +41,29 @@ public class LaserObject : EnemyAIBase
 
     private void UpdateInitPosition()
     {
+        Debug.Log("Init position = " + transform.position);
         if (enterDirection == Vector2.left)
-            transform.position = new(CameraUtils.CameraRect.xMin - 3, transform.position.y);
+            transform.position = new(CameraUtils.CameraRect.xMin - 3, initPosition.y);
         else if (enterDirection == Vector2.right)
-            transform.position = new(CameraUtils.CameraRect.xMax + 3, transform.position.y);
+            transform.position = new(CameraUtils.CameraRect.xMax + 3, initPosition.y);
         else if (enterDirection == Vector2.up)
-            transform.position = new(transform.position.x, CameraUtils.CameraRect.yMax + 3);
+            transform.position = new(initPosition.x, CameraUtils.CameraRect.yMax + 3);
         else if (enterDirection == Vector2.down)
-            transform.position = new(transform.position.x, CameraUtils.CameraRect.yMin - 3);
+            transform.position = new(initPosition.x, CameraUtils.CameraRect.yMin - 3);
+        Debug.Log("Updated position = " + transform.position);
+    }
+
+    private void StartMoving()
+    {
+        enteringTargetPosition = initPosition;
+        directionalMover.MoveTowardsPoint(enteringTargetPosition);
+        directionalMover.movementSpeed = GetTravellingSpeed();
+        directionalMover.onDestinationReached.AddListener(() =>
+        {
+            directionalMover.StopMoving();
+            if (isSource)
+                CreateLaser(transform.up);
+        });
     }
 
     private float GetTravellingSpeed()

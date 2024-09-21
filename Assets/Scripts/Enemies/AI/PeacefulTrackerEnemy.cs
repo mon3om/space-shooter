@@ -57,16 +57,11 @@ public class PeacefulTrackerEnemy : EnemyAIBase
     {
         if (other.CompareTag(Tags.PLAYER_SHIP))
         {
-            if (other.gameObject.TryGetComponent(out PlayerDamager playerDamager))
-            {
-                playerDamager.TakeDamage(explosionDamage);
-            }
-            else
-            {
-                Debug.LogError("PlayerDamager not found");
-            }
+            other.gameObject.TryGetComponent(out PlayerDamager playerDamager);
+            playerDamager.TakeDamage(explosionDamage);
+
             InstantiateDeathAnimation();
-            Destroy(gameObject);
+            DestroyEnemy();
         }
     }
 

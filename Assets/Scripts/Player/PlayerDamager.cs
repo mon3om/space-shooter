@@ -1,117 +1,87 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerDamager : MonoBehaviour
 {
-    public float health = 20;
+    public float health = 5;
+    [HideInInspector] public float initHealth;
     public Sprite[] healthStatesSprites;
     [Space]
     [Header("Invincibility")]
     public float invicibleTime = 2.5f;
     public SpriteRenderer[] playerRenderers;
     public float delayRendererBlinking;
-    public ParticleSystem smokeParticles;
 
-    private float invincibleTimeCounter = 0;
+
     private bool isInvincible = false;
+    private float previousHealth = 0;
 
-    public float InitHealth { private set; get; }
-
-    private GameObject shieldGO;
-    private ShieldState shieldState;
+    // private GameObject shieldGO;
+    // private ShieldState shieldState;
     private SoundPlayer soundPlayer;
+    private PlayerShieldManager playerShieldManager;
 
-    public System.Action<float, float> onHealthModified; // (currentHealth, initialHealth) 
+    public System.Action<float, float, float> onHealthModified; // (currentHealth, previousHealth,initialHealth) 
+    public System.Action<bool, float> onInvicibilityStateChanged; // (isInvicible, invincibleTime) 
 
     private void Start()
     {
-        InitHealth = health;
+        initHealth = health;
+        previousHealth = health;
 
         soundPlayer = GetComponent<SoundPlayer>();
         playerRenderers = transform.GetComponentsInChildren<SpriteRenderer>();
-        shieldGO = transform.Find("Shield").gameObject;
-        UIPlayerShield.OnShielStateChanged += (state) =>
-        {
-            if (state == ShieldState.Charging || state == ShieldState.Disabled)
-            {
-                if (shieldGO)
-                    shieldGO.SetActive(false);
-            }
-            if (state == ShieldState.Activating)
-            {
-                soundPlayer.PlayStandalone("shield-activated");
-                StartCoroutine(ShieldActivationCoroutine());
-            }
-
-            shieldState = state;
-        };
-
-        var emission = smokeParticles.emission;
-        emission.rateOverTime = 0;
+        playerShieldManager = gameObject.AddComponent<PlayerShieldManager>();
     }
 
     public void TakeDamage(float damage)
     {
-        if (shieldState == ShieldState.Active)
+        if (playerShieldManager.shieldState == ShieldState.Active)
         {
             soundPlayer.Play("shield-deflect");
             return;
         }
 
         if (isInvincible) return;
-
         soundPlayer.PlayStandalone("player-damage");
-
-        health -= 1;
-
-        EnableInvicibility();
-        onHealthModified?.Invoke(health, InitHealth);
+        StartCoroutine(EnableInvicibility());
         CameraShaker.ShakeGlitching(.2f, .2f);
-        UpdateDamageStateSprite();
 
-        if (health > 0)
-        {
+        EditHealth(-1);
 
-        }
-        else
-        {
-            GameObject.FindWithTag(Tags.UI_GAMEOVER).transform.GetChild(0).gameObject.SetActive(true);
-            CameraShaker.Glitch();
-            Destroy(gameObject);
-        }
+        if (health <= 0)
+            Die();
     }
 
-    private void EnableInvicibility()
+    private void Die()
+    {
+        Instances.WavesManager.ClearAllEnemies();
+        Instances.WavesManager.StopGeneratingWaves();
+        Instances.WavesManager.gameObject.SetActive(false);
+
+        Instances.UIGameOver.Display();
+        CameraShaker.Glitch();
+
+        var coroutine = AuthInfo.Instance.SaveScoreCoroutine(UIScoreManager.score,
+        res =>
+        {
+            Instances.UIGameOver.SetScoreText(res.score, res.newHighScore);
+        },
+        err => { Debug.LogError(err.error); });
+
+        Instances.Instance.StartCoroutine(coroutine);
+        Destroy(gameObject);
+    }
+
+    private IEnumerator EnableInvicibility()
     {
         isInvincible = true;
-        invincibleTimeCounter = Time.time + invicibleTime;
-        StartCoroutine(StartBlinking());
+        onInvicibilityStateChanged?.Invoke(isInvincible, invicibleTime);
+        yield return new WaitForSeconds(invicibleTime);
+        isInvincible = false;
+        onInvicibilityStateChanged?.Invoke(isInvincible, invicibleTime);
     }
 
-    private IEnumerator StartBlinking()
-    {
-        HandleBlinking();
-        yield return new WaitForSeconds(delayRendererBlinking);
-
-        if (Time.time < invincibleTimeCounter)
-        {
-            StartCoroutine(StartBlinking());
-        }
-        else
-        {
-            isInvincible = false;
-            HandleBlinking(true);
-        }
-    }
-
-    private void HandleBlinking(bool endTheAnimation = false)
-    {
-        foreach (var item in playerRenderers)
-        {
-            item.gameObject.SetActive(endTheAnimation || !item.gameObject.activeSelf);
-        }
-    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -120,49 +90,18 @@ public class PlayerDamager : MonoBehaviour
             TakeDamage(1);
     }
 
-    private void UpdateDamageStateSprite()
+    public void EditInitHealth(int amountToBeAdded)
     {
-        float healthQuarter = InitHealth / 4;
-        if (health >= 3 * healthQuarter)
-        {
-            transform.Find("Base").GetComponent<SpriteRenderer>().sprite = healthStatesSprites[0];
-
-        }
-        else if (health >= 2 * healthQuarter)
-        {
-            transform.Find("Base").GetComponent<SpriteRenderer>().sprite = healthStatesSprites[1];
-            var emission = smokeParticles.emission;
-            emission.rateOverTime = 5;
-        }
-        else if (health >= healthQuarter)
-        {
-            transform.Find("Base").GetComponent<SpriteRenderer>().sprite = healthStatesSprites[2];
-            var emission = smokeParticles.emission;
-            emission.rateOverTime = 50;
-        }
-        else
-        {
-            transform.Find("Base").GetComponent<SpriteRenderer>().sprite = healthStatesSprites[3];
-            var emission = smokeParticles.emission;
-            emission.rateOverTime = 40;
-        }
+        initHealth += amountToBeAdded;
+        previousHealth = health;
+        health += amountToBeAdded;
+        onHealthModified?.Invoke(health, previousHealth, initHealth);
     }
 
-    private IEnumerator ShieldActivationCoroutine()
+    public void EditHealth(int amountToBeAdded)
     {
-        shieldGO.SetActive(!shieldGO.activeSelf);
-        yield return new WaitForSeconds(delayRendererBlinking);
-        if (shieldState == ShieldState.Activating)
-            StartCoroutine(ShieldActivationCoroutine());
-        else
-        {
-            shieldGO.SetActive(true);
-        }
-    }
-
-    public void ModifyInitHealth(int amountToBeAdded)
-    {
-        InitHealth += amountToBeAdded;
-
+        previousHealth = health;
+        health += amountToBeAdded;
+        onHealthModified?.Invoke(health, previousHealth, initHealth);
     }
 }

@@ -15,7 +15,7 @@ public class Asteroid : EnemyAIBase
         directionalMover.MoveInDirection((Vector3)enteringTargetPosition - transform.position);
         directionalMover.movementSpeed = Random.Range(1f, 2.5f);
 
-        StartCoroutine(DeathCoroutine());
+        StartCoroutine(DeathCoroutine(20));
     }
 
     public void OnBecameVisible()
@@ -23,14 +23,16 @@ public class Asteroid : EnemyAIBase
         isVisible = true;
     }
 
-    public void OnBecameInvisible()
+    public new void OnBecameInvisible()
     {
         isVisible = false;
+        StopAllCoroutines();
+        StartCoroutine(DeathCoroutine(3));
     }
 
-    private IEnumerator DeathCoroutine()
+    private IEnumerator DeathCoroutine(float time)
     {
-        yield return new WaitForSeconds(20);
+        yield return new WaitForSeconds(time);
         if (!isVisible)
         {
             if (TryGetComponent(out ScreenEdgeAlert screenEdgeAlert))
@@ -38,6 +40,6 @@ public class Asteroid : EnemyAIBase
             DestroyEnemy();
         }
         else
-            StartCoroutine(DeathCoroutine());
+            StartCoroutine(DeathCoroutine(time));
     }
 }

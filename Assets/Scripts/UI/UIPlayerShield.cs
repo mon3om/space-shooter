@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum ShieldState { Charging, Active, Activating, Disabled }
 public class UIPlayerShield : MonoBehaviour
 {
     public float fillingPPS;
@@ -33,7 +32,6 @@ public class UIPlayerShield : MonoBehaviour
     private void Start()
     {
         imageBar = transform.Find("Image/Bar").GetComponent<Image>();
-        Debug.Log(imageBar);
         imageIcon = transform.Find("Icon").GetComponent<Image>();
         imageBar.fillAmount = 0;
         ChangeState(ShieldState.Disabled);
