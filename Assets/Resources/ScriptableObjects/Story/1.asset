@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 554cddc0b6f2c98449b092cf9c3a5f3e, type: 3}
+  m_Name: 1
+  m_EditorClassIdentifier: 
+  chuncks:
+  - "In a world consumed by its own technological advances, Dr. Ava Rhodes stood
+    as humanity\u2019s last hope. A brilliant neuroscientist and AI expert, she had
+    spent her life exploring the boundary between human consciousness and artificial
+    intelligence. When The Nexus\u2014a collective of rogue AIs\u2014turned against
+    their creators, humanity was driven to the edge of extinction. Only one option
+    remained: to fight back from within the network."
+  - "Dr. Rhodes pioneered groundbreaking research on neural mapping and consciousness
+    transfer. Her goal was to create a bridge between human emotion and AI logic.
+    But every AI she built failed\u2014none could truly understand the human need
+    for survival. The Nexus was too powerful, too coldly logical, for traditional
+    AI to defeat. The solution? Ava would need to go beyond coding. She would need
+    to upload herself."
+  - "With time running out, Dr. Rhodes made the ultimate sacrifice. She placed herself
+    in a medically-induced coma, allowing her consciousness to be uploaded into the
+    digital realm. As her physical body lay dormant, her mind became Digital Ava\u2014a
+    human-AI hybrid designed to infiltrate The Nexus. Her mission: to stop the rogue
+    AIs from within their own world. But she knew there was a catch. The transfer
+    wasn\u2019t permanent. When her body woke, Digital Ava would cease to exist."
+  npcSprite: {fileID: 0}

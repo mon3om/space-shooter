@@ -25,6 +25,7 @@ public class ShieldSupportEnemy : EnemyAIBase
         if (!boss)
         {
             lineRenderer.positionCount = 0;
+            Destroy(gameObject);
             return;
         }
         if (Vector2.Distance(transform.position, boss.transform.position) <= distanceFromShip)
@@ -56,7 +57,7 @@ public class ShieldSupportEnemy : EnemyAIBase
 
     private IEnumerator RegenerateCoroutine()
     {
-        boss.GetComponent<Shield>().Regenerate(regenrationPercent);
+        boss.GetComponent<EnemyShield>().Regenerate(regenrationPercent);
         yield return new WaitForSeconds(1);
         StartCoroutine(RegenerateCoroutine());
     }

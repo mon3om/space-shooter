@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 5523893213294675593}
   - component: {fileID: 4432936441066810062}
   - component: {fileID: 6049752982939640881}
-  - component: {fileID: 7801725006676631890}
   - component: {fileID: 1252793543993238694}
   - component: {fileID: 6405701533261022842}
+  - component: {fileID: 5004124767227744517}
   m_Layer: 0
   m_Name: PeacefulTrackerEnemy
   m_TagString: Untagged
@@ -34,7 +34,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.3, y: 3.3, z: 1}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7783211059535128458}
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: c8c71edc45bafd04399f1a8fcf96ed07, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 71d76fd29d9894d43a0d9b1b8d91c792, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -168,8 +168,58 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &7801725006676631890
-BoxCollider2D:
+--- !u!114 &1252793543993238694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117272120043301207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f8f1a99c65494b4999fe3ae35005fad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enteringTargetPosition: {x: 0, y: 0}
+  isNowStatic: 0
+  waveSiblings: []
+  enemyIdentifier:
+    waveEnemyDifficulty: 0
+    waveShape: 0
+    waveEnteringPosition: 0
+    enemySpawnId: 0
+    waveId: 0
+    initPosition: {x: 0, y: 0}
+    targetPosition: {x: 0, y: 0}
+  damage: 0
+  deathAnimation:
+  - {fileID: 968786814282064980, guid: cf28611d2d050e84b951e051d2d76c53, type: 3}
+  deathSound: {fileID: 8300000, guid: 39896809c7723be4b9c298a5cb2fa3a2, type: 3}
+  killedByPlayer: 0
+  trackingSpeedMultiplier: 1.25
+  explosionDamage: 10
+  waitTimeBeforeTrackingPlayer: 0
+  oppositeAngleOffset: 20
+  speedModifier: 3.5
+  variationSpeed: 1
+  checkInterval: 0.2
+--- !u!114 &6405701533261022842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117272120043301207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1c48a4f0ad856643beaed673be5319e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alertPrefab: {fileID: 841086676269441540, guid: ddefca1559b95cc4dab5a20ab8d9ad33, type: 3}
+  forceAlertDisplay: 0
+  hideDelay: 0
+--- !u!60 &5004124767227744517
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -200,7 +250,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.000000014901161, y: -0.012259454}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -210,58 +260,22 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.19496405, y: 0.1459263}
-  m_EdgeRadius: 0
---- !u!114 &1252793543993238694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2117272120043301207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f8f1a99c65494b4999fe3ae35005fad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enteringTargetPosition: {x: 0, y: 0}
-  isNowStatic: 0
-  waveSiblings: []
-  enemyIdentifier:
-    waveEnemyDifficulty: 0
-    waveShape: 0
-    waveEnteringPosition: 0
-    enemySpawnId: 0
-    waveId: 0
-    initPosition: {x: 0, y: 0}
-    targetPosition: {x: 0, y: 0}
-  damage: 0
-  deathAnimation:
-  - {fileID: 968786814282064980, guid: cf28611d2d050e84b951e051d2d76c53, type: 3}
-  deathSound: {fileID: 8300000, guid: 39896809c7723be4b9c298a5cb2fa3a2, type: 3}
-  trackingSpeedMultiplier: 1.25
-  explosionDamage: 10
-  waitTimeBeforeTrackingPlayer: 0
-  oppositeAngleOffset: 20
-  speedModifier: 3.5
-  variationSpeed: 1
-  checkInterval: 0.2
---- !u!114 &6405701533261022842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2117272120043301207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1c48a4f0ad856643beaed673be5319e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  alertPrefab: {fileID: 841086676269441540, guid: ddefca1559b95cc4dab5a20ab8d9ad33, type: 3}
-  forceAlertDisplay: 0
-  hideDelay: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.049999997, y: 0.14999999}
+      - {x: 0.02, y: 0.22}
+      - {x: -0.02, y: 0.22}
+      - {x: -0.049999997, y: 0.19999999}
+      - {x: -0.08, y: 0.03}
+      - {x: -0.22, y: -0.049999997}
+      - {x: -0.22, y: -0.14999999}
+      - {x: -0.16, y: -0.19999999}
+      - {x: 0.08, y: -0.19999999}
+      - {x: 0.19, y: -0.19}
+      - {x: 0.21, y: -0.14999999}
+      - {x: 0.21, y: -0.04}
+      - {x: 0.07, y: 0.03}
+  m_UseDelaunayMesh: 0
 --- !u!1 &2799488548018094313
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,8 +390,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.16078432, g: 0.8745099, b: 0.70980394, a: 0.27450982}
-      key1: {r: 0.21568629, g: 0.5058824, b: 0.46274513, a: 0.3137255}
+      key0: {r: 0.9686275, g: 0.82745105, b: 0.6117647, a: 0.27450982}
+      key1: {r: 0.7294118, g: 0.15686275, b: 0.2392157, a: 0.3137255}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -393,8 +407,8 @@ TrailRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 65535
-      atime2: 0
+      atime1: 58055
+      atime2: 65535
       atime3: 0
       atime4: 0
       atime5: 0
@@ -403,7 +417,7 @@ TrailRenderer:
       m_Mode: 0
       m_ColorSpace: 0
       m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
+      m_NumAlphaKeys: 3
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
@@ -490,7 +504,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -218534847, guid: 3404965e521f0db40a1d9d3a7e9a578d, type: 3}
+  m_Sprite: {fileID: 1287462120, guid: eeb5fc50f5cb952429c1308cea8aabc2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

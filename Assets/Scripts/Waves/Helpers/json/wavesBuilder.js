@@ -24,13 +24,6 @@ const ENTER_POSITIONS = {
 
 const EASY = [
   {
-    enemyPrefab: "Enemies/LaserWave-EASY-1",
-    count: { min: 1, max: 1, step: 1 },
-    enterPositions: [ENTER_POSITIONS.ShouldEnterFromTop],
-    shapes: [],
-    maxEnemiesPerLine: -1,
-  },
-  {
     enemyPrefab: "Enemies/LaserWave-EASY-2",
     count: { min: 1, max: 1, step: 1 },
     enterPositions: [ENTER_POSITIONS.ShouldEnterFromTop],
@@ -103,6 +96,20 @@ const MODERATE = [
   {
     enemyPrefab: "Enemies/LaserEnemy",
     count: { min: 2, max: 2, step: 1 },
+    enterPositions: [ENTER_POSITIONS.ShouldEnterFromTop],
+    shapes: [],
+    maxEnemiesPerLine: -1,
+  },
+  {
+    enemyPrefab: "Enemies/Asteroid-MEDIUM",
+    count: { min: 5, max: 10, step: 1 },
+    enterPositions: [ENTER_POSITIONS.ShouldEnterFromRandom],
+    shapes: [],
+    maxEnemiesPerLine: -1,
+  },
+  {
+    enemyPrefab: "Enemies/LaserWave-EASY-1",
+    count: { min: 1, max: 1, step: 1 },
     enterPositions: [ENTER_POSITIONS.ShouldEnterFromTop],
     shapes: [],
     maxEnemiesPerLine: -1,

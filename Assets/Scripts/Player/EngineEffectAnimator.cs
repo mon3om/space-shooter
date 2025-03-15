@@ -43,12 +43,12 @@ public class EngineAnimationScaler
     public Vector3 positionRegulation;
 
     private Vector3 initScale = Vector3.zero;
-    private Vector3 initPosition = Vector3.zero;
+    private Vector3 initPosition = Vector3.negativeInfinity;
 
     public void Scale(float speed)
     {
         if (initScale == Vector3.zero) initScale = scalePart.localScale;
-        if (initPosition == Vector3.zero) initPosition = scalePart.localPosition;
+        if (initPosition.x == Mathf.NegativeInfinity) initPosition = scalePart.localPosition;
         scalePart.localScale = Vector3.Lerp(scalePart.localScale, new(scaleAmount.x != 0 ? scaleAmount.x : initScale.x, scaleAmount.y != 0 ? scaleAmount.y : initScale.y, 1), speed * Time.deltaTime);
 
         scalePart.localPosition = Vector3.Lerp(scalePart.localPosition, positionRegulation, speed * Time.deltaTime);
@@ -57,7 +57,7 @@ public class EngineAnimationScaler
     public void Unscale(float speed)
     {
         if (initScale == Vector3.zero) initScale = scalePart.localScale;
-        if (initPosition == Vector3.zero) initPosition = scalePart.localPosition;
+        if (initPosition.x == Mathf.NegativeInfinity) initPosition = scalePart.localPosition;
         scalePart.localScale = Vector3.Lerp(scalePart.localScale, initScale, speed * Time.deltaTime);
 
         scalePart.localPosition = Vector3.Lerp(scalePart.localPosition, initPosition, speed * Time.deltaTime);

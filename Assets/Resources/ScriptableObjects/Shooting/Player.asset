@@ -25,7 +25,7 @@ MonoBehaviour:
   burstDelay: 0.1
   shotMovementSpeed: 8
   damage: 10
-  scale: {x: 2, y: 2}
+  scale: {x: 5, y: 5}
   projectileSource: 0
   shootingType: 0
   sprite: {fileID: 0}

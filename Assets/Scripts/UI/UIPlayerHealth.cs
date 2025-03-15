@@ -51,8 +51,6 @@ public class UIPlayerHealth : MonoBehaviour
             image.color = activeColor;
             healthImages.Add(image);
         }
-
-        Debug.Log("Health bars instantiated.");
     }
 
     private void OnHealthModified(float current, float previous, float initial)

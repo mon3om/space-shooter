@@ -1,3 +1,17 @@
+- Change Eva's image
+- Set gameplay images in card description (gifs are bonus)
+- Remove marketplace
+- Plish the menu
+- Add background to powerups menu
+- Add one of the artist's backgrounds to the story telling component
+- Add a default image when user not connected to the story telling component
+
+
+======================
+
+- Add a timer to single Powerups
+- Fix boss spawning double Powerups
+
 - Finish Boss Explosion Effect 
 - Fix JSON builder to include a boolean for prefab waves then do isPrefabWave check on EnemyFactory.cs instead of the name check
 - Enhance laser wave

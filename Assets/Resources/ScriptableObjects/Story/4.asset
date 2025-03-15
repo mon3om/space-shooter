@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 554cddc0b6f2c98449b092cf9c3a5f3e, type: 3}
+  m_Name: 4
+  m_EditorClassIdentifier: 
+  chuncks:
+  - "In her darkest moments, Ava questioned her own identity. Was she still human,
+    or had she become the very thing she was trying to destroy? The deeper she delved,
+    the more she felt the cold logic of the network seeping into her mind. Her human
+    emotions\u2014fear, hope, empathy\u2014clashed with the efficiency and ruthlessness
+    of her digital form. To defeat The Nexus, she needed to remain human, but every
+    battle brought her closer to becoming like the enemy she was fighting."
+  npcSprite: {fileID: 0}

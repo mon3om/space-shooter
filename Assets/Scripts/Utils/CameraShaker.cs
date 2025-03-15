@@ -15,6 +15,8 @@ public class CameraShaker : MonoBehaviour
     private float analogGlitchReductionRate;
     private float digitalGlitchReductionRate;
 
+    private bool isBossGlitching = false;
+
     private void Awake()
     {
         Instances.CameraShaker = this;
@@ -29,6 +31,7 @@ public class CameraShaker : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isBossGlitching) return;
         if (shake > 0)
         {
             var temp = Random.insideUnitSphere * shakeAmount;
@@ -113,6 +116,7 @@ public class CameraShaker : MonoBehaviour
     public void StartBossGlitching(float duration, AudioSource audio)
     {
         gradualTime = 0;
+        isBossGlitching = true;
         StopBossGlitching();
         StartCoroutine(GradualGlitchCoroutine(duration, audio));
     }
@@ -128,21 +132,18 @@ public class CameraShaker : MonoBehaviour
             step = 0.02f;
             float time = Time.timeScale - (1 / (duration - slowingTime) * step);
             audio.pitch = Time.timeScale = Mathf.Clamp(time, 0.25f, 1);
-            Debug.Log("Time.timeScale = " + Time.timeScale);
         }
-
-        yield return new WaitForSecondsRealtime(step);
-        gradualTime += step;
 
         if (gradualTime >= duration)
         {
-            StartCoroutine(TimeCoroutine(audio));
+            digitalGlitch.intensity = 1;
+            StartCoroutine(TimeCoroutine(audio, duration, 0.02f));
+            Debug.Log("digitalGlitch.intensity = " + digitalGlitch.intensity);
             yield break;
         }
         else
         {
-
-            digitalGlitch.intensity += 0.5f / duration * step;
+            digitalGlitch.intensity += 0.1f / duration * step;
 
             analogGlitch.colorDrift += 0.1f / duration * step;
             analogGlitch.scanLineJitter += 0.1f / duration * step;
@@ -150,31 +151,40 @@ public class CameraShaker : MonoBehaviour
             analogGlitch.horizontalShake += 0.1f / duration * step;
         }
 
+        yield return new WaitForSecondsRealtime(step);
+        gradualTime += step;
         StartCoroutine(GradualGlitchCoroutine(duration, audio));
     }
 
-    public float timeRegainDuration = 0.02f;
-    private IEnumerator TimeCoroutine(AudioSource audio)
+    private IEnumerator TimeCoroutine(AudioSource audio, float duration, float step)
     {
 
-        StopBossGlitching();
-        audio.pitch = Time.timeScale += 0.02f / 3f;
+        audio.pitch = Time.timeScale += step * duration;
+        audio.pitch = Time.timeScale = Mathf.Clamp(Time.timeScale, 0, 1);
 
-        digitalGlitch.intensity -= 0.5f / 50 / 3;
+        digitalGlitch.intensity -= 0.1f * duration * step;
 
-        analogGlitch.colorDrift -= 0.1f / 50 / 3;
-        analogGlitch.scanLineJitter -= 0.1f / 50 / 3;
-        analogGlitch.verticalJump -= 0.1f / 50 / 3;
-        analogGlitch.horizontalShake -= 0.1f / 50 / 3;
+        analogGlitch.colorDrift -= 0.1f * duration * step;
+        analogGlitch.scanLineJitter -= 0.1f * duration * step;
+        analogGlitch.verticalJump -= 0.1f * duration * step;
+        analogGlitch.horizontalShake -= 0.1f * duration * step;
 
-        yield return new WaitForSecondsRealtime(timeRegainDuration);
-        if (Time.timeScale >= 1)
+        digitalGlitch.intensity = Mathf.Clamp(digitalGlitch.intensity, 0, 1);
+        analogGlitch.colorDrift = Mathf.Clamp(analogGlitch.colorDrift, 0, 1);
+        analogGlitch.scanLineJitter = Mathf.Clamp(analogGlitch.scanLineJitter, 0, 1);
+        analogGlitch.verticalJump = Mathf.Clamp(analogGlitch.verticalJump, 0, 1);
+        analogGlitch.horizontalShake = Mathf.Clamp(analogGlitch.horizontalShake, 0, 1);
+
+        yield return new WaitForSecondsRealtime(step);
+        Debug.Log("digitalGlitch.intensity = " + digitalGlitch.intensity);
+        if (digitalGlitch.intensity <= 0)
         {
+            Debug.Log("Exiting........................");
             audio.pitch = Time.timeScale = 1;
             StopBossGlitching();
             yield break;
         }
-        StartCoroutine(TimeCoroutine(audio));
+        StartCoroutine(TimeCoroutine(audio, duration, step));
     }
 
     public void StopBossGlitching()
@@ -184,5 +194,7 @@ public class CameraShaker : MonoBehaviour
         analogGlitch.scanLineJitter = 0;
         analogGlitch.verticalJump = 0;
         analogGlitch.horizontalShake = 0;
+
+        isBossGlitching = false;
     }
 }

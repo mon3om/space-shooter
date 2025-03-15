@@ -16,7 +16,8 @@ public class EnemyPowerupDropper : MonoBehaviour
         {
             enemyAIBase.onEnemyDestroy += (enemy, waveId) =>
             {
-                GeneratePowerups();
+                if (enemy.killedByPlayer)
+                    GeneratePowerups();
             };
         }
         else

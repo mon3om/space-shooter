@@ -26,6 +26,7 @@ public class EnemyAIBase : MonoBehaviour
 
     private List<SpriteRenderer> renderers = new();
     private Shader defaultShader;
+    [HideInInspector] public bool killedByPlayer = false;
 
     public void Start()
     {
@@ -61,7 +62,7 @@ public class EnemyAIBase : MonoBehaviour
                     if (!item) continue;
 
                     GameObject anim;
-                    anim = Instantiate(item, transform.position, item.transform.rotation);
+                    anim = Instantiate(item, transform.position, item.transform.rotation, Instances.ProjectileHolder);
                     if (anim.TryGetComponent<Animator>(out var animator))
                     {
                         anim.transform.localScale = transform.localScale;
@@ -167,6 +168,7 @@ public class EnemyAIBase : MonoBehaviour
         throw new System.NotImplementedException();
     }
 
+    private Vector3 defaultScale;
     public void Blink(bool on, Color color = default)
     {
         if (on)
@@ -174,12 +176,14 @@ public class EnemyAIBase : MonoBehaviour
             {
                 item.material.shader = Instances.ShaderGUIMaterial;
                 item.material.color = color;
+                item.transform.localScale *= 1.1f;
             }
         if (!on)
             foreach (var item in renderers)
             {
                 item.material.shader = defaultShader;
                 item.material.color = Color.white;
+                item.transform.localScale /= 1.1f;
             }
     }
 }

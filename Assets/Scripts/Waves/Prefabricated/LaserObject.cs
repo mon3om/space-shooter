@@ -27,7 +27,7 @@ public class LaserObject : EnemyAIBase
     private void Start()
     {
         base.Start();
-        if (isSource)
+        if (emittingDirections.Count > 0)
             orientationHandler.LookAtPointImmediate((Vector2)transform.position + emittingDirections[0]);
 
         UpdateInitPosition();
@@ -35,13 +35,14 @@ public class LaserObject : EnemyAIBase
 
         onEnemyDestroy += (EnemyAIBase ai, int waveId) =>
         {
+            if (transform.parent && transform.parent.childCount <= 1)
+                Destroy(transform.parent.gameObject);
             StopEmitting();
         };
     }
 
     private void UpdateInitPosition()
     {
-        Debug.Log("Init position = " + transform.position);
         if (enterDirection == Vector2.left)
             transform.position = new(CameraUtils.CameraRect.xMin - 3, initPosition.y);
         else if (enterDirection == Vector2.right)
@@ -50,7 +51,6 @@ public class LaserObject : EnemyAIBase
             transform.position = new(initPosition.x, CameraUtils.CameraRect.yMax + 3);
         else if (enterDirection == Vector2.down)
             transform.position = new(initPosition.x, CameraUtils.CameraRect.yMin - 3);
-        Debug.Log("Updated position = " + transform.position);
     }
 
     private void StartMoving()
@@ -64,6 +64,22 @@ public class LaserObject : EnemyAIBase
             if (isSource)
                 CreateLaser(transform.up);
         });
+
+        if (emittingDirections.Count > 1)
+        {
+            for (int i = 1; i < emittingDirections.Count; i++)
+            {
+                GameObject go = new("Deflector");
+                go.transform.position = transform.position;
+                go.transform.localScale = transform.localScale;
+                go.AddComponent<SpriteRenderer>().sprite = GetComponent<SpriteRenderer>().sprite;
+                go.AddComponent<OrientationHandler>();
+                go.TryGetComponent(out OrientationHandler _oHandler);
+                _oHandler.angleOffset = -90;
+                _oHandler.LookAtPointImmediate(go.transform.position + (Vector3)emittingDirections[i]);
+                go.transform.parent = transform;
+            }
+        }
     }
 
     private float GetTravellingSpeed()
@@ -92,7 +108,7 @@ public class LaserObject : EnemyAIBase
     {
         var _laserPrefab = Instantiate(laserPrefab).GetComponent<LaserPrefab>();
         _laserPrefab.StartPoint = transform.position;
-        _laserPrefab.EndPoint = (Vector2)transform.position + direction;
+        _laserPrefab.SetEndpoint((Vector2)transform.position + direction);
         _laserPrefab.source = transform;
         lasers.Add(_laserPrefab);
     }

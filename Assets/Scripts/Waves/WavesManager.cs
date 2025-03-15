@@ -8,7 +8,7 @@ using Wave.Helper;
 public class WavesManager : MonoBehaviour
 {
     [HideInInspector] public LevelSettings levelSettings;
-    [HideInInspector] public int waveId = 0;
+    public int waveId = 0;
 
     [HideInInspector] public List<EnemyAIBase> spawnedEnemies = new();
 
@@ -18,9 +18,9 @@ public class WavesManager : MonoBehaviour
     [HideInInspector] public int levelIndex = 0;
 
     // Events
-    public System.Action<WavesManager, int> onWaveCleared; // <this, waveId>
-    public System.Action<int> onWaveSpawned; // <waveId>
-    public System.Action onMiniBossDefeated;
+    public static System.Action<WavesManager, int, bool> OnWaveCleared; // <this, waveId, lastWave>
+    public static System.Action<int> OnWaveSpawned; // <waveId>
+    public static System.Action OnMiniBossDefeated;
 
     private bool powerupDropperSpawned = false;
 
@@ -42,8 +42,8 @@ public class WavesManager : MonoBehaviour
     private IEnumerator SpawnCoroutine()
     {
         var pickedEnemy = waveEnemyPicker.GetSingleEnemyDifficultyBased(levelSettings, lastSpawnedEnemies);
-        Spawn(pickedEnemy);
         SpawnPowerupDropper();
+        Spawn(pickedEnemy);
 
         if (waveId == levelSettings.WavesCount)
             yield break;
@@ -74,11 +74,11 @@ public class WavesManager : MonoBehaviour
     private void Spawn(WaveEnemy pickedEnemy)
     {
         var spawned = enemyFactory.Spawn(pickedEnemy, waveId, OnEnemyDestroy);
+        PositionManager.SetPositions(spawned, pickedEnemy);
+
         foreach (var item in spawned)
             spawnedEnemies.Add(item.GetComponent<EnemyAIBase>());
-
-        PositionManager.SetPositions(spawned, pickedEnemy);
-        onWaveSpawned?.Invoke(waveId);
+        OnWaveSpawned?.Invoke(waveId);
         waveId++;
     }
 
@@ -89,7 +89,14 @@ public class WavesManager : MonoBehaviour
         // If wave is cleared
         if (spawnedEnemies.Where(_ => _.enemyIdentifier.waveId == waveId).Count() == 0)
         {
-            onWaveCleared?.Invoke(this, waveId);
+            bool lastWaveInLevel = false;
+            if (this.waveId == levelSettings.WavesCount && spawnedEnemies.Count == 0)
+                lastWaveInLevel = true;
+
+            if (!enemyAIBase.name.ToLower().Contains("boss"))
+                OnWaveCleared?.Invoke(this, waveId, lastWaveInLevel);
+            else
+                Debug.LogError("Boss wave cleared but no event is broadcasted :D");
         }
     }
 
@@ -101,10 +108,12 @@ public class WavesManager : MonoBehaviour
 
     public void StartGeneratingWaves(LevelSettings levelSettings)
     {
+        if (lastSpawnedEnemies.Count != 0)
+            waveId = 0;
+
         powerupDropperSpawned = false;
         StopAllCoroutines();
         this.levelSettings = levelSettings;
-        waveId = 0;
         StartCoroutine(SpawnCoroutine());
     }
 
@@ -133,13 +142,13 @@ public class WavesManager : MonoBehaviour
         StopGeneratingWaves();
         ClearAllEnemies();
 
-        WaveEnemy waveEnemy = new()
+        WaveEnemy boss = new()
         {
             enemyPrefab = bossPrefab,
             count = new(1, 1, 1),
             waveEnteringPositions = new WaveEnteringPosition[] { WaveEnteringPosition.ShouldEnterFromTop },
             enemyDifficulty = WaveEnemyDifficulty.Easy,
         };
-        Spawn(waveEnemy);
+        Spawn(boss);
     }
 }

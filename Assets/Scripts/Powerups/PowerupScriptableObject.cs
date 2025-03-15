@@ -53,6 +53,7 @@ public class PowerupScriptableObject : ScriptableObject
         catch (System.Exception e)
         {
             Debug.LogError(e.Message);
+            Debug.LogError("On item with name = " + name);
             return -1;
         }
     }

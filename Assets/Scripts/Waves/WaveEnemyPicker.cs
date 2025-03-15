@@ -34,7 +34,6 @@ public class WaveEnemyPicker : MonoBehaviour
         else
         {
             lastSpawnedEnemies.Add(picked.enemyPrefab.name.Replace("1", "").Replace("2", ""));
-            Debug.Log("Enemy name replaced 1s and 2s");
         }
 
         if (lastSpawnedEnemies.Count > 2) lastSpawnedEnemies.RemoveAt(0);

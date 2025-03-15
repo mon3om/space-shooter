@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class PowerupsManager : MonoBehaviour
 {
@@ -49,20 +48,50 @@ public class PowerupsManager : MonoBehaviour
         powerCoreModifier = 1;
         bossPowerupsCount = 4;
 
+
+        // Equipe from saved slots
+        if (equippedPowerups.Count > 0)
+        {
+            var rawPowerupComponent = gameObject.AddComponent<RawPowerup>();
+            for (int i = 0; i < equippedPowerups.Count; i++)
+                rawPowerupComponent.ActivatePowerup(equippedPowerups[i]);
+
+            Destroy(rawPowerupComponent);
+        }
+
         // Equip persistent powerups
         if (_InspectorPreEquippedPowerups.Count > 0 || PreEquippedPowerups.Count > 0)
         {
-            foreach (var item in _InspectorPreEquippedPowerups)
-                if (!PreEquippedPowerups.Contains(item))
-                    PreEquippedPowerups.Add(item);
+            if (equippedPowerups.Count == 0)
+                foreach (var item in _InspectorPreEquippedPowerups)
+                    if (!PreEquippedPowerups.Contains(item))
+                        PreEquippedPowerups.Add(item);
 
-            var droppablePowerup = gameObject.AddComponent<RawPowerup>();
+            var rawPowerupComponent = gameObject.AddComponent<RawPowerup>();
             foreach (var item in PreEquippedPowerups)
             {
                 equippedPowerups.Add(item);
-                droppablePowerup.ActivatePowerup(item);
+                rawPowerupComponent.ActivatePowerup(item);
             }
-            Destroy(droppablePowerup);
+            Destroy(rawPowerupComponent);
+        }
+
+    }
+
+    public void EquipPowerupsByString(string powerupsStringCommaSeparated)
+    {
+        if (string.IsNullOrEmpty(powerupsStringCommaSeparated))
+        {
+            Debug.LogWarning("Empty string");
+            return;
+        }
+        string[] strings = powerupsStringCommaSeparated.Split(",");
+        equippedPowerups.Clear();
+        foreach (var item in strings)
+        {
+            if (string.IsNullOrEmpty(item.Trim())) continue;
+            var po = AllPowerups.Find(el => el.id == int.Parse(item.Trim()));
+            equippedPowerups.Add(po);
         }
     }
 

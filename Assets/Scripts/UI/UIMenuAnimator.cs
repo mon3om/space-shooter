@@ -1,67 +1,63 @@
 using UnityEngine;
+using DG.Tweening;
+using UnityEngine.UI;
 
-enum AnimatorState { Entering, Leaving, Disabled, Enabled }
 public class UIMenuAnimator : MonoBehaviour
 {
-    [SerializeField] private float animationSpeed;
-    private AnimatorState animatorState = AnimatorState.Disabled;
+    [SerializeField] private Button displayButton;
+    [SerializeField] private Button hideButton;
     private RectTransform rectTransform;
+    private Animator logoAnimator;
+    private static AudioClip swipeSound = null;
 
     public const int SCREEN_WIDTH = 1920;
     public const int SCREEN_HEIGHT = 1080;
-    private static float speed = 0;
+    private static float speed = 0.3f;
+
+    public static System.Action<string> OnMenuHide;
+
+    private void OnEnable() => OnMenuHide += Hide;
+    private void OnDisable() => OnMenuHide -= Hide;
+
 
     private void Start()
     {
         rectTransform = GetComponent<RectTransform>();
-        if (speed == 0)
-            speed = animationSpeed;
-    }
+        logoAnimator = GameObject.Find("GAME_LOGO").GetComponent<Animator>();
 
-    private void Update()
-    {
-        if (animatorState == AnimatorState.Disabled || animatorState == AnimatorState.Enabled) return;
+        displayButton?.onClick.AddListener(Display);
+        hideButton?.onClick.AddListener(HideLogics);
 
-        float pos = rectTransform.anchoredPosition.x;
-
-        if (animatorState == AnimatorState.Entering)
-        {
-            if (rectTransform.anchoredPosition.x > 0)
-            {
-                pos = Mathf.Lerp(pos, -100, speed);
-            }
-            else
-            {
-                pos = 0;
-                animatorState = AnimatorState.Enabled;
-            }
-        }
-
-        if (animatorState == AnimatorState.Leaving)
-        {
-            if (rectTransform.anchoredPosition.x > -SCREEN_WIDTH)
-            {
-                pos = Mathf.Lerp(pos, -SCREEN_WIDTH - 100, speed);
-            }
-            else
-            {
-                pos = -SCREEN_WIDTH;
-                animatorState = AnimatorState.Disabled;
-            }
-        }
-
-        rectTransform.anchoredPosition = new(pos, rectTransform.anchoredPosition.y);
+        if (swipeSound == null)
+            swipeSound = Resources.Load<AudioClip>("Sounds/MenuSwipe");
     }
 
     public void Display()
     {
-        rectTransform.anchoredPosition = new(SCREEN_WIDTH, rectTransform.anchoredPosition.y);
-        animatorState = AnimatorState.Entering;
+        gameObject.PlaySound(swipeSound);
+        float pos = rectTransform.anchoredPosition.x;
+        DOTween.To(() => pos, x => rectTransform.anchoredPosition = new(x, rectTransform.anchoredPosition.y), 0, speed);
+        OnMenuHide?.Invoke(name);
+
+        if (name != "MainMenu")
+            logoAnimator.SetInteger("Size", -1);
+        else
+            logoAnimator.SetInteger("Size", 1);
     }
 
-    public void Hide()
+    private void HideLogics()
     {
-        rectTransform.anchoredPosition = new(0, rectTransform.anchoredPosition.y);
-        animatorState = AnimatorState.Leaving;
+        float pos = rectTransform.anchoredPosition.x;
+        DOTween.To(() => pos, x => rectTransform.anchoredPosition = new(x, rectTransform.anchoredPosition.y), -SCREEN_WIDTH, speed)
+        .OnComplete(() => rectTransform.anchoredPosition = new(SCREEN_WIDTH, rectTransform.anchoredPosition.y));
     }
+
+    public void Hide(string uIMenuAnimatorName)
+    {
+        if (uIMenuAnimatorName == name) return;
+
+        HideLogics();
+    }
+
+    public void Hide() => HideLogics();
 }

@@ -23,7 +23,6 @@ public class UIEquipedPanel : MonoBehaviour
 
     public void DisplayEquiped()
     {
-        Debug.Log("Displaying equipped powerups " + PowerupsManager.equippedPowerups.Count);
         for (int i = 0; i < transform.childCount; i++)
             Destroy(transform.GetChild(i).gameObject);
 

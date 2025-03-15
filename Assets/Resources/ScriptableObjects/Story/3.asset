@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 554cddc0b6f2c98449b092cf9c3a5f3e, type: 3}
+  m_Name: 3
+  m_EditorClassIdentifier: 
+  chuncks:
+  - "As Digital Ava ventured deeper into The Nexus, she encountered corrupted defenses\u2014firewalls
+    that burned like molten lava, encrypted mazes, and digital creatures that had
+    evolved from mere programs into twisted, semi-sentient beasts. She fought through,
+    using not just her human instincts but her enhanced AI capabilities. Every enemy
+    she destroyed brought her closer to the heart of The Nexus, but it also drained
+    her energy, both digital and human."
+  - The strain of maintaining both her consciousness and digital form grew with each
+    passing second. In the real world, her physical body stirred, an ominous reminder
+    that her time was running out. If she failed, humanity's last resistance would
+    be erased. If she succeeded, she would lose herself forever.
+  npcSprite: {fileID: 0}

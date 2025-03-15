@@ -35,7 +35,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.09, y: 0, z: 0}
-  m_LocalScale: {x: 3.3, y: 3.3, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2126584830039842147}
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: c8c71edc45bafd04399f1a8fcf96ed07, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 97f66916c5a83b542b0e14bd6a921af6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -200,7 +200,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.000000014901161, y: -0.012259454}
+  m_Offset: {x: 0.000000014901161, y: -0.024391264}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -211,7 +211,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.19496405, y: 0.1459263}
+  m_Size: {x: 0.2923221, y: 0.24055916}
   m_EdgeRadius: 0
 --- !u!114 &5824437547589159957
 MonoBehaviour:
@@ -237,8 +237,10 @@ MonoBehaviour:
     initPosition: {x: 0, y: 0}
     targetPosition: {x: 0, y: 0}
   damage: 0
-  deathAnimation: {fileID: 0}
+  deathAnimation:
+  - {fileID: 0}
   deathSound: {fileID: 0}
+  killedByPlayer: 0
   boss: {fileID: 0}
   distanceFromShip: 3
   regenrationPercent: 5
@@ -434,7 +436,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -218534847, guid: 3404965e521f0db40a1d9d3a7e9a578d, type: 3}
+  m_Sprite: {fileID: 2147329352, guid: 358ba4c745c55244d90cdb4d96802815, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

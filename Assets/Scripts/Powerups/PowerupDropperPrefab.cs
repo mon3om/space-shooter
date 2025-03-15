@@ -31,6 +31,7 @@ public class PowerupDropperPrefab : MonoBehaviour
         {
             var go = Instantiate(rawPowerupPrefab, transform.position, Quaternion.identity, transform);
             var position = GetPowerupPosition(count, i);
+            Debug.Log(position);
             go.GetComponent<DirectionalMover>().MoveTowardsPoint(position);
 
             // For debug: Sets the current manual ID

@@ -1,0 +1,475 @@
+fileFormatVersion: 2
+guid: dd54820b89afbe74480aef1086569d06
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: Destruction_Frame_0
+    originalName: 
+    pivot: {x: 0.51111114, y: -0.2702703}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 70
+      width: 45
+      height: 37
+    spriteID: 36cedb06ad2061a4c90f7bcbdf7c7a4c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 70}
+  - name: Destruction_Frame_1
+    originalName: 
+    pivot: {x: 0.51111114, y: -0.2702703}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 57
+      y: 70
+      width: 45
+      height: 37
+    spriteID: 0899ec8e934a42249aded4d9f7310832
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 57, y: 70}
+  - name: Destruction_Frame_2
+    originalName: 
+    pivot: {x: 0.51111114, y: -0.2702703}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 110
+      y: 70
+      width: 45
+      height: 37
+    spriteID: 0e2dd396962912d4b8f6297117e324e7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 110, y: 70}
+  - name: Destruction_Frame_3
+    originalName: 
+    pivot: {x: 0.51111114, y: -0.2702703}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 163
+      y: 70
+      width: 45
+      height: 37
+    spriteID: 95c5dae944894c04a9a396923c5595e6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 163, y: 70}
+  - name: Destruction_Frame_4
+    originalName: 
+    pivot: {x: 0.51111114, y: -0.2702703}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 115
+      width: 45
+      height: 37
+    spriteID: 4c587301b148d51498981d45f6ad7ab9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 115}
+  - name: Destruction_Frame_5
+    originalName: 
+    pivot: {x: 0.51111114, y: -0.2702703}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 57
+      y: 115
+      width: 45
+      height: 37
+    spriteID: 4578f56990569ef4f92a9807249e30c7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 57, y: 115}
+  - name: Destruction_Frame_6
+    originalName: 
+    pivot: {x: 0.51111114, y: -0.2702703}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 110
+      y: 115
+      width: 45
+      height: 37
+    spriteID: 7d848c84a0247f34ab009690823e1214
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 110, y: 115}
+  - name: Destruction_Frame_8
+    originalName: 
+    pivot: {x: 0.49019608, y: -0.07272728}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 196
+      y: 4
+      width: 51
+      height: 55
+    spriteID: 76b7bfb8e68d4854fb7096aca263ee6d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 196, y: 4}
+  - name: Destruction_Frame_9
+    originalName: 
+    pivot: {x: 0.51851857, y: -0.05454546}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 134
+      y: 4
+      width: 54
+      height: 55
+    spriteID: 3d67995a110f36b41bf550026c12e86b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 134, y: 4}
+  - name: Destruction_Frame_10
+    originalName: 
+    pivot: {x: 0.5272727, y: -0.052631583}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 71
+      y: 4
+      width: 55
+      height: 57
+    spriteID: e3da867e9abad7a4e8bb6df7bf5d71ea
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 71, y: 4}
+  - name: Destruction_Frame_11
+    originalName: 
+    pivot: {x: 0.4915254, y: -0.01724138}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 59
+      height: 58
+    spriteID: 4c57ffcd0166a10438a3a2f3dd2d92f9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: Destruction_Frame_7
+    originalName: 
+    pivot: {x: 0.49999994, y: -0.4642857}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 216
+      y: 70
+      width: 28
+      height: 28
+    spriteID: 6116b98714877444fa3262b8098bb547
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 216, y: 70}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: -1870326002
+    name: Destruction
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: Destruction_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 7
+        y: 10
+        width: 45
+        height: 37
+      spriteId: 36cedb06ad2061a4c90f7bcbdf7c7a4c
+    - name: Destruction_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 7
+        y: 10
+        width: 45
+        height: 37
+      spriteId: 0899ec8e934a42249aded4d9f7310832
+    - name: Destruction_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 7
+        y: 10
+        width: 45
+        height: 37
+      spriteId: 0e2dd396962912d4b8f6297117e324e7
+    - name: Destruction_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 7
+        y: 10
+        width: 45
+        height: 37
+      spriteId: 95c5dae944894c04a9a396923c5595e6
+    - name: Destruction_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 7
+        y: 10
+        width: 45
+        height: 37
+      spriteId: 4c587301b148d51498981d45f6ad7ab9
+    - name: Destruction_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 7
+        y: 10
+        width: 45
+        height: 37
+      spriteId: 4578f56990569ef4f92a9807249e30c7
+    - name: Destruction_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 7
+        y: 10
+        width: 45
+        height: 37
+      spriteId: 7d848c84a0247f34ab009690823e1214
+    - name: Destruction_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 5
+        y: 4
+        width: 51
+        height: 55
+      spriteId: 76b7bfb8e68d4854fb7096aca263ee6d
+    - name: Destruction_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 2
+        y: 3
+        width: 54
+        height: 55
+      spriteId: 3d67995a110f36b41bf550026c12e86b
+    - name: Destruction_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 1
+        y: 3
+        width: 55
+        height: 57
+      spriteId: e3da867e9abad7a4e8bb6df7bf5d71ea
+    - name: Destruction_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 1
+        y: 1
+        width: 59
+        height: 58
+      spriteId: 4c57ffcd0166a10438a3a2f3dd2d92f9
+    - name: Destruction_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 16
+        y: 13
+        width: 28
+        height: 28
+      spriteId: 6116b98714877444fa3262b8098bb547
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  generatePhysicsShape: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 60, y: 60}

@@ -65,6 +65,10 @@ public class RandomFloat
     [SerializeField] private float minValue;
     [SerializeField] private float maxValue;
     public float value { get { return GetRandomValue(); } }
+    public float FixedValue { get { return GetRandomValue(true); } }
+
+    private float fixedValue;
+    private bool fixedValueInitialized = false;
 
     public RandomFloat(float minValue, float maxValue)
     {
@@ -72,10 +76,25 @@ public class RandomFloat
         this.maxValue = maxValue;
     }
 
-    private float GetRandomValue()
+    private float GetRandomValue(bool isFixedValue = false)
     {
-        float value = Random.Range(minValue, maxValue);
-        return value;
+        if (isFixedValue)
+        {
+            if (!fixedValueInitialized)
+            {
+                fixedValue = Random.Range(minValue, maxValue);
+                fixedValueInitialized = true;
+            }
+
+            return fixedValue;
+        }
+
+        return Random.Range(minValue, maxValue);
+    }
+
+    public void NewFixedValue()
+    {
+        fixedValue = Random.Range(minValue, maxValue);
     }
 }
 
@@ -111,6 +130,17 @@ public class LevelSettings
         newLevel.floatWavesCount = previousLevel.floatWavesCount * ((100 + diffIncrease) / 100);
 
         return newLevel;
+    }
+
+    public LevelSettings CalculateDifficulty(LevelSettings baseLevel, int targetLevel)
+    {
+        var level = baseLevel;
+        if (targetLevel == 1) return level;
+
+        for (int i = 0; i < targetLevel; i++)
+            level = IncreaseDifficulty(level, level);
+
+        return level;
     }
 }
 

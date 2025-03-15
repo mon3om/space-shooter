@@ -62,7 +62,7 @@ public class PlayerDamager : MonoBehaviour
         Instances.UIGameOver.Display();
         CameraShaker.Glitch();
 
-        var coroutine = AuthInfo.Instance.SaveScoreCoroutine(UIScoreManager.score,
+        var coroutine = Instances.AuthInfo.SaveScoreCoroutine(UIScoreManager.score,
         res =>
         {
             Instances.UIGameOver.SetScoreText(res.score, res.newHighScore);
@@ -103,5 +103,12 @@ public class PlayerDamager : MonoBehaviour
         previousHealth = health;
         health += amountToBeAdded;
         onHealthModified?.Invoke(health, previousHealth, initHealth);
+    }
+
+    public void SetHealth(int current, int init)
+    {
+        health = current;
+        initHealth = init;
+        onHealthModified?.Invoke(current, health, init);
     }
 }

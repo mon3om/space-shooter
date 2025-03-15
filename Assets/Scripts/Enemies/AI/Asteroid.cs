@@ -25,9 +25,11 @@ public class Asteroid : EnemyAIBase
 
     public new void OnBecameInvisible()
     {
+
         isVisible = false;
         StopAllCoroutines();
-        StartCoroutine(DeathCoroutine(3));
+        if (gameObject.activeInHierarchy)
+            StartCoroutine(DeathCoroutine(3));
     }
 
     private IEnumerator DeathCoroutine(float time)

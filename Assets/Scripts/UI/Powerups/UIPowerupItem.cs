@@ -8,7 +8,9 @@ public class UIPowerupItem : MonoBehaviour
 {
     [HideInInspector] public PowerupScriptableObject powerupScriptableObject;
 
-    private Transform selectedPowerup;
+    private Transform selectedPowerupUIObject;
+
+    public static System.Action<int> OnPowerupSelected;
 
     private void Start()
     {
@@ -17,7 +19,7 @@ public class UIPowerupItem : MonoBehaviour
             Debug.LogWarning("Object not assigned!");
             return;
         }
-        selectedPowerup = transform.parent.parent.Find("SelectedPowerup");
+        selectedPowerupUIObject = transform.parent.parent.Find("SelectedPowerup");
         EventTrigger eventTrigger = GetComponent<EventTrigger>();
 
         // Create a new EventTrigger.Entry
@@ -31,37 +33,52 @@ public class UIPowerupItem : MonoBehaviour
         Populate();
     }
 
+    private void OnEnable() => OnPowerupSelected += SelectPowerup;
+    private void OnDisable() => OnPowerupSelected -= SelectPowerup;
+
+
     private void Populate()
     {
-        transform.Find("Name").GetComponent<TMP_Text>().text = powerupScriptableObject.itemName;
-        transform.Find("Image").GetComponent<Image>().sprite = powerupScriptableObject.sprite;
-        if (!powerupScriptableObject || !powerupScriptableObject.available) transform.Find("Image").GetComponent<Image>().color = new(0.1f, 0.1f, 0.1f, 0.95f);
-        else transform.Find("Image").GetComponent<Image>().color = new(1, 1, 1, 1);
-
-
+        transform.Find("Container").Find("Name").GetComponent<TMP_Text>().text = powerupScriptableObject.itemName;
+        transform.Find("Container").Find("Image").GetComponent<Image>().sprite = powerupScriptableObject.sprite;
+        if (!powerupScriptableObject || !powerupScriptableObject.available) transform.Find("Container").Find("Image").GetComponent<Image>().color = new(0.1f, 0.1f, 0.1f, 0.95f);
+        else transform.Find("Container").Find("Image").GetComponent<Image>().color = new(1, 1, 1, 1);
     }
 
     private void OnClick()
     {
-        if (selectedPowerup)
+        if (PowerupsManager.SelectedPowerup != powerupScriptableObject.id)
         {
-            if (PowerupsManager.SelectedPowerup != powerupScriptableObject.id)
-            {
-                selectedPowerup.Find("Image").GetComponent<Image>().sprite = powerupScriptableObject.sprite;
-                selectedPowerup.Find("Name").GetComponent<TMP_Text>().text = powerupScriptableObject.itemName;
-                selectedPowerup.Find("Description").GetComponent<TMP_Text>().text = powerupScriptableObject.description;
-
-                PowerupsManager.SelectedPowerup = powerupScriptableObject.id;
-            }
-            else
-            {
-                selectedPowerup.Find("Name").GetComponent<TMP_Text>().text = "";
-                selectedPowerup.Find("Description").GetComponent<TMP_Text>().text = "";
-
-                PowerupsManager.SelectedPowerup = -1;
-            }
+            // Broadcasts an event so the previous selected powerup could disable its selector indicator
+            OnPowerupSelected?.Invoke(powerupScriptableObject.id);
         }
+        else // This unselects the current selected powerup reseting it to a no selected powerup state
+        {
+            selectedPowerupUIObject.Find("Name").GetComponent<TMP_Text>().text = "";
+            selectedPowerupUIObject.Find("Description").GetComponent<TMP_Text>().text = "";
+            selectedPowerupUIObject.Find("Image").gameObject.SetActive(false);
+            selectedPowerupUIObject.Find("Image").gameObject.SetActive(false);
+            transform.Find("Selector").gameObject.SetActive(false);
 
-        selectedPowerup.Find("Image").gameObject.SetActive(PowerupsManager.SelectedPowerup != -1);
+            PowerupsManager.SelectedPowerup = -1;
+        }
+    }
+
+    private void SelectPowerup(int id)
+    {
+        if (id == powerupScriptableObject.id)
+        {
+            selectedPowerupUIObject.Find("Image").GetComponent<Image>().sprite = powerupScriptableObject.sprite;
+            selectedPowerupUIObject.Find("Name").GetComponent<TMP_Text>().text = powerupScriptableObject.itemName;
+            selectedPowerupUIObject.Find("Description").GetComponent<TMP_Text>().text = powerupScriptableObject.description;
+            selectedPowerupUIObject.Find("Image").gameObject.SetActive(true);
+            transform.Find("Selector").gameObject.SetActive(true);
+
+            PowerupsManager.SelectedPowerup = powerupScriptableObject.id;
+        }
+        else
+        {
+            transform.Find("Selector").gameObject.SetActive(false);
+        }
     }
 }

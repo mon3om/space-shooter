@@ -12,8 +12,8 @@ public class LevelManager : MonoBehaviour
     public bool devMode;
     public float gameSpeed = 1;
 
-    private LevelSettings currentLevel;
-    private int currentLevelIndex = 1;
+    private LevelSettings level;
+    [HideInInspector] public int currentLevelIndex = 1;
     private bool isBossSpawned = false;
     // Components
     private WavesUIManager wavesUIManager;
@@ -24,8 +24,12 @@ public class LevelManager : MonoBehaviour
         Instances.LevelManager = this;
     }
 
+    private StoryScriptableObject[] stories;
+    private int storyIndex = 0;
+
     IEnumerator Start()
     {
+        stories = Resources.LoadAll<StoryScriptableObject>("ScriptableObjects/Story");
         Time.timeScale = gameSpeed;
         if (gameSpeed != 1)
             Debug.LogWarning("GameSpeed is " + gameSpeed);
@@ -33,11 +37,33 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
         wavesUIManager = GetComponent<WavesUIManager>();
         wavesManager = GetComponent<WavesManager>();
-        wavesManager.onWaveCleared += OnWaveCleared;
-        wavesManager.onWaveSpawned += OnWaveSpawned;
+        WavesManager.OnWaveCleared += OnWaveCleared;
+        WavesManager.OnWaveSpawned += OnWaveSpawned;
 
-        currentLevel = levels[0];
-        StartCoroutine(StartLevelCoroutine());
+        level = levels[0];
+        level = level.CalculateDifficulty(levels[0], currentLevelIndex);
+
+        if (currentLevelIndex == 1 && wavesManager.waveId == 0)
+        {
+            Instances.StoryManager.StartStoryTelling(() =>
+                {
+                    StartCoroutine(StartLevelCoroutine());
+                    storyIndex++;
+                }, stories[storyIndex]);
+        }
+        else
+        {
+            StartCoroutine(StartLevelCoroutine());
+        }
+    }
+
+    public void SetLevelFromSavedData(SaveSlotData saveSlotData)
+    {
+        if (level == null)
+            level = levels[0];
+
+        currentLevelIndex = saveSlotData.level;
+        level = level.CalculateDifficulty(levels[0], saveSlotData.level);
     }
 
     private void OnWaveSpawned(int waveId)
@@ -45,18 +71,22 @@ public class LevelManager : MonoBehaviour
         // Debug.Log($"Wave [{waveId}] from level [{currentLevelIndex}] just spawned");
     }
 
-    private void OnWaveCleared(WavesManager wavesManager, int waveId)
+    private void OnWaveCleared(WavesManager wavesManager, int waveId, bool lastWave)
     {
-        bool lastWaveInLevel = false;
-        if (wavesManager.waveId == currentLevel.WavesCount && wavesManager.spawnedEnemies.Count == 0)
-            lastWaveInLevel = true;
-
-        if (lastWaveInLevel)
+        if (lastWave)
         {
             if (currentLevelIndex % levelsBeforeBoss == 0 || devMode)
-                StartCoroutine(SpawnBossCoroutine());
+            {
+                if (!isBossSpawned)
+                {
+                    StartCoroutine(SpawnBossCoroutine());
+                    isBossSpawned = true;
+                }
+            }
             else
+            {
                 LoadNextLevel();
+            }
         }
     }
 
@@ -65,7 +95,19 @@ public class LevelManager : MonoBehaviour
         if (!isBossSpawned) return;
         isBossSpawned = false;
 
-        LoadNextLevel();
+        if (storyIndex < stories.Length)
+        {
+            Instances.StoryManager.StartStoryTelling(() =>
+                {
+                    LoadNextLevel();
+                    storyIndex++;
+                },
+            stories[storyIndex]);
+        }
+        else
+        {
+            LoadNextLevel();
+        }
 
         var bgMusic = GameObject.FindWithTag(Tags.BACKGROUND_MUSIC);
         bgMusic.GetComponent<AudioSource>().Play();
@@ -80,7 +122,8 @@ public class LevelManager : MonoBehaviour
     {
         currentLevelIndex++;
         wavesManager.levelIndex = currentLevelIndex;
-        currentLevel = currentLevel.IncreaseDifficulty(currentLevel, currentLevel);
+        level = level.CalculateDifficulty(levels[0], currentLevelIndex);
+
         StartCoroutine(StartLevelCoroutine());
     }
 
@@ -89,12 +132,12 @@ public class LevelManager : MonoBehaviour
         if (devMode)
         {
             yield return new WaitForSeconds(1f);
-            wavesManager.StartGeneratingWaves(currentLevel);
+            wavesManager.StartGeneratingWaves(level);
             yield break;
         }
 
         yield return wavesUIManager.UpdateUI(currentLevelIndex);
-        wavesManager.StartGeneratingWaves(currentLevel);
+        wavesManager.StartGeneratingWaves(level);
     }
 
     private AudioSource tempAudioSource;
@@ -116,10 +159,9 @@ public class LevelManager : MonoBehaviour
         tempAudioSource.Play();
         Instances.CameraShaker.StartBossGlitching(6, tempAudioSource);
         yield return new WaitForSeconds(6);
-        Instances.CameraShaker.StopBossGlitching();
+        // Instances.CameraShaker.StopBossGlitching();
         wavesUIManager.bossAlertText.text = "";
         wavesManager.SpawnBoss(bossSettings.bossPrefab);
-        isBossSpawned = true;
 
         if (bossSettings.bossClip)
         {

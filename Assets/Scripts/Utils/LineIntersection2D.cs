@@ -7,8 +7,8 @@ public class LineIntersection2D
 {
     public static void GetIntersectionWithScreenEdge(GameObject gameObjectForName, Vector2 start, Vector2 end, out Vector2 intersection, out ScreenEdge edge)
     {
-        intersection = default(Vector2);
-        edge = default(ScreenEdge);
+        intersection = default;
+        edge = default;
         float closestDistance = float.MaxValue;
         bool found = false;
 

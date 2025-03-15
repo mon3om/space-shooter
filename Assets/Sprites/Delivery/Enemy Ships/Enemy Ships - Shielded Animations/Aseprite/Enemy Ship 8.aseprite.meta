@@ -1,0 +1,475 @@
+fileFormatVersion: 2
+guid: 18385b95ab039eb4c95ade509bb7ed6a
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: Enemy Ship 8_Frame_0
+    originalName: 
+    pivot: {x: 0.5, y: -0.3939394}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 60
+      height: 33
+    spriteID: 3a54ba84aec7c444287f5ff72286fc84
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: Enemy Ship 8_Frame_1
+    originalName: 
+    pivot: {x: 0.5, y: -0.3939394}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 72
+      y: 4
+      width: 60
+      height: 33
+    spriteID: 5b3b705c986e7074da151db1ec19d06a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 72, y: 4}
+  - name: Enemy Ship 8_Frame_2
+    originalName: 
+    pivot: {x: 0.5, y: -0.3939394}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 140
+      y: 4
+      width: 60
+      height: 33
+    spriteID: 766c1cec9e589604693e66b8a475edd8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 140, y: 4}
+  - name: Enemy Ship 8_Frame_3
+    originalName: 
+    pivot: {x: 0.5, y: -0.3939394}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 45
+      width: 60
+      height: 33
+    spriteID: d0948d0e37ccfaf4c89b013d8138e592
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 45}
+  - name: Enemy Ship 8_Frame_4
+    originalName: 
+    pivot: {x: 0.5, y: -0.3939394}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 72
+      y: 45
+      width: 60
+      height: 33
+    spriteID: 675245db0fc0c1f4baf609b402da805e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 72, y: 45}
+  - name: Enemy Ship 8_Frame_5
+    originalName: 
+    pivot: {x: 0.5, y: -0.3939394}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 140
+      y: 45
+      width: 60
+      height: 33
+    spriteID: 0b842f7d72c88754a91859bd2ee379b0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 140, y: 45}
+  - name: Enemy Ship 8_Frame_6
+    originalName: 
+    pivot: {x: 0.5, y: -0.3939394}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 86
+      width: 60
+      height: 33
+    spriteID: 9838151e55fb362458daef3eec530f60
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 86}
+  - name: Enemy Ship 8_Frame_7
+    originalName: 
+    pivot: {x: 0.5, y: -0.3939394}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 72
+      y: 86
+      width: 60
+      height: 33
+    spriteID: 0a2da9a412628ba4e803cfc06d6b6ca6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 72, y: 86}
+  - name: Enemy Ship 8_Frame_8
+    originalName: 
+    pivot: {x: 0.5, y: -0.3939394}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 140
+      y: 86
+      width: 60
+      height: 33
+    spriteID: f649882057ca283459487a4a42e3b8a5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 140, y: 86}
+  - name: Enemy Ship 8_Frame_9
+    originalName: 
+    pivot: {x: 0.5, y: -0.3939394}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 127
+      width: 60
+      height: 33
+    spriteID: 5e4f2cfbc0229604b958d645e8196b40
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 127}
+  - name: Enemy Ship 8_Frame_10
+    originalName: 
+    pivot: {x: 0.5, y: -0.3939394}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 72
+      y: 127
+      width: 60
+      height: 33
+    spriteID: 03a9f265532973546b5ca2985c586154
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 72, y: 127}
+  - name: Enemy Ship 8_Frame_11
+    originalName: 
+    pivot: {x: 0.5, y: -0.3939394}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 140
+      y: 127
+      width: 60
+      height: 33
+    spriteID: 531d85e03a11ac546b2f3d3c54e81b6d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 140, y: 127}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: 1724181300
+    name: Enemy Ship 8
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: Enemy Ship 8_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 2
+        y: 13
+        width: 60
+        height: 33
+      spriteId: 3a54ba84aec7c444287f5ff72286fc84
+    - name: Enemy Ship 8_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 2
+        y: 13
+        width: 60
+        height: 33
+      spriteId: 5b3b705c986e7074da151db1ec19d06a
+    - name: Enemy Ship 8_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 2
+        y: 13
+        width: 60
+        height: 33
+      spriteId: 766c1cec9e589604693e66b8a475edd8
+    - name: Enemy Ship 8_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 2
+        y: 13
+        width: 60
+        height: 33
+      spriteId: d0948d0e37ccfaf4c89b013d8138e592
+    - name: Enemy Ship 8_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 2
+        y: 13
+        width: 60
+        height: 33
+      spriteId: 675245db0fc0c1f4baf609b402da805e
+    - name: Enemy Ship 8_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 2
+        y: 13
+        width: 60
+        height: 33
+      spriteId: 0b842f7d72c88754a91859bd2ee379b0
+    - name: Enemy Ship 8_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 2
+        y: 13
+        width: 60
+        height: 33
+      spriteId: 9838151e55fb362458daef3eec530f60
+    - name: Enemy Ship 8_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 2
+        y: 13
+        width: 60
+        height: 33
+      spriteId: 0a2da9a412628ba4e803cfc06d6b6ca6
+    - name: Enemy Ship 8_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 2
+        y: 13
+        width: 60
+        height: 33
+      spriteId: f649882057ca283459487a4a42e3b8a5
+    - name: Enemy Ship 8_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 2
+        y: 13
+        width: 60
+        height: 33
+      spriteId: 5e4f2cfbc0229604b958d645e8196b40
+    - name: Enemy Ship 8_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 2
+        y: 13
+        width: 60
+        height: 33
+      spriteId: 03a9f265532973546b5ca2985c586154
+    - name: Enemy Ship 8_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 2
+        y: 13
+        width: 60
+        height: 33
+      spriteId: 531d85e03a11ac546b2f3d3c54e81b6d
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  generatePhysicsShape: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 64, y: 64}

@@ -1,0 +1,1483 @@
+fileFormatVersion: 2
+guid: 763d22f9b4be37541a2c5077444ba9cb
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: octagon_Frame_1
+    originalName: 
+    pivot: {x: 0.54545456, y: -10.727272}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 443
+      y: 2012
+      width: 11
+      height: 11
+    spriteID: 9306b09ba29881f47b3ea1d33f54dd9c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 443, y: 2012}
+  - name: octagon_Frame_2
+    originalName: 
+    pivot: {x: 0.5714286, y: -8.357143}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 574
+      y: 1271
+      width: 14
+      height: 14
+    spriteID: db662071e029f2f489d0856011624e5d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 574, y: 1271}
+  - name: octagon_Frame_3
+    originalName: 
+    pivot: {x: 0.5555556, y: -6.8235292}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 548
+      y: 1271
+      width: 18
+      height: 17
+    spriteID: 8c257a756fafaf24e9b67ba5d7a56d4a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 548, y: 1271}
+  - name: octagon_Frame_4
+    originalName: 
+    pivot: {x: 0.54545456, y: -5.4285717}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 413
+      y: 2012
+      width: 22
+      height: 21
+    spriteID: 8569a81cdaefdf0478587016c56838d3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 413, y: 2012}
+  - name: octagon_Frame_5
+    originalName: 
+    pivot: {x: 0.53846157, y: -4.48}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 379
+      y: 2012
+      width: 26
+      height: 25
+    spriteID: 1e6a7efeab5a27e47830b7768546312d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 379, y: 2012}
+  - name: octagon_Frame_6
+    originalName: 
+    pivot: {x: 0.53333336, y: -3.7931032}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 554
+      y: 1174
+      width: 30
+      height: 29
+    spriteID: f9639a6b9bc509045853cca24c517fcb
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 554, y: 1174}
+  - name: octagon_Frame_7
+    originalName: 
+    pivot: {x: 0.5294118, y: -3.2727273}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 560
+      y: 1069
+      width: 34
+      height: 33
+    spriteID: 1c5c8752d19591949a7bedf54736825c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 560, y: 1069}
+  - name: octagon_Frame_8
+    originalName: 
+    pivot: {x: 0.5263158, y: -2.8648648}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 560
+      y: 1024
+      width: 38
+      height: 37
+    spriteID: 940931be5726b4b46875fb33e10b02e6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 560, y: 1024}
+  - name: octagon_Frame_9
+    originalName: 
+    pivot: {x: 0.52380955, y: -2.5365853}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 412
+      y: 1783
+      width: 42
+      height: 41
+    spriteID: fcafd9aaa862974498faf8f749787b39
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 412, y: 1783}
+  - name: octagon_Frame_10
+    originalName: 
+    pivot: {x: 0.5217391, y: -2.2666667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 554
+      y: 1121
+      width: 46
+      height: 45
+    spriteID: 5819556ffda051b46a9c5ee808947777
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 554, y: 1121}
+  - name: octagon_Frame_11
+    originalName: 
+    pivot: {x: 0.52, y: -2.0408163}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 462
+      y: 1504
+      width: 50
+      height: 49
+    spriteID: d72b0520b99ff71448a18a5835c8b28c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 462, y: 1504}
+  - name: octagon_Frame_12
+    originalName: 
+    pivot: {x: 0.5192308, y: -1.9411765}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 548
+      y: 1212
+      width: 52
+      height: 51
+    spriteID: bb46893bc07f3bc47a5017c14e797e1a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 548, y: 1212}
+  - name: octagon_Frame_13
+    originalName: 
+    pivot: {x: 0.51724136, y: -1.6842105}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 462
+      y: 1439
+      width: 58
+      height: 57
+    spriteID: 0ed7062970635844283a2bca0b896d29
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 462, y: 1439}
+  - name: octagon_Frame_14
+    originalName: 
+    pivot: {x: 0.516129, y: -1.5409836}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 462
+      y: 1370
+      width: 62
+      height: 61
+    spriteID: 47aeea99986717b4baa2f287687f3e83
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 462, y: 1370}
+  - name: octagon_Frame_15
+    originalName: 
+    pivot: {x: 0.5151515, y: -1.4153845}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 462
+      y: 1297
+      width: 66
+      height: 65
+    spriteID: d02e8cb408bd3a2478808079a602f1ab
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 462, y: 1297}
+  - name: octagon_Frame_16
+    originalName: 
+    pivot: {x: 0.5138889, y: -1.2535211}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 379
+      y: 1933
+      width: 72
+      height: 71
+    spriteID: bfc0eace060127640a24b43bfd7845c9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 379, y: 1933}
+  - name: octagon_Frame_17
+    originalName: 
+    pivot: {x: 0.51282054, y: -1.1168832}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 462
+      y: 1212
+      width: 78
+      height: 77
+    spriteID: 9a856f82b22a99e49a7ecab29a7f0037
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 462, y: 1212}
+  - name: octagon_Frame_18
+    originalName: 
+    pivot: {x: 0.5119048, y: -1}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 462
+      y: 1121
+      width: 84
+      height: 83
+    spriteID: 7b248e92ccac80b429debf0be20524a7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 462, y: 1121}
+  - name: octagon_Frame_19
+    originalName: 
+    pivot: {x: 0.51111114, y: -0.8988764}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 462
+      y: 1024
+      width: 90
+      height: 89
+    spriteID: cea793e617374d54fb0e0703e35a3aa3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 462, y: 1024}
+  - name: octagon_Frame_20
+    originalName: 
+    pivot: {x: 0.5102041, y: -0.78350514}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 462
+      y: 919
+      width: 98
+      height: 97
+    spriteID: 1aa4527f5aa489d47b09d28e1a7afdd8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 462, y: 919}
+  - name: octagon_Frame_21
+    originalName: 
+    pivot: {x: 0.5096154, y: -0.7087379}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 462
+      y: 808
+      width: 104
+      height: 103
+    spriteID: c4b6826fd7cf12a49b96ed194c51da77
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 462, y: 808}
+  - name: octagon_Frame_22
+    originalName: 
+    pivot: {x: 0.5090909, y: -0.64220184}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 261
+      y: 1933
+      width: 110
+      height: 109
+    spriteID: 0831591b0a9596142b05fa91ff21577a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 261, y: 1933}
+  - name: octagon_Frame_23
+    originalName: 
+    pivot: {x: 0.5086207, y: -0.5826087}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 462
+      y: 685
+      width: 116
+      height: 115
+    spriteID: a8aa5c575f66a9b4e9225930709ea278
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 462, y: 685}
+  - name: octagon_Frame_24
+    originalName: 
+    pivot: {x: 0.5083334, y: -0.54621845}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 462
+      y: 558
+      width: 120
+      height: 119
+    spriteID: 9ee4baea32dc0d44c9f033c24b7875b0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 462, y: 558}
+  - name: octagon_Frame_25
+    originalName: 
+    pivot: {x: 0.5080645, y: -0.5121951}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 462
+      y: 427
+      width: 124
+      height: 123
+    spriteID: 14c3b193c86784a44ae15022e5537756
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 462, y: 427}
+  - name: octagon_Frame_26
+    originalName: 
+    pivot: {x: 0.50769234, y: -0.46511626}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 462
+      y: 290
+      width: 130
+      height: 129
+    spriteID: 36b7fa538f7dcaa4d837b82651d79fe3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 462, y: 290}
+  - name: octagon_Frame_27
+    originalName: 
+    pivot: {x: 0.5074627, y: -0.4360902}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 462
+      y: 149
+      width: 134
+      height: 133
+    spriteID: a55e605b897e8e040a81518386d1ce96
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 462, y: 149}
+  - name: octagon_Frame_28
+    originalName: 
+    pivot: {x: 0.5072464, y: -0.40875915}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 462
+      y: 4
+      width: 138
+      height: 137
+    spriteID: 13e74a7d926e08149a13e240d79f6a68
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 462, y: 4}
+  - name: octagon_Frame_29
+    originalName: 
+    pivot: {x: 0.5034965, y: -0.3802817}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 261
+      y: 1783
+      width: 143
+      height: 142
+    spriteID: d8a940a4b97aa7947a61f0e9f6b1ef84
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 261, y: 1783}
+  - name: octagon_Frame_30
+    originalName: 
+    pivot: {x: 0.50666666, y: -0.33557048}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 261
+      y: 1626
+      width: 150
+      height: 149
+    spriteID: 94428ede9e9b4904b8ad3d0d6a16aeb8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 261, y: 1626}
+  - name: octagon_Frame_31
+    originalName: 
+    pivot: {x: 0.50641024, y: -0.3032258}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 261
+      y: 1463
+      width: 156
+      height: 155
+    spriteID: 3e14a552e38338f409eb6b15a99be874
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 261, y: 1463}
+  - name: octagon_Frame_32
+    originalName: 
+    pivot: {x: 0.50625, y: -0.2830189}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 261
+      y: 1296
+      width: 160
+      height: 159
+    spriteID: 23cf64819da136e43bb6129584d0c6c0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 261, y: 1296}
+  - name: octagon_Frame_33
+    originalName: 
+    pivot: {x: 0.5030303, y: -0.26543212}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 261
+      y: 1126
+      width: 165
+      height: 162
+    spriteID: 3e96b54bc536a2748a57d1b3ca470246
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 261, y: 1126}
+  - name: octagon_Frame_34
+    originalName: 
+    pivot: {x: 0.5029586, y: -0.24698797}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 261
+      y: 952
+      width: 169
+      height: 166
+    spriteID: 7e036c4018438e748a71eb44ea87185e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 261, y: 952}
+  - name: octagon_Frame_35
+    originalName: 
+    pivot: {x: 0.50285715, y: -0.22093022}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 261
+      y: 772
+      width: 175
+      height: 172
+    spriteID: 4aa1668d222bf9d428ea28f2487f89d2
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 261, y: 772}
+  - name: octagon_Frame_36
+    originalName: 
+    pivot: {x: 0.50279325, y: -0.19662921}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 261
+      y: 586
+      width: 179
+      height: 178
+    spriteID: 3df72afdda667bf4f8f15a788db39668
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 261, y: 586}
+  - name: octagon_Frame_37
+    originalName: 
+    pivot: {x: 0.5027027, y: -0.18131867}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 261
+      y: 396
+      width: 185
+      height: 182
+    spriteID: 92ca41668f405904bb9224ba35e41714
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 261, y: 396}
+  - name: octagon_Frame_38
+    originalName: 
+    pivot: {x: 0.5026455, y: -0.16666667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 261
+      y: 202
+      width: 189
+      height: 186
+    spriteID: c8b60c700f4e3994f8b6ad5cb920f877
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 261, y: 202}
+  - name: octagon_Frame_39
+    originalName: 
+    pivot: {x: 0.50259066, y: -0.15263157}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 261
+      y: 4
+      width: 193
+      height: 190
+    spriteID: 719d94df2c868ab4b950ef8d85dc0fe4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 261, y: 4}
+  - name: octagon_Frame_40
+    originalName: 
+    pivot: {x: 0.5025381, y: -0.13917527}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 1834
+      width: 197
+      height: 194
+    spriteID: bb61b3f620ddcfc45866d56ada6683ca
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 1834}
+  - name: octagon_Frame_41
+    originalName: 
+    pivot: {x: 0.50248754, y: -0.12626263}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 1628
+      width: 201
+      height: 198
+    spriteID: 3c559ad642da60a4c85a4e42bb2a6778
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 1628}
+  - name: octagon_Frame_42
+    originalName: 
+    pivot: {x: 0.5024155, y: -0.10784314}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 1416
+      width: 207
+      height: 204
+    spriteID: f6c639e49f52a014291037959a4b9b89
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 1416}
+  - name: octagon_Frame_43
+    originalName: 
+    pivot: {x: 0.5023474, y: -0.090476185}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 1198
+      width: 213
+      height: 210
+    spriteID: c7a9d10b109f6cc4aa509dadd74fda92
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 1198}
+  - name: octagon_Frame_44
+    originalName: 
+    pivot: {x: 0.5022625, y: -0.06880733}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 972
+      width: 221
+      height: 218
+    spriteID: f04ddbf940c807c45b1eaf788d59fd16
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 972}
+  - name: octagon_Frame_45
+    originalName: 
+    pivot: {x: 0.50220263, y: -0.05357143}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 740
+      width: 227
+      height: 224
+    spriteID: 14acbb75418e1d14c91c34c84841bf51
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 740}
+  - name: octagon_Frame_46
+    originalName: 
+    pivot: {x: 0.50214595, y: -0.043478258}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 502
+      width: 233
+      height: 230
+    spriteID: 49bd40c10b029a54a8f3dfa7758482f9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 502}
+  - name: octagon_Frame_47
+    originalName: 
+    pivot: {x: 0.50209206, y: -0.029661017}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 258
+      width: 239
+      height: 236
+    spriteID: 0e58c3b598057734292ba36e16e9e9ad
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 258}
+  - name: octagon_Frame_48
+    originalName: 
+    pivot: {x: 0.502008, y: -0.008130082}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 249
+      height: 246
+    spriteID: 113ff5ed0cbf95947bc3f507e43e3d0f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: -317345197
+    name: octagon
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: octagon_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 122
+        y: 118
+        width: 11
+        height: 11
+      spriteId: 9306b09ba29881f47b3ea1d33f54dd9c
+    - name: octagon_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 120
+        y: 117
+        width: 14
+        height: 14
+      spriteId: db662071e029f2f489d0856011624e5d
+    - name: octagon_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 118
+        y: 116
+        width: 18
+        height: 17
+      spriteId: 8c257a756fafaf24e9b67ba5d7a56d4a
+    - name: octagon_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 116
+        y: 114
+        width: 22
+        height: 21
+      spriteId: 8569a81cdaefdf0478587016c56838d3
+    - name: octagon_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 114
+        y: 112
+        width: 26
+        height: 25
+      spriteId: 1e6a7efeab5a27e47830b7768546312d
+    - name: octagon_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 112
+        y: 110
+        width: 30
+        height: 29
+      spriteId: f9639a6b9bc509045853cca24c517fcb
+    - name: octagon_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 110
+        y: 108
+        width: 34
+        height: 33
+      spriteId: 1c5c8752d19591949a7bedf54736825c
+    - name: octagon_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 108
+        y: 106
+        width: 38
+        height: 37
+      spriteId: 940931be5726b4b46875fb33e10b02e6
+    - name: octagon_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 106
+        y: 104
+        width: 42
+        height: 41
+      spriteId: fcafd9aaa862974498faf8f749787b39
+    - name: octagon_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 104
+        y: 102
+        width: 46
+        height: 45
+      spriteId: 5819556ffda051b46a9c5ee808947777
+    - name: octagon_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 102
+        y: 100
+        width: 50
+        height: 49
+      spriteId: d72b0520b99ff71448a18a5835c8b28c
+    - name: octagon_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 101
+        y: 99
+        width: 52
+        height: 51
+      spriteId: bb46893bc07f3bc47a5017c14e797e1a
+    - name: octagon_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 98
+        y: 96
+        width: 58
+        height: 57
+      spriteId: 0ed7062970635844283a2bca0b896d29
+    - name: octagon_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 96
+        y: 94
+        width: 62
+        height: 61
+      spriteId: 47aeea99986717b4baa2f287687f3e83
+    - name: octagon_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: 94
+        y: 92
+        width: 66
+        height: 65
+      spriteId: d02e8cb408bd3a2478808079a602f1ab
+    - name: octagon_Frame_16
+      frameIndex: 16
+      cellRect:
+        x: 91
+        y: 89
+        width: 72
+        height: 71
+      spriteId: bfc0eace060127640a24b43bfd7845c9
+    - name: octagon_Frame_17
+      frameIndex: 17
+      cellRect:
+        x: 88
+        y: 86
+        width: 78
+        height: 77
+      spriteId: 9a856f82b22a99e49a7ecab29a7f0037
+    - name: octagon_Frame_18
+      frameIndex: 18
+      cellRect:
+        x: 85
+        y: 83
+        width: 84
+        height: 83
+      spriteId: 7b248e92ccac80b429debf0be20524a7
+    - name: octagon_Frame_19
+      frameIndex: 19
+      cellRect:
+        x: 82
+        y: 80
+        width: 90
+        height: 89
+      spriteId: cea793e617374d54fb0e0703e35a3aa3
+    - name: octagon_Frame_20
+      frameIndex: 20
+      cellRect:
+        x: 78
+        y: 76
+        width: 98
+        height: 97
+      spriteId: 1aa4527f5aa489d47b09d28e1a7afdd8
+    - name: octagon_Frame_21
+      frameIndex: 21
+      cellRect:
+        x: 75
+        y: 73
+        width: 104
+        height: 103
+      spriteId: c4b6826fd7cf12a49b96ed194c51da77
+    - name: octagon_Frame_22
+      frameIndex: 22
+      cellRect:
+        x: 72
+        y: 70
+        width: 110
+        height: 109
+      spriteId: 0831591b0a9596142b05fa91ff21577a
+    - name: octagon_Frame_23
+      frameIndex: 23
+      cellRect:
+        x: 69
+        y: 67
+        width: 116
+        height: 115
+      spriteId: a8aa5c575f66a9b4e9225930709ea278
+    - name: octagon_Frame_24
+      frameIndex: 24
+      cellRect:
+        x: 67
+        y: 65
+        width: 120
+        height: 119
+      spriteId: 9ee4baea32dc0d44c9f033c24b7875b0
+    - name: octagon_Frame_25
+      frameIndex: 25
+      cellRect:
+        x: 65
+        y: 63
+        width: 124
+        height: 123
+      spriteId: 14c3b193c86784a44ae15022e5537756
+    - name: octagon_Frame_26
+      frameIndex: 26
+      cellRect:
+        x: 62
+        y: 60
+        width: 130
+        height: 129
+      spriteId: 36b7fa538f7dcaa4d837b82651d79fe3
+    - name: octagon_Frame_27
+      frameIndex: 27
+      cellRect:
+        x: 60
+        y: 58
+        width: 134
+        height: 133
+      spriteId: a55e605b897e8e040a81518386d1ce96
+    - name: octagon_Frame_28
+      frameIndex: 28
+      cellRect:
+        x: 58
+        y: 56
+        width: 138
+        height: 137
+      spriteId: 13e74a7d926e08149a13e240d79f6a68
+    - name: octagon_Frame_29
+      frameIndex: 29
+      cellRect:
+        x: 56
+        y: 54
+        width: 143
+        height: 142
+      spriteId: d8a940a4b97aa7947a61f0e9f6b1ef84
+    - name: octagon_Frame_30
+      frameIndex: 30
+      cellRect:
+        x: 52
+        y: 50
+        width: 150
+        height: 149
+      spriteId: 94428ede9e9b4904b8ad3d0d6a16aeb8
+    - name: octagon_Frame_31
+      frameIndex: 31
+      cellRect:
+        x: 49
+        y: 47
+        width: 156
+        height: 155
+      spriteId: 3e14a552e38338f409eb6b15a99be874
+    - name: octagon_Frame_32
+      frameIndex: 32
+      cellRect:
+        x: 47
+        y: 45
+        width: 160
+        height: 159
+      spriteId: 23cf64819da136e43bb6129584d0c6c0
+    - name: octagon_Frame_33
+      frameIndex: 33
+      cellRect:
+        x: 45
+        y: 43
+        width: 165
+        height: 162
+      spriteId: 3e96b54bc536a2748a57d1b3ca470246
+    - name: octagon_Frame_34
+      frameIndex: 34
+      cellRect:
+        x: 43
+        y: 41
+        width: 169
+        height: 166
+      spriteId: 7e036c4018438e748a71eb44ea87185e
+    - name: octagon_Frame_35
+      frameIndex: 35
+      cellRect:
+        x: 40
+        y: 38
+        width: 175
+        height: 172
+      spriteId: 4aa1668d222bf9d428ea28f2487f89d2
+    - name: octagon_Frame_36
+      frameIndex: 36
+      cellRect:
+        x: 38
+        y: 35
+        width: 179
+        height: 178
+      spriteId: 3df72afdda667bf4f8f15a788db39668
+    - name: octagon_Frame_37
+      frameIndex: 37
+      cellRect:
+        x: 35
+        y: 33
+        width: 185
+        height: 182
+      spriteId: 92ca41668f405904bb9224ba35e41714
+    - name: octagon_Frame_38
+      frameIndex: 38
+      cellRect:
+        x: 33
+        y: 31
+        width: 189
+        height: 186
+      spriteId: c8b60c700f4e3994f8b6ad5cb920f877
+    - name: octagon_Frame_39
+      frameIndex: 39
+      cellRect:
+        x: 31
+        y: 29
+        width: 193
+        height: 190
+      spriteId: 719d94df2c868ab4b950ef8d85dc0fe4
+    - name: octagon_Frame_40
+      frameIndex: 40
+      cellRect:
+        x: 29
+        y: 27
+        width: 197
+        height: 194
+      spriteId: bb61b3f620ddcfc45866d56ada6683ca
+    - name: octagon_Frame_41
+      frameIndex: 41
+      cellRect:
+        x: 27
+        y: 25
+        width: 201
+        height: 198
+      spriteId: 3c559ad642da60a4c85a4e42bb2a6778
+    - name: octagon_Frame_42
+      frameIndex: 42
+      cellRect:
+        x: 24
+        y: 22
+        width: 207
+        height: 204
+      spriteId: f6c639e49f52a014291037959a4b9b89
+    - name: octagon_Frame_43
+      frameIndex: 43
+      cellRect:
+        x: 21
+        y: 19
+        width: 213
+        height: 210
+      spriteId: c7a9d10b109f6cc4aa509dadd74fda92
+    - name: octagon_Frame_44
+      frameIndex: 44
+      cellRect:
+        x: 17
+        y: 15
+        width: 221
+        height: 218
+      spriteId: f04ddbf940c807c45b1eaf788d59fd16
+    - name: octagon_Frame_45
+      frameIndex: 45
+      cellRect:
+        x: 14
+        y: 12
+        width: 227
+        height: 224
+      spriteId: 14acbb75418e1d14c91c34c84841bf51
+    - name: octagon_Frame_46
+      frameIndex: 46
+      cellRect:
+        x: 11
+        y: 10
+        width: 233
+        height: 230
+      spriteId: 49bd40c10b029a54a8f3dfa7758482f9
+    - name: octagon_Frame_47
+      frameIndex: 47
+      cellRect:
+        x: 8
+        y: 7
+        width: 239
+        height: 236
+      spriteId: 0e58c3b598057734292ba36e16e9e9ad
+    - name: octagon_Frame_48
+      frameIndex: 48
+      cellRect:
+        x: 3
+        y: 2
+        width: 249
+        height: 246
+      spriteId: 113ff5ed0cbf95947bc3f507e43e3d0f
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  generatePhysicsShape: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 256, y: 250}

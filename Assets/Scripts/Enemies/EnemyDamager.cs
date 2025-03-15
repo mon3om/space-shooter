@@ -12,13 +12,13 @@ public class EnemyDamager : MonoBehaviour
     private EnemyAIBase enemyAIBase;
 
     [Space]
-    private Shield shield;
+    private EnemyShield shield;
 
     private void Start()
     {
         enemyAIBase = GetComponent<EnemyAIBase>();
         initialHealth = health;
-        shield = transform.GetComponentInChildren<Shield>();
+        shield = transform.GetComponentInChildren<EnemyShield>();
     }
 
     public void TakeDamage(Projectile projectile)
@@ -40,6 +40,7 @@ public class EnemyDamager : MonoBehaviour
             else if (enemyAIBase.enemyIdentifier.waveEnemyDifficulty == WaveEnemyDifficulty.Hard) UIScoreManager.UpdateScore(50);
 
             enemyAIBase.InstantiateDeathAnimation();
+            enemyAIBase.killedByPlayer = true;
             enemyAIBase.DestroyEnemy();
         }
     }

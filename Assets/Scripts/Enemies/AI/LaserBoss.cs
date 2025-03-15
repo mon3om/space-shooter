@@ -34,15 +34,17 @@ public class LaserBoss : EnemyAIBase
         foreach (var item in shootingBases)
             item.shootingSettings = singleCanon;
         enemyDamager.onDamageTaken += OnDamageTaken;
-        onEnemyDestroy += (v1, v2) =>
-        {
-            foreach (var item in spawnedEnemies)
-                if (item)
-                    Destroy(item.gameObject);
-            foreach (var item in lasers)
-                if (item)
-                    Destroy(item.gameObject);
-        };
+        onEnemyDestroy += OnEnemyDestroy;
+    }
+
+    private void OnEnemyDestroy(EnemyAIBase @base, int arg2)
+    {
+        foreach (var item in spawnedEnemies)
+            if (item)
+                Destroy(item.gameObject);
+        foreach (var item in lasers)
+            if (item)
+                Destroy(item.gameObject);
     }
 
     private void FixedUpdate()
@@ -192,7 +194,7 @@ public class LaserBoss : EnemyAIBase
             LineIntersection2D.GetIntersectionWithScreenEdge(gameObject, transform.position, intersectionVector, out var intersection, out var screenEdge);
             go.TryGetComponent(out LaserPrefab _laser);
             _laser.StartPoint = transform.position;
-            _laser.EndPoint = intersection;
+            _laser.SetEndpoint(intersection);
         }
     }
 

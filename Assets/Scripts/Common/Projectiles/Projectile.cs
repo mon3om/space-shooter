@@ -55,7 +55,7 @@ public class Projectile : MonoBehaviour
     private void OnBecameVisible()
     {
         isOutsideScreen = false;
-        StopCoroutine(DestroyCoroutine(5));
+        StopAllCoroutines();
     }
 
     protected void OnTriggerEnter2D(Collider2D other)
@@ -85,7 +85,7 @@ public class Projectile : MonoBehaviour
                     if (item)
                         Destroy(Instantiate(item, transform.position,
                         // Instantiate rotation
-                        item.transform.rotation.eulerAngles == Vector3.zero ? Quaternion.Euler(0, 0, Random.Range(0, 360)) : item.transform.rotation
+                        item.transform.rotation.eulerAngles == Vector3.zero ? Quaternion.Euler(0, 0, Random.Range(0, 360)) : item.transform.rotation, Instances.ProjectileHolder
                         ),
                         // Destroy time
                         5);
@@ -99,10 +99,8 @@ public class Projectile : MonoBehaviour
     public void DestroyProjectile()
     {
         if (shootingSettings.shootingType == ShootingType.HomingMissile || piercingCounter >= PowerupsManager.piercingCount)
-        {
             onProjectileDestroy?.Invoke();
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
 
     private void Bounce()

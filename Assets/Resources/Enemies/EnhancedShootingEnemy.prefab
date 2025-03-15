@@ -106,7 +106,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -116,7 +116,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -169,8 +169,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
-      minScalar: 0.5
+      scalar: 2
+      minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -221,9 +221,9 @@ ParticleSystem:
         m_RotationOrder: 4
     startColor:
       serializedVersion: 2
-      minMaxState: 0
-      minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.18431373, g: 0.8588236, b: 0.70980394, a: 1}
+      minMaxState: 2
+      minColor: {r: 0.9568628, g: 0.6627451, b: 0.38431376, a: 1}
+      maxColor: {r: 0.7568628, g: 0.29411766, b: 0.29411766, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -870,7 +870,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 30
+      scalar: 50
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -4913,7 +4913,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: aab070b467ca6fc47a5f677676b7fcfe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d9fb2fbb04aa5544c8901b7559bb548e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5059,6 +5059,7 @@ MonoBehaviour:
   deathAnimation:
   - {fileID: 411943737646885989, guid: a6a38811b461e094888d893b9bb80331, type: 3}
   deathSound: {fileID: 8300000, guid: 419ba6ad16ff41143a9041137ebe2371, type: 3}
+  killedByPlayer: 0
   shootingSettings: {fileID: 11400000, guid: 82d93eb58e747cc448c62b7dfbb5bb2e, type: 2}
 --- !u!60 &8079257050077284468
 PolygonCollider2D:
@@ -5191,7 +5192,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1934724980, guid: a4f82330f0e3ffd49959817e42d874d6, type: 3}
+  m_Sprite: {fileID: 1759107494, guid: 735199a63e6e86a42a9d36349692a6a6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
